@@ -1,0 +1,234 @@
+type: update
+
+name: SwissBackup
+
+settings:
+
+  fields:
+
+  - name: emplacement
+
+    caption: Emplacement Swiss-Backup
+
+    type: string
+
+    required: true
+
+    default: sb_project_SBI-AJ891787
+
+  - name: User
+
+    caption: Nom utilisateur
+
+    type: string
+
+    required: true
+
+    default: SBI-AJ891787
+
+  - name: key
+
+    caption: Clé de l'utilisateur
+
+    type: string
+
+    required: true
+
+    default: kXzZdjJ5URbr
+
+  - name: path
+
+    caption: Répertoires à Backuper
+
+    type: string
+
+    required: true
+
+  - name: cron
+
+    caption: Fréquence de sauvegarde
+
+    default: 0 9 * * *
+
+    regexText: Cron syntax is incorrect!
+
+    regex: "^(((([\\\\*]{1}){1,})|((\\\\*\\\\\\/){0,1}(([0-9\\/\\*\\-\\,]{1}){1,}|(([1-5]{1}){1}([0-9\\/\\*\\-\\,]{1}){1,}){1})))
+      ((([\\\\*]{1}){1,})|((\\\\*\\\\\\/){0,1}(([0-9\\/\\*\\-\\,]{1}){1,}|(([1]{1}){1}([0-9\\/\\*\\-\\,-]{1}){1,}){1}|([2]{1}){1}([0-3]{1}){1})))
+      ((([\\\\*]{1}){1})|((\\\\*\\\\\\/){0,1}(([1-9]{1}){1}|(([1-2]{1}){1}([0-9\\/\\*\\-\\,]{1}){1,5}){1}|([3]{1}){1}([0-1]{1}){1})))
+      ((([\\\\*]{1}){1})|((\\\\*\\\\\\/){0,1}(([1-9]{1}){1}|(([1-2]{1}){1}([0-9\\/\\*\\-\\,]{1}){1,}){1}|([3]{1}){1}([0-1]{1}){1}))|(jan|feb|mar|apr|may|jun|jul|aug|sep|okt|nov|dec)(-?\\w+?)?)
+      ((([\\\\*]{1}){1})|((\\\\*\\\\\\/){0,1}(([0-7]{1,}(-?[0-7]?(,[0-7]){0,6})){1}))|((sun|mon|tue|wed|thu|fri|sat)?(,(sun|mon|tue|wed|thu|fri|sat)){0,6})(-?\\w+?)?))$"
+
+    type: string
+
+    required: true
+
+  - name: last
+
+    caption: Nombre de backups à ne jamais supprimer (les plus récents)
+
+    type: string
+
+    required: true
+
+    regexText: Cron syntax is incorrect ! 0 is forbidden
+
+    regex: "[^0]+"
+
+  - name: hours
+
+
+
+    caption: Par heurs:conservez que le dernier instantané pour chaques heures
+
+
+
+    default: "0"
+
+
+
+    type: string
+
+
+
+    required: false
+
+  - name: daily
+
+
+
+    caption: Par jours:conservez que le dernier instantané pour chaques jours
+
+
+
+    default: "0"
+
+
+
+    type: string
+
+
+
+    required: false
+
+  - name: weekly
+
+    caption: Par semaines:conservez que le dernier instantané pour chaques semaines
+
+    default: "0"
+
+    type: string
+
+    required: false
+
+  - name: monthly
+
+    caption: Par mois:conservez que le dernier instantané pour chaques mois
+
+    default: "0"
+
+    type: string
+
+    required: false
+
+  - name: years
+
+    caption: Par ans:conservez que le dernier instantané pour chaques années
+
+    default: "0"
+
+    type: string
+
+    required: false
+
+
+
+
+
+
+
+targetNodes:
+
+  nodeGroup: '*'
+
+onInstall:
+
+  - cmd[${targetNodes.nodeGroup}]: |-
+
+      wget -O restic.bz2 https://github.com/restic/restic/releases/download/v0.9.5/restic_0.9.5_linux_amd64.bz2
+
+      bunzip2 restic.bz2
+
+      chmod +x restic
+
+      mv restic /usr/bin/
+
+      restic self-update
+
+
+
+      touch /tmp/openrc.sh
+
+
+
+      > /tmp/openrc.sh
+
+
+
+      touch /tmp/secret.txt
+
+      password="${user.appPassword}"
+
+      if [ ! -s /tmp/secret.txt ]; then eval "echo $password >> /tmp/secret.txt"; else echo "nothing"; fi
+
+
+
+      echo "export OS_AUTH_URL="https://swiss-backup.infomaniak.com/identity/v3"" >> /tmp/openrc.sh
+
+      echo "export OS_REGION_NAME="RegionOne"" >> /tmp/openrc.sh
+
+      echo "export OS_PROJECT_NAME="${settings.emplacement}"" >> /tmp/openrc.sh
+
+      echo "export OS_PASSWORD="${settings.key}"" >> /tmp/openrc.sh
+
+      echo "export OS_USER_DOMAIN_NAME="default"" >> /tmp/openrc.sh
+
+      echo "export OS_USERNAME="${settings.User}"" >> /tmp/openrc.sh
+
+      echo "export OS_PROJECT_DOMAIN_NAME="default"" >> /tmp/openrc.sh
+
+      echo "export RESTIC_REPOSITORY="swift:${settings.emplacement}:/$(hostname -a)"" >> /tmp/openrc.sh
+
+      echo "export RESTIC_PASSWORD_FILE=/tmp/secret.txt" >> /tmp/openrc.sh
+
+
+
+
+      . /tmp/openrc.sh
+
+      restic check || restic -r swift:sb_project_SBI-AJ891787:/$(hostname -a) init
+
+      curl -fsS https://raw.githubusercontent.com/axelJacquet/restic_backup/master/backup.sh --output backup.sh
+
+      touch /run/user/restic.lock
+
+      chmod u+x backup.sh
+
+
+      touch /tmp/Backups_plan
+
+
+      crontab -l | { cat; echo "${settings.cron} /usr/bin/flock --nonblock --conflict-exit-code 0 /run/user/restic.lock /root/backup.sh -f \"${settings.path}\" -s \"--keep-last ${settings.last}\" -h \"--keep-hourly ${settings.hours}\" -w \"--keep-weekly ${settings.weekly}\" -m \"--keep-monthly ${settings.monthly}\" -y \"--keep-yearly ${settings.years}\" >> /var/log/myjob.log 2>&1
+
+      "; } | crontab -
+
+      cat /tmp/secret.txt | mail -s "Jelastic Swissbackup password" ${settings.jelastic_email} -- -f infomaniak-info@keep.com
+
+    user: root
+
+
+
+success:
+
+  text: success!! Voici le mot de passe de votre emplacement Swift crypté, gardez le précieusement ${user.appPassword}.
+
+  mail: Voici le mot de passe de votre emplacement Swift crypté, gardez le précieusement ${user.appPassword}.

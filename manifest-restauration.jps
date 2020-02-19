@@ -1,0 +1,54 @@
+type: update
+
+name: SwissBackup
+
+settings:
+
+  fields:
+
+  - name: id
+
+    caption: ID Backup
+
+    type: string
+
+    required: true
+
+
+
+  - name: destination
+
+    caption: Indiquer un répertoire de destination
+
+    type: string
+
+    required: true
+
+
+
+
+
+
+targetNodes:
+
+  nodeGroup: '*'
+
+onInstall:
+
+  - cmd[${targetNodes.nodeGroup}]: |-
+
+      curl -fsS https://raw.githubusercontent.com/axelJacquet/restic_backup/master/restauration.sh --output restauration.sh
+
+      chmod +x restauration.sh
+
+      ./restauration.sh ${settings.id} ${settings.destination}
+
+    user: root
+
+
+
+success:
+
+  text: Le backup correspondant à l'id ${settings.id} à était restauré avec succé dans ${settings.destination}
+
+  mail: Voici le mot de passe de votre emplacement Swift crypté, gardez le précieusement ${user.appPassword}.
