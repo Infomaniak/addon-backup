@@ -79,8 +79,8 @@ done
 
 for p in ${FOLDERS_TO_BACKUP}"" ; do
 
-eval "/usr/bin/restic forget --tag $p --keep-hourly 24 --keep-daily 7 --keep-weekly 4 --keep-monthly 6 --keep-yearly 3 --prune"
 
+eval "/usr/bin/restic forget --tag $p --keep-hourly 24 --keep-daily 7 --keep-weekly 4 --keep-monthly 6 --keep-yearly 3 --prune"
 done
 
 echo " last = ${last_snapshot}"
