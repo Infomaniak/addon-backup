@@ -57,8 +57,7 @@ while getopts "s:h:d:w:m:y:" o; do
 done
 shift $((OPTIND-1))
 
-FOLDERS_TO_BACKUP=$(echo ${FOLDER_TO_BACKUP} | tr -d  ' ' )
-FOLDERS_TO_BACKUP=$(echo ${FOLDER_TO_BACKUP} | tr  ',' ' ' )
+FOLDERS_TO_BACKUP=$(echo ${FOLDER_TO_BACKUP} | tr -d  ' ' | tr  ',' ' ' )
 
 for i in ${FOLDERS_TO_BACKUP}"" ; do
 
