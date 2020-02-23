@@ -38,7 +38,7 @@ try {
 
     return {
       type: "success",
-      result: 0
+      result: 201
      };
 } catch (e) {
     return {
