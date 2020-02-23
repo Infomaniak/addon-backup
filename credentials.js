@@ -43,7 +43,7 @@ try {
 } catch (e) {
     return {
         type: "error",
-        result: 401,
-        message: "unknown error: "
-    }};
+        message: "unknown error: " + e,
+        result: 401
+    };
 }
