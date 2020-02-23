@@ -38,12 +38,12 @@ try {
 
     return {
       type: "success",
-      result: 201
+      result: 0
      };
 } catch (e) {
     return {
         type: "error",
-        result: 401
+        result: 401,
         message: "unknown error: " + e
     };
 }
