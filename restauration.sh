@@ -91,7 +91,7 @@ for i in ${TARGET_IDS}"" ; do
    else
    echo " cet id est bon "
     eval "restic restore $i --target $destination"
-   exit 0
+   
 
   fi
 
