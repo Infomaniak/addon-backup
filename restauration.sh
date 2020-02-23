@@ -72,12 +72,29 @@ TARGET_IDS=$(echo ${IDS} | tr -d  ' ' | tr  ',' ' ' )
 # restic comamand for restoration ID
 
 for i in ${TARGET_IDS}"" ; do
-  retVal= restic snapshots| echo $?
-if [ $retVal -ne 0 ]; then
-    exit 1
-fi
 
 
-  eval "restic restore $i --target $destination"
+
+  restic="nohup restic snapshots $i "
+
+  restic_cmd=$(eval "$restic")
+
+  check="echo omagad ---->"$restic_cmd""
+
+  echo "je suis la fdp "$check""
+
+  char='not'
+  if [[ "$check" == *"$char"* ]]; then
+   echo "id faux fdp"
+   exit 1
+
+   else
+   echo " cet id est bon "
+    eval "restic restore $i --target $destination"
+   exit 0
+
+  fi
+
+
 
 done
