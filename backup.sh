@@ -2,17 +2,6 @@
 set -x
 set -e
 
-# pid de chaques cron ps -ef | grep backup.sh | grep -v grep | wc -l
-
-
-#scriptname=$(basename $0)
-#pidfile="/var/run/${scriptname}"
-
-# lock it
-#exec 200>$pidfile
-#flock -x 200 || exit 1
-#pid=$$
-#echo $pid 1>&200
 
 . /tmp/openrc.sh
 
@@ -68,8 +57,8 @@ while getopts "s:h:d:w:m:y:" o; do
 done
 shift $((OPTIND-1))
 
-FOLDERS_TO_BACKUP=$(echo ${FOLDER_TO_BACKUP} | tr -d  ' ' )
-FOLDERS_TO_BACKUP=$(echo ${FOLDER_TO_BACKUP} | tr  ',' ' ' )
+FOLDERS_TO_BACKUP=$(echo ${FOLDER_TO_BACKUP} | tr -d  ' ' | tr  ',' ' ' )
+
 for i in ${FOLDERS_TO_BACKUP}"" ; do
 
 eval "/usr/bin/restic backup --tag $i $i"
