@@ -24,7 +24,7 @@ var data = toJSON({
         "domain": {
           "id": "default"
         },
-        "name": "some-name"
+        "name": "Default"
       }
     }
   }
@@ -45,5 +45,5 @@ try {
         type: "error",
         result: 401,
         message: "unknown error: " + e
-    };
+    }};
 }
