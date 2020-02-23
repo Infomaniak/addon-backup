@@ -2,18 +2,6 @@
 set -x
 set -e
 
-# pid de chaques cron ps -ef | grep backup.sh | grep -v grep | wc -l
-
-
-#scriptname=$(basename $0)
-#pidfile="/var/run/${scriptname}"
-
-# lock it
-#exec 200>$pidfile
-#flock -x 200 || exit 1
-#pid=$$
-#echo $pid 1>&200
-
 . /tmp/openrc.sh
 
 usage () {
@@ -68,8 +56,8 @@ while getopts "s:h:d:w:m:y:" o; do
 done
 shift $((OPTIND-1))
 
-FOLDERS_TO_BACKUP=$(echo ${FOLDER_TO_BACKUP} | tr -d  ' ' )
-FOLDERS_TO_BACKUP=$(echo ${FOLDER_TO_BACKUP} | tr  ',' ' ' )
+FOLDERS_TO_BACKUP=$(echo ${FOLDER_TO_BACKUP} | tr -d  ' ' | tr  ',' ' '  )
+
 for i in ${FOLDERS_TO_BACKUP}"" ; do
 
 eval "/usr/bin/restic backup --tag $i $i"
@@ -77,9 +65,16 @@ eval "/usr/bin/restic backup --tag $i $i"
 eval "/usr/bin/restic forget --tag $i --keep-daily 7 --keep-weekly 4 --keep-monthly 6 --keep-yearly 3 --prune"
 
 done
-echo " last = ${last_snapshot}"
-echo " year = ${year}"
 
+for p in ${FOLDERS_TO_BACKUP}"" ; do
+
+sleep 4
+
+restic unlock
+
+eval "/usr/bin/restic forget --tag $p --keep-hourly 24 --keep-daily 7 --keep-weekly 4 --keep-monthly 6 --keep-yearly 3 --prune"
+
+done
 
 > /tmp/Backups_plan
 

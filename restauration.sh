@@ -72,6 +72,11 @@ TARGET_IDS=$(echo ${IDS} | tr -d  ' ' | tr  ',' ' ' )
 # restic comamand for restoration ID
 
 for i in ${TARGET_IDS}"" ; do
+  retVal= restic snapshots| echo $?
+if [ $retVal -ne 0 ]; then
+    exit 1
+fi
+
 
   eval "restic restore $i --target $destination"
 
