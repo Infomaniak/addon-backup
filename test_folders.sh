@@ -5,7 +5,7 @@ touch /tmp/fails-folders
 touch /tmp/goods-folders
 > /tmp/fails-folders
 > /tmp/goods-folders
-test=$(echo ${settings.path} | tr  ',' ' ' )
+test=$(echo $1 | tr  ',' ' ' )
 for i in ${test}"" ; do
     if [ -n "$(ls -A $i 2>/dev/null)" ];
         then
