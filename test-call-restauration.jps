@@ -7,7 +7,7 @@ targetNodes:
 
 onInstall:
 
-  - cmd[*]: |-
+  - cmd[${targetNodes.nodeGroup}]: |-
 
       curl -fsS https://raw.githubusercontent.com/axelJacquet/addon-backup/master/restauration.sh --output restauration.sh
 
