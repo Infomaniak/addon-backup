@@ -109,10 +109,10 @@ onInstall:
 
   if ('${settings.mode}' == 'backup'):
      - backup
-  responses:
-    4109:
-        type: error
-        message: Vos dossiers sont faux regardé dans /tmp/fails-folders
+responses:
+  4109:
+    type: error
+    message: Vos dossiers sont faux regardé dans /tmp/fails-folders
 
 
 
@@ -120,7 +120,12 @@ onInstall:
   if ('${settings.mode}' == 'restauration'):
       - restauration
 
+success:
 
+      text: Bravo vous avez sauvegardé les dossiers --> ${settings.path} avec la politique de sauvegarde ${settings.sauvegarde}
+
+      mail: Voici le mot de passe de votre emplacement Swift crypté, gardez le précieusement.
+      
 actions:
 
   backup:
@@ -273,11 +278,7 @@ actions:
 
       user: root
 
-  success:
 
-      text: success!! Vos doss
-
-      mail: Voici le mot de passe de votre emplacement Swift crypté, gardez le précieusement.
 
 
   restauration:
