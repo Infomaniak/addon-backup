@@ -68,7 +68,7 @@ done
 
 for p in ${FOLDERS_TO_BACKUP}"" ; do
 
-sleep 4
+sleep 15
 
 restic unlock
 
@@ -78,4 +78,4 @@ done
 
 > /tmp/Backups_plan
 
-/usr/bin/restic snapshots > /tmp/Backups_plan
+/usr/bin/restic snapshots --no-lock > /tmp/Backups_plan
