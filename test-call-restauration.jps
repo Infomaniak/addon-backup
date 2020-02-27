@@ -20,11 +20,11 @@ onInstall:
 responses:
   4109:
     type: error
-    message: Les IDS renseignés ne sont pas bons, veuillez vérifier dans /tmp/Backup_plan
+    message: Les IDS renseignés ne sont pas bons, veuillez vérifiez dans /tmp/Backup_plan
 
 
 success:
 
   text: Le backup correspondant à l'id ${settings.id} à était restauré avec succé dans ${settings.destination}
 
-  mail: Voici le mot de passe de votre emplacement Swift crypté, gardez le précieusement ${user.appPassword}.
+  mail: Le backup correspondant à l'id ${settings.id} à était restauré avec succé dans ${settings.destination}
