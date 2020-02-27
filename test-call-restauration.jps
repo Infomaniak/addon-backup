@@ -20,7 +20,7 @@ onInstall:
 responses:
   4109:
     type: error
-    message: Les IDS renseignés ( ${settings.id} )  ne sont pas bons, veuillez vérifiez les ids dans le menu de restauration ou dans /tmp/Backup_plan
+    message: Les IDS renseignés ( ${settings.id} )  ne sont pas bons, veuillez vérifier les ids dans le menu de restauration ou dans /tmp/Backup_plan
 
 
 success:
