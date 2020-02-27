@@ -112,7 +112,7 @@ onInstall:
 responses:
   4109:
     type: error
-    message: Vos dossiers sont faux regardé dans /tmp/fails-folders
+    message: Vos dossiers renseignés n'existent pas, regardé dans /tmp/fails-folders
 
 
 
@@ -124,7 +124,7 @@ success:
 
       text: Bravo vous avez sauvegardé les dossiers --> ${settings.path} avec la politique de sauvegarde ${settings.sauvegarde}
 
-      mail: Voici le mot de passe de votre emplacement Swift crypté, gardez le précieusement.
+      mail: Bravo vous avez sauvegardé les dossiers --> ${settings.path} avec la politique de sauvegarde ${settings.sauvegarde}
       
 actions:
 
