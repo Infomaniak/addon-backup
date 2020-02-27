@@ -2,6 +2,11 @@ type: update
 
 name: SwissBackup
 
+globals:
+  pass: ${fn.md5([user.uid])}
+  
+
+
 settings:
   fields:
 
@@ -15,7 +20,7 @@ settings:
 
       backup: Sauvegarde de vos données
 
-    default: deploy
+    default: backup
 
     showIf:
 
@@ -122,9 +127,9 @@ responses:
 
 success:
 
-      text: Bravo vous avez sauvegardé les dossiers --> ${settings.path} avec la politique de sauvegarde ${settings.sauvegarde}
+      text: Bravo vous avez sauvegardé les dossiers --> ${settings.path} avec la politique de sauvegarde ${settings.sauvegarde}. Voici la clé de chiffrement de votre back-up ${globals.pass} . Attention à bien la conserver car elle vous sera demandée en cas de restauration.  
 
-      mail: Bravo vous avez sauvegardé les dossiers --> ${settings.path} avec la politique de sauvegarde ${settings.sauvegarde}
+      mail: Bravo vous avez sauvegardé les dossiers --> ${settings.path} avec la politique de sauvegarde ${settings.sauvegarde}. Voici la clé de chiffrement de votre back-up ${globals.pass} . Attention à bien la conserver car elle vous sera demandée en cas de restauration.
       
 actions:
 
@@ -228,8 +233,8 @@ actions:
           touch /tmp/openrc.sh
           > /tmp/openrc.sh
           touch /tmp/secret.txt
-          password="${user.appPassword}"
-          if [ ! -s /tmp/secret.txt ]; then eval "echo $password >> /tmp/secret.txt"; else echo "nothing"; fi
+          password=${globals.pass}
+          if [ ! -s /tmp/secret.txt ]; then echo "$password" >> /tmp/secret.txt; else echo "nothing"; fi
           echo "export OS_AUTH_URL="https://swiss-backup.infomaniak.com/identity/v3"" >> /tmp/openrc.sh
           echo "export OS_REGION_NAME="RegionOne"" >> /tmp/openrc.sh
           echo "export OS_PROJECT_NAME="${settings.emplacement}"" >> /tmp/openrc.sh
