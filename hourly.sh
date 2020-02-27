@@ -67,7 +67,7 @@ done
 
 for p in ${FOLDERS_TO_BACKUP}"" ; do
 
-sleep 4
+sleep 15
 restic unlock
 
 eval "/usr/bin/restic forget --tag $p --keep-hourly 24 --keep-daily 7 --keep-weekly 4 --keep-monthly 6 --keep-yearly 3 --prune"
@@ -79,4 +79,4 @@ echo " year = ${year}"
 
 > /tmp/Backups_plan
 
-/usr/bin/restic snapshots > /tmp/Backups_plan
+/usr/bin/restic snapshots --no-lock > /tmp/Backups_plan
