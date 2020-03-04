@@ -81,11 +81,10 @@ for i in ${TARGET_IDS}"" ; do
 
   check="echo omagad ---->"$restic_cmd""
 
-  echo "je suis la fdp "$check""
 
   char='not'
   if [[ "$check" == *"$char"* ]]; then
-   echo "id faux fdp"
+   echo "id faux "
    exit 1
 
    else
