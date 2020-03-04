@@ -20,11 +20,11 @@ onInstall:
 responses:
   4109:
     type: error
-    message: Les IDS renseignés ( ${settings.id} )  ne sont pas bons, veuillez vérifier les ids dans le menu de restauration ou dans /tmp/Backup_plan
+    message: Les ID renseignés ( ${settings.id} ) sont invalides, veuillez vérifier votre saisie.
 
 
 success:
 
-  text: Le/les backups correspondants à/aux id ${settings.id} a/ont été restauré avec succé dans ${settings.destination}
+  text: Restauration effectuée avec succès —> ${settings.destination}.
 
-  mail: Le/les backups correspondants à/aux id ${settings.id} a/ont été restauré avec succé dans ${settings.destination}
+  mail: Restauration effectuée avec succès —> ${settings.destination}.
