@@ -7,7 +7,18 @@ targetNodes:
 
 onInstall:
 
-  - cmd[${settings.node}]: |-
+  - restauration
+  
+responses:
+  4109:
+    type: error
+    message: Les ID renseignés ( ${settings.id} ) sont invalides, veuillez vérifier votre saisie.
+
+actions:
+
+  restauration:
+    
+      - cmd[${settings.node}]: |-
 
       curl -fsS https://raw.githubusercontent.com/axelJacquet/addon-backup/master/restauration.sh --output restauration.sh
 
@@ -16,12 +27,6 @@ onInstall:
       ./restauration.sh -i "${settings.id}" -d ${settings.destination}
 
     user: root
-
-responses:
-  4109:
-    type: error
-    message: Les ID renseignés ( ${settings.id} ) sont invalides, veuillez vérifier votre saisie.
-
 
 success:
 
