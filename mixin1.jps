@@ -1,4 +1,4 @@
-type: install
+type: update
 name: Mixins Example
 
 actions:
