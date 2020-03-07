@@ -24,5 +24,5 @@ responses:
 
 
 success: 
+
   mail: Restauration effectuée avec succès —> ${settings.destination}.
-  text: Restauration effectuée avec succès —> ${settings.destination}.
