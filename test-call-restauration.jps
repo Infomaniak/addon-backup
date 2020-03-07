@@ -22,9 +22,9 @@ responses:
     type: error
     message: Les ID renseignés ( ${settings.id} ) sont invalides, veuillez vérifier votre saisie.
 
+return:
+    result: success
+    email:  Restauration effectuée avec succès —> ${settings.destination}.
 
-success: 
 
-  mail: Restauration effectuée avec succès —> ${settings.destination}.
-  text:
-    fr: bravo putin
+success:  Restauration effectuée avec succès —> ${settings.destination}.
