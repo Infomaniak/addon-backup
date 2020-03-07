@@ -33,3 +33,10 @@ success:
   text: Restauration effectuée avec succès —> ${settings.destination}.
 
   mail: Restauration effectuée avec succès —> ${settings.destination}.
+  
+buttons:
+      settings: restauration
+      caption: Configure backup
+      loadingText: Updating...
+      action: backup
+      successText: The scheduler has been successfully updated.
