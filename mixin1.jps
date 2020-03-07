@@ -176,9 +176,9 @@ actions:
 
     - if ( '${settings.sauvegarde}' == 'daily' ): daily
 
-hourly:
+   hourly:
 
-    cmd [${targetNodes.nodeGroup}]:
+      cmd [${targetNodes.nodeGroup}]:
 
             - curl -fsS https://raw.githubusercontent.com/axelJacquet/addon-backup/master/hourly.sh --output hourly.sh
 
@@ -190,9 +190,9 @@ hourly:
 
     user: root
 
-daily:
+   daily:
 
-    cmd [${targetNodes.nodeGroup}]:
+      cmd [${targetNodes.nodeGroup}]:
 
             - curl -fsS https://raw.githubusercontent.com/axelJacquet/addon-backup/master/daily.sh --output daily.sh
 
