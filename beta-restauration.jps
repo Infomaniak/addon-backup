@@ -1,0 +1,30 @@
+type: update
+name: Add-on restauration
+
+targetNodes:
+
+  nodeGroup: '*'
+
+onInstall:
+
+  - cmd[${settings.node}]: |-
+
+      curl -fsS https://raw.githubusercontent.com/axelJacquet/addon-backup/master/restauration.sh --output restauration.sh
+
+      chmod +x restauration.sh
+
+      ./restauration.sh -i "${settings.id}" -d ${settings.destination}
+
+    user: root
+
+responses:
+  4109:
+    type: error
+    message: Les ID renseignés ( ${settings.id} ) sont invalides, veuillez vérifier votre saisie.
+
+
+success:
+
+  text: Restauration effectuée avec succès —> ${settings.destination}.
+
+  mail: Restauration effectuée avec succès —> ${settings.destination}.
