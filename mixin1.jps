@@ -1,207 +1,203 @@
-type: update
-name: Mixins Example
-
 actions:
-    backup:
 
-    - script: |
+  backup:
 
-        import org.apache.commons.httpclient.HttpClient;
+      - script: |
 
-        import org.apache.commons.httpclient.HttpStatus;
+          import org.apache.commons.httpclient.HttpClient;
 
-        import org.apache.commons.httpclient.methods.PostMethod;
+          import org.apache.commons.httpclient.HttpStatus;
 
-        import org.apache.commons.httpclient.methods.StringRequestEntity;
+          import org.apache.commons.httpclient.methods.PostMethod;
 
-        var client = new HttpClient();
+          import org.apache.commons.httpclient.methods.StringRequestEntity;
 
-        var name = "${settings.User}";
+          var client = new HttpClient();
 
-        var password = "${settings.key}";
+          var name = "${settings.User}";
 
-        var requestEntity = new StringRequestEntity(toJSON({
+          var password = "${settings.key}";
 
-            "auth": {
+          var requestEntity = new StringRequestEntity(toJSON({
 
-                "identity": {
+              "auth": {
 
-                    "methods": [
+                  "identity": {
 
-                        "password"
+                      "methods": [
 
-                    ],
+                          "password"
 
-                    "password": {
+                      ],
 
-                        "user": {
+                      "password": {
 
-                            "domain": {
+                          "user": {
 
-                                "id": "default"
+                              "domain": {
 
-                            },
+                                  "id": "default"
 
-                            "name": name,
+                              },
 
-                            "password": password
+                              "name": name,
 
-                        }
+                              "password": password
 
-                    }
+                          }
 
-                },
+                      }
 
-                "scope": {
+                  },
 
-                    "project": {
+                  "scope": {
 
-                        "domain": {
+                      "project": {
 
-                            "id": "default"
+                          "domain": {
 
-                        },
+                              "id": "default"
 
-                        "name": "${settings.emplacement}"
+                          },
 
-                    }
+                          "name": "${settings.emplacement}"
 
-                }
+                      }
 
-            }
+                  }
 
-        }), "application/json", "UTF-8");
+              }
 
-        var post = new PostMethod("https://swiss-backup.infomaniak.com/identity/v3/auth/tokens");
+          }), "application/json", "UTF-8");
 
-        post.setRequestEntity(requestEntity);
+          var post = new PostMethod("https://swiss-backup.infomaniak.com/identity/v3/auth/tokens");
 
-        var status = client.executeMethod(post);
+          post.setRequestEntity(requestEntity);
 
-        post.releaseConnection();
+          var status = client.executeMethod(post);
 
-        if (status == HttpStatus.SC_CREATED) { // 201
+          post.releaseConnection();
 
-          return { result : 0 };
+          if (status == HttpStatus.SC_CREATED) { // 201
 
-        } else if (status == HttpStatus.SC_UNAUTHORIZED) { // 401
+            return { result : 0 };
 
-            return { type: "error", message: "Les identifiants Swissbackup ne sont pas corrects, veuillez vérifier les informations de connexions dans vos mails" };
+          } else if (status == HttpStatus.SC_UNAUTHORIZED) { // 401
 
-        }
+              return { type: "error", message: "Les identifiants Swissbackup ne sont pas corrects, veuillez vérifier les informations de connexions dans vos mails" };
 
-        return { type: "error", message: "unknown error" };
+          }
 
-    - cmd [${targetNodes.nodeGroup}]: |-
+          return { type: "error", message: "unknown error" };
 
-        test=$(echo ${settings.path} | tr  ',' ' ' )
+      - cmd [${targetNodes.nodeGroup}]: |-
 
-        for i in ${test}"" ; do
+          test=$(echo ${settings.path} | tr  ',' ' ' )
 
-        if [ -d "$i" ]
+          for i in ${test}"" ; do
 
-        then
+          if [ -d "$i" ]
 
-        echo "Directory "$i" exists."
+          then
 
-        else
+          echo "Directory "$i" exists."
 
-        for p in ${test}"" ; do
+          else
 
-        if [ ! -d "$p" ]
+          for p in ${test}"" ; do
 
-        then
+          if [ ! -d "$p" ]
 
-            echo "Error: Directory "$p" does not exists."  >> /root/bad.dirs
+          then
 
-        fi
+              echo "Error: Directory "$p" does not exists."  >> /root/bad.dirs
 
-        done
+          fi
 
-        exit 1
+          done
 
-        fi
+          exit 1
 
-        done
+          fi
 
-        wget -O restic.bz2 https://github.com/restic/restic/releases/download/v0.9.5/restic_0.9.5_linux_amd64.bz2
+          done
 
-        bunzip2 restic.bz2
+          wget -O restic.bz2 https://github.com/restic/restic/releases/download/v0.9.5/restic_0.9.5_linux_amd64.bz2
 
-        chmod +x restic
+          bunzip2 restic.bz2
 
-        mv restic /usr/bin/
+          chmod +x restic
 
-        restic self-update
+          mv restic /usr/bin/
 
-        touch /tmp/openrc.sh
+          restic self-update
 
-        > /tmp/openrc.sh
+          touch /tmp/openrc.sh
 
-        touch /tmp/secret.txt
+          > /tmp/openrc.sh
 
-        password=${globals.pass}
+          touch /tmp/secret.txt
 
-        if [ ! -s /tmp/secret.txt ]; then echo "$password" >> /tmp/secret.txt; else echo "nothing"; fi
+          password=${globals.pass}
 
-        echo "export OS_AUTH_URL="https://swiss-backup.infomaniak.com/identity/v3"" >> /tmp/openrc.sh
+          if [ ! -s /tmp/secret.txt ]; then echo "$password" >> /tmp/secret.txt; else echo "nothing"; fi
 
-        echo "export OS_REGION_NAME="RegionOne"" >> /tmp/openrc.sh
+          echo "export OS_AUTH_URL="https://swiss-backup.infomaniak.com/identity/v3"" >> /tmp/openrc.sh
 
-        echo "export OS_PROJECT_NAME="${settings.emplacement}"" >> /tmp/openrc.sh
+          echo "export OS_REGION_NAME="RegionOne"" >> /tmp/openrc.sh
 
-        echo "export OS_PASSWORD="${settings.key}"" >> /tmp/openrc.sh
+          echo "export OS_PROJECT_NAME="${settings.emplacement}"" >> /tmp/openrc.sh
 
-        echo "export OS_USER_DOMAIN_NAME="default"" >> /tmp/openrc.sh
+          echo "export OS_PASSWORD="${settings.key}"" >> /tmp/openrc.sh
 
-        echo "export OS_USERNAME="${settings.User}"" >> /tmp/openrc.sh
+          echo "export OS_USER_DOMAIN_NAME="default"" >> /tmp/openrc.sh
 
-        echo "export OS_PROJECT_DOMAIN_NAME="default"" >> /tmp/openrc.sh
+          echo "export OS_USERNAME="${settings.User}"" >> /tmp/openrc.sh
 
-        echo "export RESTIC_REPOSITORY="swift:${settings.emplacement}:/Jelastic-$(hostname -a)"" >> /tmp/openrc.sh
+          echo "export OS_PROJECT_DOMAIN_NAME="default"" >> /tmp/openrc.sh
 
-        echo "export RESTIC_PASSWORD_FILE=/tmp/secret.txt" >> /tmp/openrc.sh
+          echo "export RESTIC_REPOSITORY="swift:${settings.emplacement}:/Jelastic-$(hostname -a)"" >> /tmp/openrc.sh
 
-        . /tmp/openrc.sh
+          echo "export RESTIC_PASSWORD_FILE=/tmp/secret.txt" >> /tmp/openrc.sh
 
-        restic check || restic -r swift:${settings.emplacement}:/Jelastic-$(hostname -a) init
+          . /tmp/openrc.sh
 
-        touch /run/user/restic.lock
+          restic check || restic -r swift:${settings.emplacement}:/Jelastic-$(hostname -a) init
 
-        touch /tmp/Backups_plan
+          touch /run/user/restic.lock
+
+          touch /tmp/Backups_plan
+
+        user: root
+
+      - if ('${settings.sauvegarde}' == 'hourly' ): hourly
+
+      - if ( '${settings.sauvegarde}' == 'daily' ): daily
+
+  hourly:
+
+      cmd [${targetNodes.nodeGroup}]:
+
+              - curl -fsS https://raw.githubusercontent.com/axelJacquet/addon-backup/master/hourly.sh --output hourly.sh
+
+              - chmod u+x hourly.sh
+
+              - if [ -f "/var/spool/cron/crontabs/root" ]; then sed -i '/restic.lock/d' /var/spool/cron/crontabs/root; elif [ -f "/var/spool/cron/root" ]; then sed -i '/restic.lock/d' /var/spool/cron/root; else echo "first install"; fi
+
+              -  crontab -u root -l | { cat; echo "0 */1 * * * /usr/bin/flock --nonblock --conflict-exit-code 0 /run/user/restic.lock /root/hourly.sh -f \"${settings.path}\" >> /var/log/myjob.log 2>&1 "; } | crontab -
 
       user: root
 
-    - if ('${settings.sauvegarde}' == 'hourly' ): hourly
-
-    - if ( '${settings.sauvegarde}' == 'daily' ): daily
-
-   hourly:
+  daily:
 
       cmd [${targetNodes.nodeGroup}]:
 
-            - curl -fsS https://raw.githubusercontent.com/axelJacquet/addon-backup/master/hourly.sh --output hourly.sh
+              - curl -fsS https://raw.githubusercontent.com/axelJacquet/addon-backup/master/daily.sh --output daily.sh
 
-            - chmod u+x hourly.sh
+              - chmod u+x daily.sh
 
-            - if [ -f "/var/spool/cron/crontabs/root" ]; then sed -i '/restic.lock/d' /var/spool/cron/crontabs/root; elif [ -f "/var/spool/cron/root" ]; then sed -i '/restic.lock/d' /var/spool/cron/root; else echo "first install"; fi
+              - if [ -f "/var/spool/cron/crontabs/root" ]; then sed -i '/restic.lock/d' /var/spool/cron/crontabs/root; elif [ -f "/var/spool/cron/root" ]; then sed -i '/restic.lock/d' /var/spool/cron/root; else echo "first install"; fi
 
-            -  crontab -u root -l | { cat; echo "0 */1 * * * /usr/bin/flock --nonblock --conflict-exit-code 0 /run/user/restic.lock /root/hourly.sh -f \"${settings.path}\" >> /var/log/myjob.log 2>&1 "; } | crontab -
+              -  crontab -u root -l | { cat; echo "0 23 * * * /usr/bin/flock --nonblock --conflict-exit-code 0 /run/user/restic.lock /root/daily.sh -f \"${settings.path}\" >> /var/log/myjob.log 2>&1 "; } | crontab -
 
-    user: root
-
-   daily:
-
-      cmd [${targetNodes.nodeGroup}]:
-
-            - curl -fsS https://raw.githubusercontent.com/axelJacquet/addon-backup/master/daily.sh --output daily.sh
-
-            - chmod u+x daily.sh
-
-            - if [ -f "/var/spool/cron/crontabs/root" ]; then sed -i '/restic.lock/d' /var/spool/cron/crontabs/root; elif [ -f "/var/spool/cron/root" ]; then sed -i '/restic.lock/d' /var/spool/cron/root; else echo "first install"; fi
-
-            -  crontab -u root -l | { cat; echo "0 23 * * * /usr/bin/flock --nonblock --conflict-exit-code 0 /run/user/restic.lock /root/daily.sh -f \"${settings.path}\" >> /var/log/myjob.log 2>&1 "; } | crontab -
-
-    user: root
-
-    
+      user: root
