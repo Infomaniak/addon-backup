@@ -23,8 +23,7 @@ responses:
     message: Les ID renseignés ( ${settings.id} ) sont invalides, veuillez vérifier votre saisie.
 
 
-success:
+success: Restauration effectuée avec succès —> ${settings.destination}.
 
-  text: Restauration effectuée avec succès —> ${settings.destination}.
-
+   
   mail: Restauration effectuée avec succès —> ${settings.destination}.
