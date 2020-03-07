@@ -26,3 +26,5 @@ responses:
 success: 
 
   mail: Restauration effectuée avec succès —> ${settings.destination}.
+  text:
+    fr: bravo putin
