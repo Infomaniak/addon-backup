@@ -27,4 +27,4 @@ return:
     email:  Restauration effectuée avec succès —> ${settings.destination}.
 
 
-success:  Restauration effectuée avec succès —> ${settings.destination}.
+success: Restauration effectuée avec succès —> ${settings.destination}.
