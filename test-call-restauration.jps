@@ -22,8 +22,8 @@ responses:
     type: error
     message: Les ID renseignés ( ${settings.id} ) sont invalides, veuillez vérifier votre saisie.
 
-return:
-    result: success
-
-
-success: https://raw.githubusercontent.com/axelJacquet/addon-backup/master/success.md
+success:
+  email: https://github.com/axelJacquet/addon-backup/blob/master/success.md
+  text:
+    en: Restauration effectuée avec succès —> ${settings.destination}.
+    ru: https://github.com/jelastic-jps/lets-encrypt/blob/master/README.md
