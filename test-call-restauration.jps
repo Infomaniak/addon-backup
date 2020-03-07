@@ -27,5 +27,4 @@ return:
     email:  Restauration effectuée avec succès —> ${settings.destination}.
 
 
-success: |
-  Restauration effectuée avec succès —> ${settings.destination}.
+success: https://raw.githubusercontent.com/axelJacquet/addon-backup/master/success.md
