@@ -201,3 +201,9 @@ actions:
               -  crontab -u root -l | { cat; echo "0 23 * * * /usr/bin/flock --nonblock --conflict-exit-code 0 /run/user/restic.lock /root/daily.sh -f \"${settings.path}\" >> /var/log/myjob.log 2>&1 "; } | crontab -
 
       user: root
+      
+success:
+
+      text: Bravo vous avez sauvegardé les dossiers --> ${settings.path} avec la politique de sauvegarde ${settings.sauvegarde}. Voici la clé de chiffrement de votre back-up ${globals.pass} . Attention à bien la conserver car elle vous sera demandée en cas de restauration.  
+
+      mail: Bravo vous avez sauvegardé les dossiers --> ${settings.path} avec la politique de sauvegarde ${settings.sauvegarde}. Voici la clé de chiffrement de votre back-up ${globals.pass} . Attention à bien la conserver car elle vous sera demandée en cas de restauration.
