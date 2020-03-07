@@ -2,7 +2,7 @@ type: install
 name: Mixins Example
 
 actions:
-backup:
+    backup:
 
     - script: |
 
