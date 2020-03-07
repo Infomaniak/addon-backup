@@ -24,6 +24,4 @@ responses:
 
 success:
   email: https://github.com/axelJacquet/addon-backup/blob/master/success.md
-  text:
-    en: Restauration effectuée avec succès —> ${settings.destination}.
-    ru: https://github.com/jelastic-jps/lets-encrypt/blob/master/README.md
+  text: https://github.com/axelJacquet/addon-backup/blob/master/success.md
