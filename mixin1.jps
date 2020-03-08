@@ -1,4 +1,5 @@
-actions:
+onInstall:
+  actions:
 
   backup:
 
