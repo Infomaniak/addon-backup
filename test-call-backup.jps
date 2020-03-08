@@ -1,6 +1,9 @@
 type: update
 name: Add-on backup
 
+globals:
+
+  pass: ${fn.md5([user.uid])}
   
 targetNodes:
 
@@ -174,8 +177,8 @@ onInstall:
 
           touch /tmp/Backups_plan
           
-          exit 0
    user: root
+   
  - if ('${settings.sauvegarde}' == 'hourly' ): hourly
  
  - if ( '${settings.sauvegarde}' == 'daily' ): daily    
