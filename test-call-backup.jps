@@ -176,7 +176,9 @@ onInstall:
           
           exit 0
    user: root
-      
+ - if ('${settings.sauvegarde}' == 'hourly' ): hourly
+ 
+ - if ( '${settings.sauvegarde}' == 'daily' ): daily    
 responses:
 
   4109:
@@ -185,10 +187,6 @@ responses:
 
     message: Vos dossiers renseignés n'existent pas, regardé dans /tmp/fails-folders
     
-if ('${settings.sauvegarde}' == 'hourly' ): hourly
- 
-if ( '${settings.sauvegarde}' == 'daily' ): daily
- 
 actions:
  
   hourly:
