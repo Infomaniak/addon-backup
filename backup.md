@@ -1,0 +1,1 @@
+Bravo vous avez sauvegardé les dossiers --> ${settings.path} avec la politique de sauvegarde ${settings.sauvegarde}. Voici la clé de chiffrement de votre back-up ${globals.pass} . Attention à bien la conserver car elle vous sera demandée en cas de restauration.  
