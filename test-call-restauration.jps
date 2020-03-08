@@ -24,8 +24,4 @@ responses:
   4109:
     type: error
     message: Les ID renseignés ( ${settings.id} ) sont invalides, veuillez vérifier votre saisie.
-
-responses:
-  0:
-    type: success
-    message: ta mere la pute
+   
