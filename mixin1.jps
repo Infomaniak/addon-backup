@@ -202,7 +202,7 @@ actions:
 
       user: root
       
-   script: return 'success'  
+   script: return 'marche'  
 responses:
 
   4109:
@@ -213,7 +213,7 @@ responses:
 
 responses:
 
-  success:
+  marche:
 
     type: success
 
