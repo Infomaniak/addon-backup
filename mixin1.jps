@@ -209,11 +209,3 @@ responses:
     type: error
 
     message: Vos dossiers renseignés n'existent pas, regardé dans /tmp/fails-folders
-
-responses:
-
-  marche:
-
-    type: success
-
-    message: Bravo fdp
