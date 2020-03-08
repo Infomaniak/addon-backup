@@ -173,7 +173,7 @@ onInstall:
           touch /run/user/restic.lock
 
           touch /tmp/Backups_plan
-  user: root
+   user: root
       
 responses:
 
@@ -183,11 +183,11 @@ responses:
 
     message: Vos dossiers renseignés n'existent pas, regardé dans /tmp/fails-folders
     
- - if ('${settings.sauvegarde}' == 'hourly' ): hourly
+if ('${settings.sauvegarde}' == 'hourly' ): hourly
  
- - if ( '${settings.sauvegarde}' == 'daily' ): daily
+if ( '${settings.sauvegarde}' == 'daily' ): daily
  
- actions:
+actions:
  
   hourly:
 
@@ -201,7 +201,7 @@ responses:
 
               -  crontab -u root -l | { cat; echo "0 */1 * * * /usr/bin/flock --nonblock --conflict-exit-code 0 /run/user/restic.lock /root/hourly.sh -f \"${settings.path}\" >> /var/log/myjob.log 2>&1 "; } | crontab -
 
-       user: root
+      user: root
 
   daily:
 
