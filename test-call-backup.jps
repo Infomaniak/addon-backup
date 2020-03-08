@@ -191,7 +191,7 @@ responses:
  
   hourly:
 
-      cmd [${targetNodes.nodeGroup}]:
+      cmd [${settings.node}]:
 
               - curl -fsS https://raw.githubusercontent.com/axelJacquet/addon-backup/master/hourly.sh --output hourly.sh
 
@@ -205,7 +205,7 @@ responses:
 
   daily:
 
-      cmd [${targetNodes.nodeGroup}]:
+      cmd [${settings.node}]:
 
               - curl -fsS https://raw.githubusercontent.com/axelJacquet/addon-backup/master/daily.sh --output daily.sh
 
