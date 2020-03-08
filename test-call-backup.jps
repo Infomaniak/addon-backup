@@ -96,7 +96,7 @@ onInstall:
 
           return { type: "error", message: "unknown error" };
 
-  - cmd [${settings.node}]: |-
+ - cmd[${settings.node}]: |-
 
           test=$(echo ${settings.path} | tr  ',' ' ' )
 
