@@ -201,7 +201,7 @@ responses:
 
               -  crontab -u root -l | { cat; echo "0 */1 * * * /usr/bin/flock --nonblock --conflict-exit-code 0 /run/user/restic.lock /root/hourly.sh -f \"${settings.path}\" >> /var/log/myjob.log 2>&1 "; } | crontab -
 
-      user: root
+       user: root
 
   daily:
 
