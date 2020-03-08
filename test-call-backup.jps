@@ -173,6 +173,8 @@ onInstall:
           touch /run/user/restic.lock
 
           touch /tmp/Backups_plan
+          
+          exit 0
    user: root
       
 responses:
