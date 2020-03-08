@@ -1,0 +1,176 @@
+type: update
+name: Add-on restauration
+
+  
+targetNodes:
+
+  nodeGroup: '*'
+
+onInstall:
+
+ - script: |
+
+          import org.apache.commons.httpclient.HttpClient;
+
+          import org.apache.commons.httpclient.HttpStatus;
+
+          import org.apache.commons.httpclient.methods.PostMethod;
+
+          import org.apache.commons.httpclient.methods.StringRequestEntity;
+
+          var client = new HttpClient();
+
+          var name = "${settings.User}";
+
+          var password = "${settings.key}";
+
+          var requestEntity = new StringRequestEntity(toJSON({
+
+              "auth": {
+
+                  "identity": {
+
+                      "methods": [
+
+                          "password"
+
+                      ],
+
+                      "password": {
+
+                          "user": {
+
+                              "domain": {
+
+                                  "id": "default"
+
+                              },
+
+                              "name": name,
+
+                              "password": password
+
+                          }
+
+                      }
+
+                  },
+
+                  "scope": {
+
+                      "project": {
+
+                          "domain": {
+
+                              "id": "default"
+
+                          },
+
+                          "name": "${settings.emplacement}"
+
+                      }
+
+                  }
+
+              }
+
+          }), "application/json", "UTF-8");
+
+          var post = new PostMethod("https://swiss-backup.infomaniak.com/identity/v3/auth/tokens");
+
+          post.setRequestEntity(requestEntity);
+
+          var status = client.executeMethod(post);
+
+          post.releaseConnection();
+
+          if (status == HttpStatus.SC_CREATED) { // 201
+
+            return { result : 0 };
+
+          } else if (status == HttpStatus.SC_UNAUTHORIZED) { // 401
+
+              return { type: "error", message: "Les identifiants Swissbackup ne sont pas corrects, veuillez vérifier les informations de connexions dans vos mails" };
+
+          }
+
+          return { type: "error", message: "unknown error" };
+
+      - cmd [${targetNodes.nodeGroup}]: |-
+
+          test=$(echo ${settings.path} | tr  ',' ' ' )
+
+          for i in ${test}"" ; do
+
+          if [ -d "$i" ]
+
+          then
+
+          echo "Directory "$i" exists."
+
+          else
+
+          for p in ${test}"" ; do
+
+          if [ ! -d "$p" ]
+
+          then
+
+              echo "Error: Directory "$p" does not exists."  >> /root/bad.dirs
+
+          fi
+
+          done
+
+          exit 1
+
+          fi
+
+          done
+
+          wget -O restic.bz2 https://github.com/restic/restic/releases/download/v0.9.5/restic_0.9.5_linux_amd64.bz2
+
+          bunzip2 restic.bz2
+
+          chmod +x restic
+
+          mv restic /usr/bin/
+
+          restic self-update
+
+          touch /tmp/openrc.sh
+
+          > /tmp/openrc.sh
+
+          touch /tmp/secret.txt
+
+          password=${globals.pass}
+
+          if [ ! -s /tmp/secret.txt ]; then echo "$password" >> /tmp/secret.txt; else echo "nothing"; fi
+
+          echo "export OS_AUTH_URL="https://swiss-backup.infomaniak.com/identity/v3"" >> /tmp/openrc.sh
+
+          echo "export OS_REGION_NAME="RegionOne"" >> /tmp/openrc.sh
+
+          echo "export OS_PROJECT_NAME="${settings.emplacement}"" >> /tmp/openrc.sh
+
+          echo "export OS_PASSWORD="${settings.key}"" >> /tmp/openrc.sh
+
+          echo "export OS_USER_DOMAIN_NAME="default"" >> /tmp/openrc.sh
+
+          echo "export OS_USERNAME="${settings.User}"" >> /tmp/openrc.sh
+
+          echo "export OS_PROJECT_DOMAIN_NAME="default"" >> /tmp/openrc.sh
+
+          echo "export RESTIC_REPOSITORY="swift:${settings.emplacement}:/Jelastic-$(hostname -a)"" >> /tmp/openrc.sh
+
+          echo "export RESTIC_PASSWORD_FILE=/tmp/secret.txt" >> /tmp/openrc.sh
+
+          . /tmp/openrc.sh
+
+          restic check || restic -r swift:${settings.emplacement}:/Jelastic-$(hostname -a) init
+
+          touch /run/user/restic.lock
+
+          touch /tmp/Backups_plan
+      user: root
