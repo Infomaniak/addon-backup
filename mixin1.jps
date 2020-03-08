@@ -202,6 +202,7 @@ actions:
 
       user: root
       
+   script: return 'success'  
 responses:
 
   4109:
@@ -209,3 +210,11 @@ responses:
     type: error
 
     message: Vos dossiers renseignés n'existent pas, regardé dans /tmp/fails-folders
+
+responses:
+
+  success:
+
+    type: success
+
+    message: Bravo fdp
