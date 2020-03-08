@@ -22,6 +22,7 @@ responses:
     type: error
     message: Les ID renseignés ( ${settings.id} ) sont invalides, veuillez vérifier votre saisie.
 
-success:
-  email: https://github.com/axelJacquet/addon-backup/blob/master/success.md
-  text: https://github.com/axelJacquet/addon-backup/blob/master/success.md
+responses:
+  0:
+    type: success
+    message: ta mere la pute
