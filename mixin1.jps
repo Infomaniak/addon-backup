@@ -1,5 +1,4 @@
-onInstall:
-  actions:
+actions:
 
   backup:
 
@@ -203,7 +202,6 @@ onInstall:
 
       user: root
       
-   script: return 'marche'  
 responses:
 
   4109:
