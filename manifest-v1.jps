@@ -1,0 +1,266 @@
+type: update
+
+name: SwissBackup
+globals:
+
+  pass: ${fn.md5([user.uid])}
+settings:
+  main:
+    fields:
+
+    - name: mode
+
+      type: radio-fieldset
+
+      values:
+
+        restauration: Restauration de vos données
+
+        backup: Sauvegarde de vos données
+
+      default: backup
+
+      showIf:
+
+        restauration:
+
+        - name: id
+
+          caption: ID Backup
+
+          type: string
+
+          required: true
+
+        - name: destination
+
+          caption: Indiquer un répertoire de destination
+
+          type: string
+
+          required: true
+
+        backup:
+
+        - name: emplacement
+
+          caption: Emplacement Swiss-Backup
+
+          type: string
+
+          required: true
+
+          default: sb_project_SBI-AJ891787
+
+        - name: User
+
+          caption: Nom utilisateur
+
+          type: string
+
+          required: true
+
+          default: SBI-AJ891787
+
+        - name: key
+
+          caption: Clé de l'utilisateur
+
+          type: string
+
+          required: true
+
+          default:
+
+        - name: path
+
+          caption: Répertoires à Backuper
+
+          type: string
+
+          placeholder: path/to/folder1/, path/to/folder2/, path/to/folderX
+
+          required: true
+
+        - type: list
+
+          name: sauvegarde
+
+          caption: Choix de votre méthode de sauvegarde
+
+          tooltip: hourly -> backup every hours -> keep last 24 backups/hour, 7/days daily -> backup every day at 23:00 PM -> keep last 7 backups/days
+
+          values:
+
+            hourly: hourly
+
+            daily: daily
+
+      hideLabel: false
+
+      hidden: false
+
+      editable: false
+
+    default: daily
+
+    required: true
+
+  config:
+    fields:
+    - name: emplacement
+
+      caption: Emplacement Swiss-Backup
+
+      type: string
+
+      required: true
+
+      default: sb_project_SBI-AJ891787
+
+    - name: User
+
+      caption: Nom utilisateur
+
+      type: string
+
+      required: true
+
+      default: SBI-AJ891787
+
+    - name: key
+
+      caption: Clé de l'utilisateur
+
+      type: string
+
+      required: true
+
+      default:
+
+    - name: path
+
+      caption: Répertoires à Backuper
+
+      type: string
+
+      placeholder: path/to/folder1/, path/to/folder2/, path/to/folderX
+
+      required: true
+
+    - type: list
+
+      name: sauvegarde
+
+      caption: Choix de votre méthode de sauvegarde
+
+      tooltip: hourly -> backup every hours -> keep last 24 backups/hour, 7/days daily -> backup every day at 23:00 PM -> keep last 7 backups/days
+
+      values:
+
+        hourly: hourly
+
+        daily: daily
+
+        hideLabel: false
+
+        hidden: false
+
+        editable: false
+
+      default: daily
+
+      required: true
+
+  resto:
+    fields:
+    
+    - name: id
+
+      caption: ID Backup
+
+      type: string
+
+      required: true
+
+    - name: destination
+
+      caption: Indiquer un répertoire de destination
+
+      type: string
+
+      required: true
+
+targetNodes:
+
+  nodeGroup: '*'
+
+onInstall:
+
+  if ('${settings.mode}' == 'backup'):
+
+     - backup
+
+
+  if ('${settings.mode}' == 'restauration'):
+
+      - restauration
+
+
+
+
+
+actions:
+
+  backup:
+
+               install:
+
+                   jps: https://raw.githubusercontent.com/axelJacquet/addon-backup/master/test-call-backup.jps
+
+               setGlobals:
+                  SUCCESS: backup
+               settings:
+
+                      User: "${settings.User}"
+
+                      path: "${settings.path}"
+
+                      node: "${targetNodes.nodeGroup}"
+
+                      emplacement: "${settings.emplacement}"
+
+                      key: "${settings.key}"
+
+                      sauvegarde: "${settings.sauvegarde}"
+
+
+  restauration:
+
+               install:
+
+                   jps: https://raw.githubusercontent.com/axelJacquet/addon-backup/master/test-call-restauration.jps
+               setGlobals:
+                   SUCCESS: success
+               settings:
+
+                      id: "${settings.id}"
+
+                      destination: "${settings.destination}"
+
+                      node: "${targetNodes.nodeGroup}"
+
+
+buttons:
+  - settings: config
+    action: backup
+    caption: Configure backup
+    submitButtonText: Button Text
+  - settings: resto
+    action: restauration
+    caption: Configure restauration
+    submitButtonText: Button Text
+
+success:
+  text:  https://github.com/axelJacquet/addon-backup/blob/master/${globals.SUCCESS}.md
+  mail:  https://github.com/axelJacquet/addon-backup/blob/master/${globals.SUCCESS}.md
