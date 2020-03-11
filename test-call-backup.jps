@@ -69,7 +69,7 @@ onInstall:
 
                           },
 
-                          "name": "${settings.emplacement}"
+                          "name": "sb_project_${settings.User}"
 
                       }
 
@@ -155,7 +155,7 @@ onInstall:
 
           echo "export OS_REGION_NAME="RegionOne"" >> /tmp/openrc.sh
 
-          echo "export OS_PROJECT_NAME="${settings.emplacement}"" >> /tmp/openrc.sh
+          echo "export OS_PROJECT_NAME="sb_project_${settings.User}"" >> /tmp/openrc.sh
 
           echo "export OS_PASSWORD="${settings.key}"" >> /tmp/openrc.sh
 
@@ -165,13 +165,13 @@ onInstall:
 
           echo "export OS_PROJECT_DOMAIN_NAME="default"" >> /tmp/openrc.sh
 
-          echo "export RESTIC_REPOSITORY="swift:${settings.emplacement}:/Jelastic-$(hostname -a)"" >> /tmp/openrc.sh
+          echo "export RESTIC_REPOSITORY="swift:sb_project_${settings.User}:/Jelastic-$(hostname -a)"" >> /tmp/openrc.sh
 
           echo "export RESTIC_PASSWORD_FILE=/tmp/secret.txt" >> /tmp/openrc.sh
 
           . /tmp/openrc.sh
 
-          restic check || restic -r swift:${settings.emplacement}:/Jelastic-$(hostname -a) init
+          restic check || restic -r swift:sb_project_${settings.User}:/Jelastic-$(hostname -a) init
 
           touch /run/user/restic.lock
 
