@@ -30,7 +30,7 @@ onInstall:
 
           > /root/.config/swissbackup/openrc.sh
 
-          touch /tmp/secret.txt
+          touch /root/.config/swissbackup/secret.txt
 
           password=${globals.pass}
 
