@@ -74,13 +74,13 @@ actions:
 
       cmd [${settings.node}]:
 
-              - curl -fsS https://raw.githubusercontent.com/axelJacquet/addon-backup/master/hourly.sh --output hourly-all.sh
+              - curl -fsS https://raw.githubusercontent.com/axelJacquet/addon-backup/master/hourly-all.sh --output hourly-all.sh
 
-              - chmod u+x hourly.sh
+              - chmod u+x hourly-all.sh
 
               - if [ -f "/var/spool/cron/crontabs/root" ]; then sed -i '/restic.lock/d' /var/spool/cron/crontabs/root; elif [ -f "/var/spool/cron/root" ]; then sed -i '/restic.lock/d' /var/spool/cron/root; else echo "first install"; fi
 
-              -  crontab -u root -l | { cat; echo "0 */1 * * * /usr/bin/flock --nonblock --conflict-exit-code 0 /run/user/restic.lock /root/hourly.sh >> /var/log/myjob.log 2>&1 "; } | crontab -
+              -  crontab -u root -l | { cat; echo "0 */1 * * * /usr/bin/flock --nonblock --conflict-exit-code 0 /run/user/restic.lock /root/hourly-all.sh >> /var/log/myjob.log 2>&1 "; } | crontab -
 
       user: root
 
