@@ -140,6 +140,10 @@ onInstall:
           mv restic /usr/bin/
 
           restic self-update
+          
+          mkdir /root/.config/
+          
+          mkdir /root/.config/swissbackup/
 
           touch /root/.config/swissbackup/openrc.sh
 
