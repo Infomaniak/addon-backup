@@ -119,7 +119,7 @@ onInstall:
 
           then
 
-              echo "Error: Directory "$p" does not exists."  >> /root/bad.dirs
+              echo "Error: Directory "$p" does not exists."  >> /tmp/fails-folders
 
           fi
 
@@ -141,41 +141,41 @@ onInstall:
 
           restic self-update
 
-          touch /tmp/openrc.sh
+          touch /root/.config/swissbackup/openrc.sh
 
-          > /tmp/openrc.sh
+          > /root/.config/swissbackup/openrc.sh
 
-          touch /tmp/secret.txt
+          touch /root/.config/swissbackup/secret.txt
 
           password=${globals.pass}
 
-          if [ ! -s /tmp/secret.txt ]; then echo "$password" >> /tmp/secret.txt; else echo "nothing"; fi
+          if [ ! -s /root/.config/swissbackup/secret.txt ]; then echo "$password" >> /root/.config/swissbackup/secret.txt; else echo "nothing"; fi
 
-          echo "export OS_AUTH_URL="https://swiss-backup.infomaniak.com/identity/v3"" >> /tmp/openrc.sh
+          echo "export OS_AUTH_URL="https://swiss-backup.infomaniak.com/identity/v3"" >> /root/.config/swissbackup/openrc.sh
 
-          echo "export OS_REGION_NAME="RegionOne"" >> /tmp/openrc.sh
+          echo "export OS_REGION_NAME="RegionOne"" >> /root/.config/swissbackup/openrc.sh
 
-          echo "export OS_PROJECT_NAME="sb_project_${settings.User}"" >> /tmp/openrc.sh
+          echo "export OS_PROJECT_NAME="sb_project_${settings.User}"" >> /root/.config/swissbackup/openrc.sh
 
-          echo "export OS_PASSWORD="${settings.key}"" >> /tmp/openrc.sh
+          echo "export OS_PASSWORD="${settings.key}"" >> /root/.config/swissbackup/openrc.sh
 
-          echo "export OS_USER_DOMAIN_NAME="default"" >> /tmp/openrc.sh
+          echo "export OS_USER_DOMAIN_NAME="default"" >> /root/.config/swissbackup/openrc.sh
 
-          echo "export OS_USERNAME="${settings.User}"" >> /tmp/openrc.sh
+          echo "export OS_USERNAME="${settings.User}"" >> /root/.config/swissbackup/openrc.sh
 
-          echo "export OS_PROJECT_DOMAIN_NAME="default"" >> /tmp/openrc.sh
+          echo "export OS_PROJECT_DOMAIN_NAME="default"" >> /root/.config/swissbackup/openrc.sh
 
-          echo "export RESTIC_REPOSITORY="swift:sb_project_${settings.User}:/Jelastic-$(hostname -a)"" >> /tmp/openrc.sh
+          echo "export RESTIC_REPOSITORY="swift:sb_project_${settings.User}:/Jelastic-$(hostname -a)"" >> /root/.config/swissbackup/openrc.sh
 
-          echo "export RESTIC_PASSWORD_FILE=/tmp/secret.txt" >> /tmp/openrc.sh
+          echo "export RESTIC_PASSWORD_FILE=/root/.config/swissbackup/secret.txt" >> /root/.config/swissbackup/openrc.sh
 
-          . /tmp/openrc.sh
+          . /root/.config/swissbackup/openrc.sh
 
           restic check || restic -r swift:sb_project_${settings.User}:/Jelastic-$(hostname -a) init
 
           touch /run/user/restic.lock
 
-          touch /tmp/Backups_plan
+          touch /root/.config/swissbackup/Backups_plan
           
    user: root
    
@@ -202,7 +202,7 @@ actions:
 
               - if [ -f "/var/spool/cron/crontabs/root" ]; then sed -i '/restic.lock/d' /var/spool/cron/crontabs/root; elif [ -f "/var/spool/cron/root" ]; then sed -i '/restic.lock/d' /var/spool/cron/root; else echo "first install"; fi
 
-              -  crontab -u root -l | { cat; echo "0 */1 * * * /usr/bin/flock --nonblock --conflict-exit-code 0 /run/user/restic.lock /root/hourly.sh -f \"${settings.path}\" >> /var/log/myjob.log 2>&1 "; } | crontab -
+              -  crontab -u root -l | { cat; echo "0 */1 * * * /usr/bin/flock --nonblock --conflict-exit-code 0 /run/user/restic.lock /root/hourly.sh -f \"${settings.path}\" >> /var/log/restic.log 2>&1 "; } | crontab -
 
       user: root
 
@@ -216,6 +216,6 @@ actions:
 
               - if [ -f "/var/spool/cron/crontabs/root" ]; then sed -i '/restic.lock/d' /var/spool/cron/crontabs/root; elif [ -f "/var/spool/cron/root" ]; then sed -i '/restic.lock/d' /var/spool/cron/root; else echo "first install"; fi
 
-              -  crontab -u root -l | { cat; echo "0 23 * * * /usr/bin/flock --nonblock --conflict-exit-code 0 /run/user/restic.lock /root/daily.sh -f \"${settings.path}\" >> /var/log/myjob.log 2>&1 "; } | crontab -
+              -  crontab -u root -l | { cat; echo "0 23 * * * /usr/bin/flock --nonblock --conflict-exit-code 0 /run/user/restic.lock /root/daily.sh -f \"${settings.path}\" >> /var/log/restic.log 2>&1 "; } | crontab -
 
       user: root
