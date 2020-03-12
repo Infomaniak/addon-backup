@@ -67,27 +67,20 @@ onInstall:
  - if ('${settings.sauvegarde}' == 'hourly' ): hourly
  
  - if ( '${settings.sauvegarde}' == 'daily' ): daily    
-responses:
-
-  4109:
-
-    type: error
-
-    message: Vos dossiers renseignés n'existent pas, regardé dans /tmp/fails-folders
-    
+   
 actions:
  
   hourly:
 
       cmd [${settings.node}]:
 
-              - curl -fsS https://raw.githubusercontent.com/axelJacquet/addon-backup/master/hourly.sh --output hourly.sh
+              - curl -fsS https://raw.githubusercontent.com/axelJacquet/addon-backup/master/hourly.sh --output hourly-all.sh
 
               - chmod u+x hourly.sh
 
               - if [ -f "/var/spool/cron/crontabs/root" ]; then sed -i '/restic.lock/d' /var/spool/cron/crontabs/root; elif [ -f "/var/spool/cron/root" ]; then sed -i '/restic.lock/d' /var/spool/cron/root; else echo "first install"; fi
 
-              -  crontab -u root -l | { cat; echo "0 */1 * * * /usr/bin/flock --nonblock --conflict-exit-code 0 /run/user/restic.lock /root/hourly.sh -f \"${settings.path}\" >> /var/log/myjob.log 2>&1 "; } | crontab -
+              -  crontab -u root -l | { cat; echo "0 */1 * * * /usr/bin/flock --nonblock --conflict-exit-code 0 /run/user/restic.lock /root/hourly.sh >> /var/log/myjob.log 2>&1 "; } | crontab -
 
       user: root
 
