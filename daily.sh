@@ -2,7 +2,7 @@
 set -x
 set -e
 
-. /tmp/openrc.sh
+. /root/.config/swissbackup/openrc.sh
 
 usage () {
         echo "$0 --folders-to-backup <folder1>[,folder2,folder3,...]"
@@ -74,6 +74,6 @@ eval "/usr/bin/restic forget --tag $p --keep-daily 7 --keep-weekly 4 --keep-mont
 
 done
 
-> /tmp/Backups_plan
+> /root/.config/swissbackup/Backups_plan
 
-/usr/bin/restic snapshots --no-lock > /tmp/Backups_plan
+/usr/bin/restic snapshots --no-lock > /root/.config/swissbackup/Backups_plan
