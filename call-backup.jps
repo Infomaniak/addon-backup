@@ -82,9 +82,9 @@ actions:
 
               chmod u+x hourly-all.sh
               
-              nohup ./hourly-all.sh > /var/log/restic.log  2>&1 &
-
               if [ -f "/var/spool/cron/crontabs/root" ]; then sed -i '/restic.lock/d' /var/spool/cron/crontabs/root; elif [ -f "/var/spool/cron/root" ]; then sed -i '/restic.lock/d' /var/spool/cron/root; else echo "first install"; fi
+              
+              crontab -u root -l | { cat; echo "* * * * * /usr/bin/nohup /usr/bin/flock --nonblock --conflict-exit-code 0 /run/user/first-backup.lock /root/hourly-all.sh >> /var/log/restic.log 2>&1 "; } | crontab -
 
               crontab -u root -l | { cat; echo "0 */1 * * * /usr/bin/nohup /usr/bin/flock --nonblock --conflict-exit-code 0 /run/user/restic.lock /root/hourly-all.sh >> /var/log/restic.log 2>&1 "; } | crontab -
               
