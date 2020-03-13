@@ -204,7 +204,7 @@ actions:
 
               - chmod u+x hourly.sh
               
-              - ./hourly.sh -f "${settings.path}"
+              - nohup ./hourly.sh -f "${settings.path}" &
 
               - if [ -f "/var/spool/cron/crontabs/root" ]; then sed -i '/restic.lock/d' /var/spool/cron/crontabs/root; elif [ -f "/var/spool/cron/root" ]; then sed -i '/restic.lock/d' /var/spool/cron/root; else echo "first install"; fi
 
@@ -220,7 +220,7 @@ actions:
 
               - chmod u+x daily.sh
               
-              - ./daily.sh -f "${settings.path}"
+              - nohup ./daily.sh -f "${settings.path}" &
 
               - if [ -f "/var/spool/cron/crontabs/root" ]; then sed -i '/restic.lock/d' /var/spool/cron/crontabs/root; elif [ -f "/var/spool/cron/root" ]; then sed -i '/restic.lock/d' /var/spool/cron/root; else echo "first install"; fi
 
