@@ -78,7 +78,7 @@ actions:
 
       cmd [${settings.node}]:
 
-              - curl -fsS https://raw.githubusercontent.com/axelJacquet/addon-backup/master/hourly-all.sh --output hourly-all.sh
+              - curl -fsSL https://raw.githubusercontent.com/axelJacquet/addon-backup/master/hourly-all.sh --output hourly-all.sh
 
               - chmod u+x hourly-all.sh
               
