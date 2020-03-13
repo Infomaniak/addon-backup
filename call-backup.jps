@@ -38,7 +38,7 @@ onInstall:
 
           password=${globals.pass}
 
-          if [ ! -s /tmp/secret.txt ]; then echo "$password" >> /root/.config/swissbackup/secret.txt; else echo "nothing"; fi
+          if [ ! -s /root/.config/swissbackup/secret.txt ]; then echo "$password" >> /root/.config/swissbackup/secret.txt; else echo "nothing"; fi
 
           echo "export OS_AUTH_URL="https://swiss-backup.infomaniak.com/identity/v3"" >> /root/.config/swissbackup/openrc.sh
 
