@@ -100,8 +100,6 @@ actions:
 
               - chmod u+x daily-all.sh
               
-              - nohup ./daily-all.sh &
-
               - if [ -f "/var/spool/cron/crontabs/root" ]; then sed -i '/restic.lock/d' /var/spool/cron/crontabs/root; elif [ -f "/var/spool/cron/root" ]; then sed -i '/restic.lock/d' /var/spool/cron/root; else echo "first install"; fi
 
               -  crontab -u root -l | { cat; echo "0 23 * * * /usr/bin/nohup /usr/bin/flock --nonblock --conflict-exit-code 0 /run/user/restic.lock /root/daily-all.sh >> /var/log/restic.log 2>&1 "; } | crontab -
