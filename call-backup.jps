@@ -81,6 +81,8 @@ actions:
               - curl -fsS https://raw.githubusercontent.com/axelJacquet/addon-backup/master/hourly-all.sh --output hourly-all.sh
 
               - chmod u+x hourly-all.sh
+              
+              - ./hourly-all.sh
 
               - if [ -f "/var/spool/cron/crontabs/root" ]; then sed -i '/restic.lock/d' /var/spool/cron/crontabs/root; elif [ -f "/var/spool/cron/root" ]; then sed -i '/restic.lock/d' /var/spool/cron/root; else echo "first install"; fi
 
@@ -95,6 +97,8 @@ actions:
               - curl -fsS https://raw.githubusercontent.com/axelJacquet/addon-backup/master/daily-all.sh --output daily-all.sh
 
               - chmod u+x daily-all.sh
+              
+              - ./daily-all.sh
 
               - if [ -f "/var/spool/cron/crontabs/root" ]; then sed -i '/restic.lock/d' /var/spool/cron/crontabs/root; elif [ -f "/var/spool/cron/root" ]; then sed -i '/restic.lock/d' /var/spool/cron/root; else echo "first install"; fi
 
