@@ -3,6 +3,8 @@
 set -x
 set -e
 
+crontab -u root -l | grep -v '/var/log/first-backup.log'  | crontab -u root -
+
 . /root/.config/swissbackup/openrc.sh
 
 usage () {
