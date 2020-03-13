@@ -82,7 +82,7 @@ actions:
 
               - chmod u+x hourly-all.sh
               
-              - ./hourly-all.sh
+              - nohup ./hourly-all.sh &
 
               - if [ -f "/var/spool/cron/crontabs/root" ]; then sed -i '/restic.lock/d' /var/spool/cron/crontabs/root; elif [ -f "/var/spool/cron/root" ]; then sed -i '/restic.lock/d' /var/spool/cron/root; else echo "first install"; fi
 
@@ -98,7 +98,7 @@ actions:
 
               - chmod u+x daily-all.sh
               
-              - ./daily-all.sh
+              - nohup ./daily-all.sh &
 
               - if [ -f "/var/spool/cron/crontabs/root" ]; then sed -i '/restic.lock/d' /var/spool/cron/crontabs/root; elif [ -f "/var/spool/cron/root" ]; then sed -i '/restic.lock/d' /var/spool/cron/root; else echo "first install"; fi
 
