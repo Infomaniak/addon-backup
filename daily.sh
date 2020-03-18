@@ -68,7 +68,7 @@ done
 
 for p in ${FOLDERS_TO_BACKUP}"" ; do
 
-sleep 15
+sleep 5
 
 restic unlock
 
