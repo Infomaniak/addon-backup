@@ -1,8 +1,5 @@
 type: update
 name: Add-on restauration
-globals:
-
-  message: la restauration du cu
   
 targetNodes:
 
