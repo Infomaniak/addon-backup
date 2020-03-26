@@ -45,7 +45,7 @@ onInstall:
 
       echo "export OS_PROJECT_DOMAIN_NAME="default"" >> /root/.config/swissbackup/openrc2.sh
 
-      echo "export RESTIC_REPOSITORY="swift:sb_project_${settings.User}:/Jelastic-${settings.node}"" >> /root/.config/swissbackup/openrc2.sh
+      echo "export RESTIC_REPOSITORY="swift:sb_project_${settings.User}:/Jelastic-${settings.nodes}"" >> /root/.config/swissbackup/openrc2.sh
 
       echo "export RESTIC_PASSWORD_FILE=/root/.config/swissbackup/secret.txt" >> /root/.config/swissbackup/openrc2.sh
 
