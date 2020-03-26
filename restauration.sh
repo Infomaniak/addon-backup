@@ -6,7 +6,7 @@ set -e
 
 #Apply credentials openrc
 
-. /tmp/openrc.sh
+. /root/.config/swissbackup/openrc.sh
 
 
 
