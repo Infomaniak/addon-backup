@@ -56,11 +56,11 @@ onInstall:
 
             . /root/.config/swissbackup/openrc2.sh
 
-            curl -fsS https://raw.githubusercontent.com/axelJacquet/addon-backup/master/restauration.sh --output restauration.sh
+            curl -fsS https://raw.githubusercontent.com/axelJacquet/addon-backup/master/recovery.sh --output recovery.sh
 
-            chmod +x restauration.sh
+            chmod +x recovery.sh
 
-            ./restauration.sh -i "${settings.id}" -d ${settings.destination}
+            ./recovery.sh -i "${settings.id}" -d ${settings.destination}
 
     user: root
 
