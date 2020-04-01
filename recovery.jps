@@ -3,54 +3,6 @@ name: Add-on restauration
 globals:
 
   pass: ${fn.md5([user.uid])}
-  
-
-onBeforeInit: |
-      var resp = jelastic.environment.control.GetEnvs(appid, session);
-      if (resp.result != 0) return resp;
-      var values = {};
-
-      var ids = [];    
-      for (var i = 0; envInfo = resp.infos[i]; i++) {
-        for (var j = 0; node = envInfo.nodes[j]; j++) {
-          ids.push(node.adminUrl); 
-        }
-      }
-      for (var x = 0, n = ids.length; x < n; x++) {
-        values[ids[x]] = ids[x];
-       }
-
-      return {
-      result: 0,
-      settings: {
-        fields: [{
-          name: "dashoard_url",
-          caption: "Nodes contains snapshots",
-          type: "list",
-          required: true,
-          editable: true,
-          values: values
-        }, {
-          "name": "User",
-          "caption": "User name",
-          "type": "string",
-          "required": true,
-          "default": "SBI-AJ891787"
-        }, {
-          "name": "key",
-          "caption": "Password",
-          "type": "string",
-          "required": false,
-          "inputType" : "password"
-        }, {
-          "name": "destination",
-          "caption": "Restauration enplacement",
-          "type": "string",
-          "required": true,
-          "placeholder" : "/user/folder/"
-        }
-      ]}
-      }
       
 targetNodes:
 
