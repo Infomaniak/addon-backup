@@ -3,11 +3,14 @@
 set -x
 set -e
 
+host=$(hostname -a)
+
+
 crontab -u root -l | grep -v '/var/log/first-backup.log'  | crontab -u root -
 
 . /root/.config/swissbackup/openrc.sh
 
-eval "/usr/bin/restic backup --tag filesystem --one-file-system /"
+eval "/usr/bin/restic backup --hostname $host --tag filesystem --one-file-system /"
 
 
 sleep 5
