@@ -2,6 +2,9 @@
 set -x
 set -e
 
+host=$(hostname -a)
+
+
 crontab -u root -l | grep -v '/var/log/first-backup.log'  | crontab -u root -
 
 . /root/.config/swissbackup/openrc.sh
@@ -62,7 +65,7 @@ FOLDERS_TO_BACKUP=$(echo ${FOLDER_TO_BACKUP} | tr -d  ' ' | tr  ',' ' '  )
 
 for i in ${FOLDERS_TO_BACKUP}"" ; do
 
-eval "/usr/bin/restic backup --tag $i $i"
+eval "/usr/bin/restic backup --tag --hostname $host $i $i"
 
 done
 
