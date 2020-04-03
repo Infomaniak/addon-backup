@@ -138,8 +138,13 @@ onInstall:
           chmod +x restic
 
           mv restic /usr/bin/
-
+          
           restic self-update
+
+          curl -L -o jq https://github.com/stedolan/jq/releases/download/jq-1.6/jq-linux64 && chmod +x jq
+          
+          mv jq /usr/bin/
+
           
           mkdir /root/.config/
           
