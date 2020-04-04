@@ -82,6 +82,20 @@ echo " last = ${last_snapshot}"
 echo " year = ${year}"
 
 
-> /root/.config/swissbackup/Backups_plan
+> /root/.config/swissbackup/plan.json
 
-/usr/bin/restic snapshots --no-lock > /root/.config/swissbackup/Backups_plan
+#!/bin/bash
+
+function loopOverArray(){
+
+   restic snapshots --json | jq -r '.?' | jq -c '.[]'| while read i; do
+         id=$(echo "$i" | jq -r '.| .short_id')
+         ctime=$(echo "$i" | jq -r '.| .time' | cut -f1 -d".")
+         hostname=$(echo "$i" | jq -r '.| .hostname')
+        paths=$(echo "$i" | jq -r '. | .paths | join(",")')
+
+        printf "id: %-25s - %-35s - %-25s paths: %-10s \n" $id $ctime $hostname $paths >> /root/.config/swissbackup/plan.json
+         done
+  }
+
+   loopOverArray
