@@ -182,8 +182,6 @@ onInstall:
           restic check || restic -r swift:sb_project_${settings.User}:/Jelastic-$(hostname -a) init
 
           touch /run/user/restic.lock
-
-          touch /root/.config/swissbackup/plan.json
           
    user: root
    
