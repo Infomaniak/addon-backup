@@ -175,7 +175,7 @@ onInstall:
 
           echo "export RESTIC_REPOSITORY="swift:sb_project_${settings.User}:/Jelastic-$(hostname -a)"" >> ~/.config/swissbackup/openrc.sh
 
-          echo "export RESTIC_PASSWORD_FILE= ~/.config/swissbackup/secret.txt" >> ~/.config/swissbackup/openrc.sh
+          echo "export RESTIC_PASSWORD_FILE=~/.config/swissbackup/secret.txt" >> ~/.config/swissbackup/openrc.sh
 
           . ~/.config/swissbackup/openrc.sh
 
