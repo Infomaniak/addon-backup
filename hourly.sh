@@ -8,6 +8,8 @@ host=$(hostname -a)
 
 crontab -u root -l | grep -v '/var/log/first-backup.log'  | crontab -u root -
 
+touch ~/plan.json
+
 . /root/.config/swissbackup/openrc.sh
 
 usage () {
@@ -82,7 +84,7 @@ echo " last = ${last_snapshot}"
 echo " year = ${year}"
 
 
-> /root/.config/swissbackup/plan.json
+> ~/plan.json
 
 function loopOverArray(){
 
@@ -92,7 +94,7 @@ function loopOverArray(){
          hostname=$(echo "$i" | jq -r '.| .hostname')
         paths=$(echo "$i" | jq -r '. | .paths | join(",")')
 
-        printf "id: %-25s - %-35s - %-25s paths: %-10s \n" $id $ctime $hostname $paths >> /root/.config/swissbackup/plan.json
+        printf "id: %-25s - %-35s - %-25s paths: %-10s \n" $id $ctime $hostname $paths >> ~/plan.json
          done
   }
 
