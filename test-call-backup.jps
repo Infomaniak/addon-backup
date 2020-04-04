@@ -185,7 +185,6 @@ onInstall:
 
           touch ~/.config/swissbackup/plan.json
           
-   user: root
    
  - if ('${settings.sauvegarde}' == 'hourly' ): hourly
  
