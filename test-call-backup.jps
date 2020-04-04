@@ -145,7 +145,6 @@ onInstall:
           
           mv jq /usr/bin/
 
-          
           mkdir /root/.config/
           
           mkdir /root/.config/swissbackup/
@@ -184,7 +183,7 @@ onInstall:
 
           touch /run/user/restic.lock
 
-          touch /root/.config/swissbackup/Backups_plan
+          touch /root/.config/swissbackup/plan.json
           
    user: root
    
