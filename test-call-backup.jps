@@ -145,45 +145,45 @@ onInstall:
           
           mv jq /usr/bin/
 
-          mkdir /.config/
+          mkdir ~/.config/
           
-          mkdir /.config/swissbackup/
+          mkdir ~/.config/swissbackup/
 
-          touch /.config/swissbackup/openrc.sh
+          touch ~/.config/swissbackup/openrc.sh
 
-          > /.config/swissbackup/openrc.sh
+          > ~/.config/swissbackup/openrc.sh
 
-          touch /.config/swissbackup/secret.txt
+          touch ~/.config/swissbackup/secret.txt
 
           password=${globals.pass}
 
-          if [ ! -s /.config/swissbackup/secret.txt ]; then echo "$password" >> /.config/swissbackup/secret.txt; else echo "nothing"; fi
+          if [ ! -s ~/.config/swissbackup/secret.txt ]; then echo "$password" >> ~/.config/swissbackup/secret.txt; else echo "nothing"; fi
 
-          echo "export OS_AUTH_URL="https://swiss-backup.infomaniak.com/identity/v3"" >> /.config/swissbackup/openrc.sh
+          echo "export OS_AUTH_URL="https://swiss-backup.infomaniak.com/identity/v3"" >> ~/.config/swissbackup/openrc.sh
 
-          echo "export OS_REGION_NAME="RegionOne"" >> /.config/swissbackup/openrc.sh
+          echo "export OS_REGION_NAME="RegionOne"" >> ~/.config/swissbackup/openrc.sh
 
-          echo "export OS_PROJECT_NAME="sb_project_${settings.User}"" >> /.config/swissbackup/openrc.sh
+          echo "export OS_PROJECT_NAME="sb_project_${settings.User}"" >> ~/.config/swissbackup/openrc.sh
 
-          echo "export OS_PASSWORD="${settings.key}"" >> /.config/swissbackup/openrc.sh
+          echo "export OS_PASSWORD="${settings.key}"" >> ~/.config/swissbackup/openrc.sh
 
-          echo "export OS_USER_DOMAIN_NAME="default"" >> /.config/swissbackup/openrc.sh
+          echo "export OS_USER_DOMAIN_NAME="default"" >> ~/.config/swissbackup/openrc.sh
 
-          echo "export OS_USERNAME="${settings.User}"" >> /.config/swissbackup/openrc.sh
+          echo "export OS_USERNAME="${settings.User}"" >> ~/.config/swissbackup/openrc.sh
 
-          echo "export OS_PROJECT_DOMAIN_NAME="default"" >> /.config/swissbackup/openrc.sh
+          echo "export OS_PROJECT_DOMAIN_NAME="default"" >> ~/.config/swissbackup/openrc.sh
 
-          echo "export RESTIC_REPOSITORY="swift:sb_project_${settings.User}:/Jelastic-$(hostname -a)"" >> /.config/swissbackup/openrc.sh
+          echo "export RESTIC_REPOSITORY="swift:sb_project_${settings.User}:/Jelastic-$(hostname -a)"" >> ~/.config/swissbackup/openrc.sh
 
-          echo "export RESTIC_PASSWORD_FILE=/root/.config/swissbackup/secret.txt" >> /.config/swissbackup/openrc.sh
+          echo "export RESTIC_PASSWORD_FILE= ~/.config/swissbackup/secret.txt" >> ~/.config/swissbackup/openrc.sh
 
-          . /.config/swissbackup/openrc.sh
+          . ~/.config/swissbackup/openrc.sh
 
           restic check || restic -r swift:sb_project_${settings.User}:/Jelastic-$(hostname -a) init
 
           touch /run/user/restic.lock
 
-          touch /.config/swissbackup/plan.json
+          touch ~/.config/swissbackup/plan.json
           
    user: root
    
