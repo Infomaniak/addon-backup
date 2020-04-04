@@ -84,8 +84,6 @@ echo " year = ${year}"
 
 > /root/.config/swissbackup/plan.json
 
-#!/bin/bash
-
 function loopOverArray(){
 
    restic snapshots --json | jq -r '.?' | jq -c '.[]'| while read i; do
