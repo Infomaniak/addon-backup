@@ -40,7 +40,14 @@
                   "caption": "Your Backups plans",
                   "cls": "x-form-field-wrap",
                   "height": 400,
-                  "value": FileReadResponse2
+                  "dependsOn": {
+                      "nodes": {
+                        "values": {
+                          "1": FileReadResponse2,
+                          "one": nodesName
+                        }
+                       }
+                      }
                 },
                 
                 {
@@ -240,5 +247,5 @@
                   "placeholder" : "/user/folder/"
                 }]
        }
+      },
       }
-     }
