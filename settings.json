@@ -1,0 +1,246 @@
+"settings": {
+      "main": {
+      "fields": [
+        {
+          "name": "mode",
+          "type": "radio-fieldset",
+          "values": {
+            "restauration": "Restauration de vos données",
+            "backup": "Sauvegarde de vos données"
+          },
+          "default": "backup",
+          "showIf": {
+            "restauration": [
+                {
+                  "name": "User",
+                  "caption": "Acronis username",
+                  "type": "string",
+                  "required": true,
+                  "placeholder": "SBI-234567",
+                  "default": "SBI-"
+                }, {
+                  "name": "key",
+                  "caption": "Password",
+                  "type": "string",
+                  "required": false,
+                  "inputType" : "password"
+                },
+            
+               {
+                  name: "nodes",
+                  caption: "Nodes contain snapshots",
+                  type: "list",
+                  required: true,
+                  editable: true,
+                  values: nodesName
+                },
+                
+                {
+                  "type": "text",
+                  "caption": "Your Backups plans",
+                  "cls": "x-form-field-wrap",
+                  "height": 400,
+                  "value": FileReadResponse2
+                },
+                
+                {
+                  "name": "id",
+                  "caption": "ID Backup",
+                  "type": "string",
+                  "required": true
+                },
+
+                 {
+                  "name": "destination",
+                  "caption": "Restauration emplacement",
+                  "type": "string",
+                  "required": true,
+                  "placeholder" : "/user/folder/"
+                }],
+            "backup": [
+              {
+                "name": "User",
+                "caption": "Acronis username",
+                "type": "string",
+                "required": true,
+                "default": "SBI-"
+              },
+              {
+                "name": "key",
+                "caption": "Password",
+                "type": "string",
+                "required": true,
+                "inputType": "password",
+                "default": null
+              },
+              {
+                "name": "choice",
+                "type": "radio-fieldset",
+                "values": {
+                  "full": "Container snapshot",
+                  "folder": "Choix des dossiers à sauvegarder"
+                },
+                "default": "full",
+                "showIf": {
+                  "full": [
+                    {
+                      "caption": "Container's snapshot",
+                      "type": "displayfield",
+                      "name": "snapshot",
+                      "markup": "Backup all file systems",
+                      "hidden": true
+                    }
+                  ],
+                  "folder": [
+                    {
+                      "name": "path",
+                      "caption": "Répertoires à Backuper",
+                      "type": "string",
+                      "placeholder": "path/to/folder1/, path/to/folder2/, path/to/folderX"
+                    }
+                  ]
+                }
+              },
+              {
+                "type": "list",
+                "name": "sauvegarde",
+                "caption": "Choix de votre méthode de sauvegarde",
+                "tooltip": "hourly -> backup every hours -> keep last 24 backups/hour, 7/days daily -> backup every day at 23:00 PM -> keep last 7 backups/days",
+                "values": {
+                  "hourly": "hourly",
+                  "daily": "daily"
+                },
+                "hideLabel": false,
+                "hidden": false,
+                "editable": false
+              }
+            ],
+            "default": "daily",
+            "required": true
+          }
+        }
+      ]
+      },
+       "config": {
+      "fields": [
+        {
+          "name": "User",
+          "caption": "Nom utilisateur",
+          "type": "string",
+          "required": true,
+          "default": "SBI-AJ891787"
+        },
+        {
+          "name": "key",
+          "caption": "Password",
+          "type": "string",
+          "required": true,
+          "inputType": "password",
+          "default": null
+        },
+        {
+          "name": "path",
+          "caption": "Répertoires à Backuper",
+          "type": "string",
+          "placeholder": "path/to/folder1/, path/to/folder2/, path/to/folderX",
+          "required": true
+        },
+        {
+          "type": "list",
+          "name": "sauvegarde",
+          "caption": "Choix de votre méthode de sauvegarde",
+          "tooltip": "hourly -> backup every hours -> keep last 24 backups/hour, 7/days daily -> backup every day at 23:00 PM -> keep last 7 backups/days",
+          "values": {
+            "hourly": "hourly",
+            "daily": "daily",
+            "hideLabel": false,
+            "hidden": false,
+            "editable": false
+          },
+          "default": "daily",
+          "required": true
+        }
+      ]
+      },
+      "snap": {
+      "fields": [
+        {
+          "name": "User",
+          "caption": "Nom utilisateur",
+          "type": "string",
+          "required": true,
+          "default": "SBI-AJ891787"
+        },
+        {
+          "name": "key",
+          "caption": "Password",
+          "type": "string",
+          "required": true,
+          "inputType": "password",
+          "default": null
+        },
+        
+       {
+          "caption": "Container's snapshot",
+          "type": "displayfield",
+          "name": "snapshot",
+          "markup": "Backup all file systems",
+          "hidden": true
+        },
+        {
+                "type": "list",
+                "name": "sauvegarde",
+                "caption": "Choix de votre méthode de sauvegarde",
+                "tooltip": "hourly -> backup every hours -> keep last 24 backups/hour, 7/days daily -> backup every day at 23:00 PM -> keep last 7 backups/days",
+                "values": {
+                  "hourly": "hourly",
+                  "daily": "daily"
+                },
+                "hideLabel": false,
+                "hidden": false,
+                "editable": false
+              },
+      ]
+      },
+       "resto": {
+      "fields":[
+                {
+                  "name": "User",
+                  "caption": "User name",
+                  "type": "string",
+                  "required": true,
+                  "default": "SBI-AJ891787"
+                }, {
+                  "name": "key",
+                  "caption": "Password",
+                  "type": "string",
+                  "required": false,
+                  "inputType" : "password"
+                },
+            
+               {
+                  name: "nodes",
+                  caption: "Nodes contains snapshots",
+                  type: "string",
+                  required: true,
+                  editable: true,
+                  placeholder: "Nodes name contains ids, exemple: node3244-env-dev"
+                },
+                
+                {
+                  "name": "id",
+                  "caption": "ID Backup",
+                  "type": "string",
+                  "required": true
+                },
+
+                 {
+                  "name": "destination",
+                  "caption": "Restauration enplacement",
+                  "type": "string",
+                  "required": true,
+                  "placeholder" : "/user/folder/"
+                }]
+       }
+      }
+      
