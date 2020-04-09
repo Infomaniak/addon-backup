@@ -1,4 +1,3 @@
-settings:
   fields:
     - caption: List 1
       type: list
