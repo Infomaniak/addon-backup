@@ -1,0 +1,231 @@
+type: update
+name: Add-on backup
+
+globals:
+
+  pass: ${fn.md5([user.uid])}
+  
+targetNodes:
+
+  nodeGroup: '*'
+
+onInstall:
+
+ - script: |
+
+          import org.apache.commons.httpclient.HttpClient;
+
+          import org.apache.commons.httpclient.HttpStatus;
+
+          import org.apache.commons.httpclient.methods.PostMethod;
+
+          import org.apache.commons.httpclient.methods.StringRequestEntity;
+
+          var client = new HttpClient();
+
+          var name = "${settings.User}";
+
+          var password = "${settings.key}";
+
+          var requestEntity = new StringRequestEntity(toJSON({
+
+              "auth": {
+
+                  "identity": {
+
+                      "methods": [
+
+                          "password"
+
+                      ],
+
+                      "password": {
+
+                          "user": {
+
+                              "domain": {
+
+                                  "id": "default"
+
+                              },
+
+                              "name": name,
+
+                              "password": password
+
+                          }
+
+                      }
+
+                  },
+
+                  "scope": {
+
+                      "project": {
+
+                          "domain": {
+
+                              "id": "default"
+
+                          },
+
+                          "name": "sb_project_${settings.User}"
+
+                      }
+
+                  }
+
+              }
+
+          }), "application/json", "UTF-8");
+
+          var post = new PostMethod("https://swiss-backup.infomaniak.com/identity/v3/auth/tokens");
+
+          post.setRequestEntity(requestEntity);
+
+          var status = client.executeMethod(post);
+
+          post.releaseConnection();
+
+          if (status == HttpStatus.SC_CREATED) { // 201
+
+            return { result : 0 };
+
+          } else if (status == HttpStatus.SC_UNAUTHORIZED) { // 401
+
+              return { type: "error", message: "Les identifiants Swissbackup ne sont pas corrects, veuillez vérifier les informations de connexions dans vos mails" };
+
+          }
+
+          return { type: "error", message: "unknown error" };
+
+ - cmd[${settings.node}]: |-
+
+          test=$(echo ${settings.path} | tr  ',' ' ' )
+
+          for i in ${test}"" ; do
+
+          if [ -d "$i" ]
+
+          then
+
+          echo "Directory "$i" exists."
+
+          else
+
+          for p in ${test}"" ; do
+
+          if [ ! -d "$p" ]
+
+          then
+
+              echo "Error: Directory "$p" does not exists."  >> /tmp/fails-folders
+
+          fi
+
+          done
+
+          exit 1
+
+          fi
+
+          done
+
+          wget -O restic.bz2 https://github.com/restic/restic/releases/download/v0.9.5/restic_0.9.5_linux_amd64.bz2
+
+          bunzip2 restic.bz2
+
+          chmod +x restic
+
+          mv restic /usr/bin/
+          
+          restic self-update
+
+          curl -L -o jq https://github.com/stedolan/jq/releases/download/jq-1.6/jq-linux64 && chmod +x jq
+          
+          mv jq /usr/bin/
+
+          mkdir /root/.config/
+          
+          mkdir /root/.config/swissbackup/
+
+          touch /root/.config/swissbackup/openrc.sh
+
+          > /root/.config/swissbackup/openrc.sh
+
+          touch /root/.config/swissbackup/secret.txt
+
+          password=${globals.pass}
+
+          if [ ! -s /root/.config/swissbackup/secret.txt ]; then echo "$password" >> /root/.config/swissbackup/secret.txt; else echo "nothing"; fi
+
+          echo "export OS_AUTH_URL="https://swiss-backup.infomaniak.com/identity/v3"" >> /root/.config/swissbackup/openrc.sh
+
+          echo "export OS_REGION_NAME="RegionOne"" >> /root/.config/swissbackup/openrc.sh
+
+          echo "export OS_PROJECT_NAME="sb_project_${settings.User}"" >> /root/.config/swissbackup/openrc.sh
+
+          echo "export OS_PASSWORD="${settings.key}"" >> /root/.config/swissbackup/openrc.sh
+
+          echo "export OS_USER_DOMAIN_NAME="default"" >> /root/.config/swissbackup/openrc.sh
+
+          echo "export OS_USERNAME="${settings.User}"" >> /root/.config/swissbackup/openrc.sh
+
+          echo "export OS_PROJECT_DOMAIN_NAME="default"" >> /root/.config/swissbackup/openrc.sh
+
+          echo "export RESTIC_REPOSITORY="swift:sb_project_${settings.User}:/Jelastic-$(hostname -a)"" >> /root/.config/swissbackup/openrc.sh
+
+          echo "export RESTIC_PASSWORD_FILE=/root/.config/swissbackup/secret.txt" >> /root/.config/swissbackup/openrc.sh
+
+          . /root/.config/swissbackup/openrc.sh
+
+          restic check || restic -r swift:sb_project_${settings.User}:/Jelastic-$(hostname -a) init
+
+          touch /run/user/restic.lock
+          
+   user: root
+   
+ - if ('${settings.sauvegarde}' == 'hourly' ): hourly
+ 
+ - if ( '${settings.sauvegarde}' == 'daily' ): daily    
+responses:
+
+  4109:
+
+    type: error
+
+    message: Vos dossiers renseignés n'existent pas, regardé dans /tmp/fails-folders
+    
+actions:
+ 
+  hourly:
+
+      cmd [${settings.node}]:
+
+              curl -fsS https://raw.githubusercontent.com/axelJacquet/addon-backup/master/hourly.sh --output hourly.sh
+
+              chmod u+x hourly.sh
+              
+              if [ -f "/var/spool/cron/crontabs/root" ]; then sed -i '/restic.lock/d' /var/spool/cron/crontabs/root; elif [ -f "/var/spool/cron/root" ]; then sed -i '/restic.lock/d' /var/spool/cron/root; else echo "first install"; fi
+              
+              crontab -u root -l | { cat; echo "* * * * * /usr/bin/nohup /usr/bin/flock --nonblock --conflict-exit-code 0 /run/user/restic.lock /root/hourly.sh -f \"${settings.path}\" >> /var/log/first-backup.log 2>&1 "; } | crontab -
+
+              crontab -u root -l | { cat; echo "0 */1 * * * /usr/bin/nohup /usr/bin/flock --nonblock --conflict-exit-code 0 /run/user/restic.lock /root/hourly.sh -f \"${settings.path}\" >> /var/log/restic.log 2>&1 "; } | crontab -
+
+      user: root
+
+  daily:
+
+      cmd [${settings.node}]:
+
+              curl -fsS https://raw.githubusercontent.com/axelJacquet/addon-backup/master/daily.sh --output daily.sh
+
+              chmod u+x daily.sh
+              
+              if [ -f "/var/spool/cron/crontabs/root" ]; then sed -i '/restic.lock/d' /var/spool/cron/crontabs/root; elif [ -f "/var/spool/cron/root" ]; then sed -i '/restic.lock/d' /var/spool/cron/root; else echo "first install"; fi
+              
+              crontab -u root -l | { cat; echo "* * * * * /usr/bin/nohup /usr/bin/flock --nonblock --conflict-exit-code 0 /run/user/restic.lock /root/daily.sh -f \"${settings.path}\" >> /var/log/first-backup.log 2>&1 "; } | crontab -
+
+              crontab -u root -l | { cat; echo "0 23 * * * /usr/bin/nohup /usr/bin/flock --nonblock --conflict-exit-code 0 /run/user/restic.lock /root/daily.sh -f \"${settings.path}\" >> /var/log/restic.log 2>&1 "; } | crontab -
+
+      user: root
