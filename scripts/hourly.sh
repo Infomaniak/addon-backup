@@ -36,7 +36,9 @@ done
 FOLDERS_TO_BACKUP=$(echo ${FOLDER_TO_BACKUP} | tr -d  ' ' | tr  ',' ' ' )
 
 for i in ${FOLDERS_TO_BACKUP}"" ; do
-       
+
+       restic unlock
+
        if ! eval "/usr/bin/restic backup --hostname $host --tag $i $i"; then
        
                 restic unlock
