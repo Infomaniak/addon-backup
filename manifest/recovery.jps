@@ -56,7 +56,7 @@ onInstall:
 
             . /root/.config/swissbackup/openrc2.sh
 
-            curl -fsS https://raw.githubusercontent.com/axelJacquet/addon-backup/master/recovery.sh --output recovery.sh
+            curl -fsS https://raw.githubusercontent.com/axelJacquet/addon-backup/master/scripts/recovery.sh --output recovery.sh
 
             chmod +x recovery.sh
 
