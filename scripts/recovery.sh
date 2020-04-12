@@ -1,7 +1,6 @@
 #!/bin/bash
 
 set -x
-
 set -e
 
 #Apply credentials openrc
@@ -79,19 +78,16 @@ for i in ${TARGET_IDS}"" ; do
 
   restic_cmd=$(eval "$restic")
 
-  check="echo omagad ---->"$restic_cmd""
-
-
   char='not'
+  
   if [[ "$check" == *"$char"* ]]; then
-   echo "id faux "
-   exit 1
+  
+        echo "id faux "
+        exit 1
 
    else
-   echo " cet id est bon "
-    eval "restic restore $i --target $destination"
-   
-
+        echo " cet id est bon "
+        eval "restic restore $i --target $destination"
   fi
 
 
