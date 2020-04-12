@@ -10,7 +10,7 @@ crontab -u root -l | grep -v '/var/log/first-backup.log'  | crontab -u root -
 
 touch /home/plan.json
 
-. /root/.config/swissbackup/openrc.sh
+. /home/.config/swissbackup/openrc.sh
 
 usage () {
         echo "$0 --folders-to-backup <folder1>[,folder2,folder3,...]"
