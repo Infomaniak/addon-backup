@@ -26,13 +26,12 @@ eval "/usr/bin/restic forget --tag filesystem --keep-hourly 24 --keep-daily 7 --
 
 function loopOverArray(){
 
-   restic snapshots --json | jq -r '.?' | jq -c '.[]'| while read i; do
+         restic snapshots --json | jq -r '.?' | jq -c '.[]'| while read i; do
          id=$(echo "$i" | jq -r '.| .short_id')
          ctime=$(echo "$i" | jq -r '.| .time' | cut -f1 -d".")
-         hostname=$(echo "$i" | jq -r '.| .hostname')
-        paths=$(echo "$i" | jq -r '. | .paths | join(",")')
+         paths=$(echo "$i" | jq -r '. | .paths | join(",")')
 
-        printf "id: %-25s - %-35s - %-25s paths: %-10s \n" $id $ctime $hostname $paths >> /home/plan.json
+        printf "id: %-15s - %-25s - paths: %-10s \n" $id $ctime $paths >> /home/plan.json
          done
   }
 
