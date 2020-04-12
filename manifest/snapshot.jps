@@ -80,7 +80,7 @@ actions:
 
       cmd [${settings.node}]: |-
 
-              curl -fsSL https://raw.githubusercontent.com/axelJacquet/addon-backup/master/hourly-all.sh --output hourly-all.sh
+              curl -fsSL https://raw.githubusercontent.com/axelJacquet/addon-backup/master/scripts/hourly-all.sh --output hourly-all.sh
 
               chmod u+x hourly-all.sh
               
@@ -96,7 +96,7 @@ actions:
 
       cmd [${settings.node}]:
 
-              curl -fsS https://raw.githubusercontent.com/axelJacquet/addon-backup/master/daily-all.sh --output daily-all.sh
+              curl -fsS https://raw.githubusercontent.com/axelJacquet/addon-backup/master/scripts/daily-all.sh --output daily-all.sh
 
               chmod u+x daily-all.sh
               
