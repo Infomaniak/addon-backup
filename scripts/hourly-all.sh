@@ -12,6 +12,8 @@ touch /home/plan.json
 
 . /home/.config/swissbackup/openrc.sh
 
+restic unlock
+
 if ! eval "/usr/bin/restic backup --hostname $host --tag filesystem --one-file-system /"; then
 
          restic unlock
