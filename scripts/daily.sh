@@ -36,18 +36,21 @@ FOLDERS_TO_BACKUP=$(echo ${FOLDER_TO_BACKUP} | tr -d  ' ' | tr  ',' ' '  )
 
 for i in ${FOLDERS_TO_BACKUP}"" ; do
 
-eval "/usr/bin/restic backup --hostname $host --tag $i $i"
-
+       if ! eval "/usr/bin/restic backup --hostname $host --tag $i $i"; then
+       
+                restic unlock
+       fi
 done
 
 for p in ${FOLDERS_TO_BACKUP}"" ; do
 
-sleep 5
+        sleep 5
 
-restic unlock
-
-eval "/usr/bin/restic forget --tag $p --keep-daily 7 --keep-weekly 4 --keep-monthly 6 --keep-yearly 3 --prune"
-
+       if ! eval "/usr/bin/restic forget --tag $p --keep-daily 7 --keep-weekly 4 --keep-monthly 6 --keep-yearly 3 --prune"; then
+                restic unlock
+                
+                restic rebuild-index
+       fi
 done
 
 > /home/plan.json
