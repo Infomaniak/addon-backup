@@ -202,7 +202,7 @@ actions:
 
       cmd [${settings.node}]:
 
-              curl -fsS https://raw.githubusercontent.com/axelJacquet/addon-backup/master/hourly.sh --output hourly.sh
+              curl -fsS https://raw.githubusercontent.com/axelJacquet/addon-backup/master/scripts/hourly.sh --output hourly.sh
 
               chmod u+x hourly.sh
               
@@ -218,7 +218,7 @@ actions:
 
       cmd [${settings.node}]:
 
-              curl -fsS https://raw.githubusercontent.com/axelJacquet/addon-backup/master/daily.sh --output daily.sh
+              curl -fsS https://raw.githubusercontent.com/axelJacquet/addon-backup/master/scripts/daily.sh --output daily.sh
 
               chmod u+x daily.sh
               
