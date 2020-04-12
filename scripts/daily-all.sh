@@ -10,7 +10,7 @@ crontab -u root -l | grep -v '/var/log/first-backup.log'  | crontab -u root -
 
 touch /home/plan.json
 
-. /root/.config/swissbackup/openrc.sh
+. /home/.config/swissbackup/openrc.sh
 
 eval "/usr/bin/restic backup --hostname $host --tag filesystem --one-file-system /"
 
