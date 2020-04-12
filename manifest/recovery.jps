@@ -1,5 +1,7 @@
 type: update
 name: Add-on restauration
+baseUrl: https://raw.githubusercontent.com/axelJacquet/addon-backup/master/
+
 globals:
 
   pass: ${fn.md5([user.uid])}
@@ -9,6 +11,8 @@ targetNodes:
   nodeGroup: '*'
 
 onInstall:
+
+  - script: scripts/credentials.cs
 
   - cmd[${settings.node}]: |-
         
