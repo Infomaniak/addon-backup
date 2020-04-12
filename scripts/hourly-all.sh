@@ -12,15 +12,20 @@ touch /home/plan.json
 
 . /home/.config/swissbackup/openrc.sh
 
-eval "/usr/bin/restic backup --hostname $host --tag filesystem --one-file-system /"
+if ! eval "/usr/bin/restic backup --hostname $host --tag filesystem --one-file-system /"; then
 
+         restic unlock
+fi
 
 sleep 5
 
-restic unlock
+if ! eval "/usr/bin/restic forget --tag filesystem --keep-hourly 24 --keep-daily 7 --keep-weekly 4 --keep-monthly 6 --keep-yearly 3 --prune"; then
 
-eval "/usr/bin/restic forget --tag filesystem --keep-hourly 24 --keep-daily 7 --keep-weekly 4 --keep-monthly 6 --keep-yearly 3 --prune"
+         restic unlock
+         
+         restic rebuild-index
 
+fi
 
 > /home/plan.json
 
