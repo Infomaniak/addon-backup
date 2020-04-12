@@ -1,5 +1,6 @@
 type: update
 name: Add-on backup
+baseUrl: https://raw.githubusercontent.com/axelJacquet/addon-backup/master/
 
 globals:
 
