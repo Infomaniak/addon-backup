@@ -46,3 +46,21 @@ La politique de rétention associée est la suivante : It will keep the most rec
 Quand vous sélectionnez Snapshot of the whole container le champ Backup all file system apparait.
 Celui-ci permet de sauvegarder l'intégralité du système de fichiers de votre container.
 
+## Restoration Process
+
+Lors de la sélection de Restore your data ces champs apparaissent.
+<img src="Capture d’écran 2020-04-13 à 09.44.33.png" width="400">
+
+De la même manière que pour les sauvegardes il faut spécifier votre identifiant SwissBackup ainsi que le mot de passe
+associé.
+
+<img src="Capture d’écran 2020-04-13 à 09.44.52.png" width="400">
+
+La liste déroulante affiche les containers dans lesquels des sauvegardes sont présentes.
+Il vous suffit de choisir le container pour lequel vous voulez restaurer les données.
+
+Après la sélection du container le backup plan correspondant apparait.
+<img src="Capture d’écran 2020-04-13 à 09.45.13.png" width="400">
+
+Il vous suffit de sélectionner l'ID du backup que vous voulez restaurez, le répertoire dans lequel vous voulez
+restuarer le backup et de choisir dans quel environnement vous voulez restuarer vos données.
