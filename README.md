@@ -39,3 +39,10 @@ La politique de rétenttion associée est la suivante : It will keep the most re
 Hourly assure une sauvegarde de vos dossiers toutes les heures ( en début d'heure 13h00 par exemple ) 
 
 La politique de rétention associée est la suivante : It will keep the most recent 24 hourly snapshots, the most recent 7 daily snapshots, then 3  last-day-of-the-weeks and 6 last-day-of-the-months. And finally 3 last-day-of-the-year snapshots. Cette politique est appliqué toutes les heures sur le container cible.
+
+### Snapshot of the whole container
+<img src="Capture d’écran 2020-04-13 à 09.43.54.png" width="400">
+
+Quand vous sélectionnez Snapshot of the whole container le champ Backup all file system apparait.
+Celui-ci permet de sauvegarder l'intégralité du système de fichiers de votre container.
+
