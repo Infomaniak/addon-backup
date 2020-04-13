@@ -49,7 +49,10 @@ Celui-ci permet de sauvegarder l'intégralité du système de fichiers de votre 
 ## Restoration Process
 
 Lors de la sélection de Restore your data ces champs apparaissent.
+
+<p align="left">
 <img src="Capture d’écran 2020-04-13 à 09.44.33.png" width="400">
+</p>
 
 De la même manière que pour les sauvegardes il faut spécifier votre identifiant SwissBackup ainsi que le mot de passe
 associé.
