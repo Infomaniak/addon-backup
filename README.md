@@ -4,11 +4,6 @@
 
 # Add-on SwissBackup 
 
-Une solution dédiée pour l'ensemble de vos noeuds Jelastic permettant la configuration simple de plan de sauvegardes pour
-chacuns de vos containers. Utilisant la fiabilité des infrastructures dédiées à SwissBackup l'ensemble de vos données sont
-chiffrées end-to-end et répliquées 3 fois sur 3 lieux géographiques différents. Vous pouvez aisément restauré une sauvegarde
-sur n'importe quel noeud de votre compte.
-
 A dedicated solution for all of your Jelastic nodes allowing the simple configuration of backup plans for
 each of your containers. Using the reliability of the infrastructures dedicated to SwissBackup, all your data is
 encrypted (end-to-end) and replicated 3 times in 3 differents geographic locations. You can easily restore a backup
@@ -40,17 +35,18 @@ This allows you to save the entire file system of your container.
 ### Backup policies
 
 2 backup plans are available:
+
     - Daily 
     
     - Hourly
     
 Daily provides a backup of your files once a day at 11:00 p.m.
 
-The associated retention policy is as follows : It will keep the most recent 7 daily snapshots, then 3 (remember, 7 dailies already include a week!) last-day-of-the-weeks and 6 last-day-of-the-months. And finally 3 last-day-of-the-year snapshots. This policy is applied every day at 11:00 p.m. on the target container.
+The associated retention policy is as follows : It will keep the most recent 7 daily snapshots, then 3  last-day-of-the-weeks and 6 last-day-of-the-months. And finally 3 last-day-of-the-year snapshots. This policy is applied every day at 11:00 p.m. on the target container.
 
 Hourly provides a backup of your files every hour (at the start of the hour at 1:00 p.m. for example)
 
-The associated retention policy is as followse : It will keep the most recent 24 hourly snapshots, the most recent 7 daily snapshots, then 3  last-day-of-the-weeks and 6 last-day-of-the-months. And finally 3 last-day-of-the-year snapshots.
+The associated retention policy is as follows : It will keep the most recent 24 hourly snapshots, the most recent 7 daily snapshots, then 3  last-day-of-the-weeks and 6 last-day-of-the-months. And finally 3 last-day-of-the-year snapshots.
 This policy is applied every hour on the target container.
 
 ## Restoration Process
