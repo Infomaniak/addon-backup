@@ -1,5 +1,5 @@
 <p align="left">
-<img src="images/swissBackup.png" width="100">
+<img src="swissBackup.png" width="100">
 </p>
 
 # Add-on SwissBackup 
@@ -13,7 +13,7 @@ on any node in your account.
 There are 2 types of backups possible.
 
 ### Back-up specific folders
-<img src="Capture d’écran 2020-04-13 à 09.44.15.png" width="400">
+<img src="images/Capture d’écran 2020-04-13 à 09.44.15.png" width="400">
 
 When you select "Back-up specifics folders "the "Folders to back-up" field appears. This allows the specification
 of the folders to save, you can specify several folders (separate each path with a ","). You must enter the absolute path of each folder that you want to save.
