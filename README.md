@@ -27,7 +27,7 @@ After specifying these folders, you must select a backup plan.
 
 
 ### Snapshot of the whole container
-<img src="Capture d’écran 2020-04-13 à 09.43.54.png" width="400">
+<img src="images/Capture d’écran 2020-04-13 à 09.43.54.png" width="400">
 
 When you select "Snapshot of the whole container" the "Backup all file system" field appears.
 This allows you to save the entire file system of your container.
@@ -54,13 +54,13 @@ This policy is applied every hour on the target container.
 When selecting "Restore your data" these fields appear.
 
 <p align="left">
-<img src="Capture d’écran 2020-04-13 à 09.44.33.png" width="400">
+<img src="images/Capture d’écran 2020-04-13 à 09.44.33.png" width="400">
 </p>
 
 In the same way as for backups, you must specify your SwissBackup ID and password
 associated.
 
-<img src="Capture d’écran 2020-04-13 à 09.44.52.png" width="400">
+<img src="images/Capture d’écran 2020-04-13 à 09.44.52.png" width="400">
 
 The drop-down list displays the containers in which backups are present.
 You just have to choose the container for which you want to restore the data.
@@ -68,7 +68,7 @@ You just have to choose the container for which you want to restore the data.
 After selecting the container, the corresponding backup plan appears.
 
 <p align="left">
-<img src="Capture d’écran 2020-04-13 à 09.45.13.png" width="400">
+<img src="images/Capture d’écran 2020-04-13 à 09.45.13.png" width="400">
 </p>
 
 Just select the ID of the backup you want to restore, the directory where you want
