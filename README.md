@@ -14,8 +14,18 @@ sur n'importe quel noeud de votre compte.
 Il y a 2 types de sauvegardes possbiles.
 
 ### Back-up specific folders
-<img src="Capture d’écran 2020-04-13 à 09.43.54.png" width="300">
+<img src="Capture d’écran 2020-04-13 à 09.44.15.png">
+
+Quand vous sélectionnez Back-up specifics folders le champ Folders to back-up apparait.Celui-ci permet la spécification
+des dossiers à sauvegarder, vous pouvez specifier plusieurs dossiers ( séparer chaques chemins par une "," ). Il faut renseigner le chemin absoliue de chaques dossiers que l'on désire sauvegarder.
 
 
+Exemple : /root/admin/, /home/user1/, /jelastic/containers/
 
+Dans cet exemple 3 dossiers ont été spécifié.
+
+<img src="Capture d’écran 2020-04-13 à 09.44.15.png">
+
+
+Après avoir spécifié ces dossiers il faut sélectionner un plan de sauvegarde.
 
