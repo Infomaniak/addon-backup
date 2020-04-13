@@ -14,7 +14,7 @@ sur n'importe quel noeud de votre compte.
 Il y a 2 types de sauvegardes possbiles.
 
 ### Back-up specific folders
-<img src="Capture d’écran 2020-04-13 à 09.43.54.png" width="100">
+<img src="Capture d’écran 2020-04-13 à 09.43.54.png" width="200">
 
 
 
