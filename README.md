@@ -1,5 +1,5 @@
 <p align="left">
-<img src="/images/swissBackup.png" width="100">
+<img src="images/swissBackup.png" width="100">
 </p>
 
 # Add-on SwissBackup 
