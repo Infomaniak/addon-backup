@@ -30,9 +30,9 @@ onInstall:
           
           mv jq /usr/bin/
           
-          mkdir /home/.config/
+          mkdir -p /home/.config/
           
-          mkdir /home/.config/swissbackup/
+          mkdir -p /home/.config/swissbackup/
 
           touch /home/.config/swissbackup/openrc.sh
 
