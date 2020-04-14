@@ -66,7 +66,7 @@ while getopts "d:" o; do
 done
 shift $((OPTIND-1))
 
-chmod -R o=x+r+w $destination
+chmod -R a=x+r+w $destination
 
 TARGET_IDS=$(echo ${IDS} | tr -d  ' ' | tr  ',' ' ' )
 
