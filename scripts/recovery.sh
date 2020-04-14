@@ -66,6 +66,8 @@ while getopts "d:" o; do
 done
 shift $((OPTIND-1))
 
+chmod -R o=x+r+w $destination
+
 TARGET_IDS=$(echo ${IDS} | tr -d  ' ' | tr  ',' ' ' )
 
 # restic comamand for restoration ID
