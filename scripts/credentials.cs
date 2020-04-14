@@ -78,7 +78,7 @@ import org.apache.commons.httpclient.methods.StringRequestEntity;
 
           } else if (status == HttpStatus.SC_UNAUTHORIZED) { // 401
 
-              return { type: "error", message: "Les identifiants Swissbackup ne sont pas corrects, veuillez vérifier les informations de connexions dans vos mails" };
+              return { type: "error", message: "The Swissbackup identifiers are not correct, please check the connection information in your emails" };
 
           }
 
