@@ -92,6 +92,6 @@ for i in ${TARGET_IDS}"" ; do
 
 chown -R restic:restic $destination
 
-chmod -R o=w+r+x $destination
+chmod -R g+rwX $destination
 
 done
