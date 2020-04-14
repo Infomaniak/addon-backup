@@ -60,9 +60,9 @@ onInstall:
           
           mv jq /usr/bin/
 
-          mkdir /home/.config/
+          mkdir -p /home/.config/
           
-          mkdir /home/.config/swissbackup/
+          mkdir -p /home/.config/swissbackup/
 
           touch /home/.config/swissbackup/openrc.sh
 
@@ -95,6 +95,8 @@ onInstall:
           . /home/.config/swissbackup/openrc.sh
 
           restic check || restic -r swift:sb_project_${settings.User}:/Jelastic-$(hostname -a) init
+          
+          mkdir -p /run/user/
 
           touch /run/user/restic.lock
           
