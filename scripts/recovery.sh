@@ -90,7 +90,9 @@ for i in ${TARGET_IDS}"" ; do
         eval "restic restore $i --target $destination"
   fi
 
-chmod -R a=x+r+w $destination
+chmod -R 766 $destination
+
+chown -R restic:restic $destination
 
 
 done
