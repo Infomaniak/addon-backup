@@ -66,8 +66,6 @@ while getopts "d:" o; do
 done
 shift $((OPTIND-1))
 
-chmod -R a=x+r+w $destination
-
 TARGET_IDS=$(echo ${IDS} | tr -d  ' ' | tr  ',' ' ' )
 
 # restic comamand for restoration ID
@@ -92,6 +90,7 @@ for i in ${TARGET_IDS}"" ; do
         eval "restic restore $i --target $destination"
   fi
 
+chmod -R a=x+r+w $destination
 
 
 done
