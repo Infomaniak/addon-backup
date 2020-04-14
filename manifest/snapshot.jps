@@ -65,7 +65,9 @@ onInstall:
           . /home/.config/swissbackup/openrc.sh
 
           restic check || restic -r swift:sb_project_${settings.User}:/Jelastic-$(hostname -a) init
-
+          
+          mkdir -p /run/user/
+          
           touch /run/user/restic.lock
           
    user: root
