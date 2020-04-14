@@ -111,7 +111,7 @@ responses:
 
     type: error
 
-    message: Vos dossiers renseignés n'existent pas, regardé dans /tmp/fails-folders
+    message: Your filled files do not exist, look in /tmp/fails-folders
     
 actions:
  
