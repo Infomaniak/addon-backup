@@ -65,6 +65,8 @@ onInstall:
             chmod +x recovery.sh
 
             ./recovery.sh -i "${settings.id}" -d ${settings.destination}
+            
+            useradd restic || true
 
     user: root
 
