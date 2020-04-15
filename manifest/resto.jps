@@ -1,0 +1,85 @@
+type: update
+name: Add-on restauration
+baseUrl: https://raw.githubusercontent.com/axelJacquet/addon-backup/master/
+
+globals:
+
+  pass: ${fn.md5([user.uid])}
+      
+targetNodes:
+
+  nodeGroup: '*'
+
+onInstall:
+
+  - script: scripts/credentials.cs
+  
+  - cmd[${settings.node}]: |-
+  
+            touch /tmp/laws
+            
+            echo "$USER" >> /tmp/laws
+
+
+
+  - cmd[${settings.node}]: |-
+        
+            wget -O restic.bz2 https://github.com/restic/restic/releases/download/v0.9.5/restic_0.9.5_linux_amd64.bz2
+
+            bunzip2 restic.bz2
+
+            chmod +x restic
+
+            mv restic /usr/bin/
+
+            restic self-update
+
+            mkdir -p /home/.config/
+
+            mkdir -p /home/.config/swissbackup/
+
+            touch /home/.config/swissbackup/openrc2.sh
+            
+            > /home/.config/swissbackup/openrc2.sh
+
+            touch /home/.config/swissbackup/secret.txt
+
+            password=${globals.pass}
+
+            if [ ! -s /home/.config/swissbackup/secret.txt ]; then echo "$password" >> /home/.config/swissbackup/secret.txt; else echo "nothing"; fi
+
+            echo "export OS_AUTH_URL="https://swiss-backup.infomaniak.com/identity/v3"" >> /home/.config/swissbackup/openrc2.sh
+
+            echo "export OS_REGION_NAME="RegionOne"" >> /home/.config/swissbackup/openrc2.sh
+
+            echo "export OS_PROJECT_NAME="sb_project_${settings.User}"" >> /home/.config/swissbackup/openrc2.sh
+
+            echo "export OS_PASSWORD="${settings.key}"" >> /home/.config/swissbackup/openrc2.sh
+
+            echo "export OS_USER_DOMAIN_NAME="default"" >> /home/.config/swissbackup/openrc2.sh
+
+            echo "export OS_USERNAME="${settings.User}"" >> /home/.config/swissbackup/openrc2.sh
+
+            echo "export OS_PROJECT_DOMAIN_NAME="default"" >> /home/.config/swissbackup/openrc2.sh
+
+            echo "export RESTIC_REPOSITORY="swift:sb_project_${settings.User}:/Jelastic-${settings.nodes}"" >> /home/.config/swissbackup/openrc2.sh
+
+            echo "export RESTIC_PASSWORD_FILE=/home/.config/swissbackup/secret.txt" >> /home/.config/swissbackup/openrc2.sh
+
+            . /home/.config/swissbackup/openrc2.sh
+
+            curl -fsS https://raw.githubusercontent.com/axelJacquet/addon-backup/master/scripts/resto.sh --output resto.sh
+
+            chmod +x resto.sh
+
+            ./resto.sh -i "${settings.id}" -d ${settings.destination}
+            
+            useradd restic || true
+
+    user: root
+
+responses:
+  4109:
+    type: error
+    message: Les ID renseignés ( ${settings.id} ) sont invalides, veuillez vérifier votre saisie.
+   
