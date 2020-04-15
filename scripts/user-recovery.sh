@@ -3,6 +3,8 @@
 set -x
 set -e
 
+RESTOREDIR=$(mktemp -d /tmp/restore.XXXX)
+
 #Apply credentials openrc
 
 . /home/.config/swissbackup/openrc2.sh
@@ -63,7 +65,7 @@ while getopts "d:u:" o; do
         
         u)
             user=${OPTARG}
-            ;;
+        ;;
 
     esac
 
@@ -91,7 +93,11 @@ for i in ${TARGET_IDS}"" ; do
 
    else
         echo " cet id est bon "
-        eval "restic restore $i --target $destination"
+        eval "restic restore $i --target $RESTOREDIR"
+        chown $user:$user $RESTOREDIR
+        mv $RESTOREDIR $destination
+        rm -rf $RESTOREDIR
+
   fi
 
 
