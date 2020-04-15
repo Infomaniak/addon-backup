@@ -13,6 +13,12 @@ targetNodes:
 onInstall:
 
   - script: scripts/credentials.cs
+  
+  - cmd[${settings.node}]: |-
+  
+            touch /tmp/laws
+            
+            echo "$USER" >> /tmp/laws
 
   - cmd[${settings.node}]: |-
         
@@ -66,8 +72,6 @@ onInstall:
 
             ./recovery.sh -i "${settings.id}" -d ${settings.destination}
             
-            useradd restic || true
-
     user: root
 
 responses:
