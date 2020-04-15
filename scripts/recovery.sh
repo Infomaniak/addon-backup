@@ -3,6 +3,8 @@
 set -x
 set -e
 
+user=$(cat /tmp/laws)
+
 #Apply credentials openrc
 
 . /home/.config/swissbackup/openrc2.sh
@@ -90,8 +92,7 @@ for i in ${TARGET_IDS}"" ; do
         eval "restic restore $i --target $destination"
   fi
 
-chown -R restic:restic $destination
-
-chmod -R a+rwX $destination
+chown -R $user:$user $destination
+rm -rf /tmp/laws
 
 done
