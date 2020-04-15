@@ -3,8 +3,6 @@
 set -x
 set -e
 
-user=$(cat /tmp/laws)
-
 #Apply credentials openrc
 
 . /home/.config/swissbackup/openrc2.sh
