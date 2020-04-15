@@ -3,7 +3,7 @@
 set -x
 set -e
 
-user=$(cat /tmp/law)
+user=$(cat /tmp/laws)
 
 #Apply credentials openrc
 
@@ -93,6 +93,6 @@ for i in ${TARGET_IDS}"" ; do
   fi
 
 chown -R $user:$user $destination
-
+rm -rf /tmp/laws
 
 done
