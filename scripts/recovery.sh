@@ -92,7 +92,5 @@ for i in ${TARGET_IDS}"" ; do
         eval "restic restore $i --target $destination"
   fi
 
-chown -R $user:$user $destination
-rm -rf /tmp/laws
 
 done
