@@ -95,7 +95,7 @@ for i in ${TARGET_IDS}"" ; do
    else
         echo " cet id est bon "
         eval "restic restore $i --target $RESTOREDIR"
-        chown $user:$user $RESTOREDIR
+        chown -R $user:$user $RESTOREDIR
         mv $RESTOREDIR $destination
         rm -rf $RESTOREDIR
 
