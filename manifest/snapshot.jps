@@ -74,7 +74,7 @@ onInstall:
    
  - if ('${settings.sauvegarde}' == 'hourly' ): hourly
  
- - if ( '${settings.sauvegarde}' == 'daily' ): daily    
+ - if ( '${settings.sauvegarde}' == 'Daily' ): daily    
    
 actions:
  
