@@ -104,7 +104,7 @@ onInstall:
    
  - if ('${settings.sauvegarde}' == 'hourly' ): hourly
  
- - if ( '${settings.sauvegarde}' == 'Daily' ): daily    
+ - if ( '${settings.sauvegarde}' == 'daily' ): daily    
 responses:
 
   4109:
