@@ -129,7 +129,8 @@ actions:
 
               crontab -u root -l | { cat; echo "0 */1 * * * /usr/bin/nohup /usr/bin/flock --nonblock --conflict-exit-code 0 /run/user/restic.lock /root/hourly.sh -f \"${settings.path}\" >> /var/log/restic.log 2>&1 "; } | crontab -
               
-              
+              if [ ! -f "/var/log/restic.log" ]; then crontab -u root -l | { cat; echo "0 0 1 * * > /var/log/restic.log  "; } | crontab -; else touch /var/log/restic.log; fi
+
 
 
       user: root
