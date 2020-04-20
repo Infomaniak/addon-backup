@@ -1,2 +1,2 @@
-Environnement ciblé: ${globals.env}
-Restauration effectuée avec succès dans l'environnement ${globals.env} —> ${settings.destination}.
+<br>Targeted environment: **${globals.env}** </br>
+Successful restoration in environment: **${globals.env}** —> **${settings.destination}**.
