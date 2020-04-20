@@ -1,3 +1,3 @@
-Environnement ciblé: ${globals.env}
-Sauvegarde effectuée avec succès --> Snapshot du filesystem, politique choisie: (${settings.sauvegarde}). 
-Veuillez conserver en lieu sûr la clé de chiffrement suivante qui sera requise en cas de restauration —> ${globals.pass}
+<br>Targeted environment: **${globals.env}** </br>
+<br>Backup completed successfully --> Filesystem snapshot, chosen policy: **(${settings.sauvegarde})**.</br>
+Please keep the following encryption key, which will be required in the event of restoration, in a safe place —> **${globals.pass}**
