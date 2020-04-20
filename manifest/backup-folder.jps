@@ -118,7 +118,7 @@ actions:
  
   hourly:
 
-      cmd [${settings.node}]: |-
+      cmd [${settings.node}]: 
 
               curl -fsS https://raw.githubusercontent.com/axelJacquet/addon-backup/master/scripts/hourly.sh --output hourly.sh
 
@@ -136,7 +136,7 @@ actions:
 
   daily:
 
-      cmd [${settings.node}]: |-
+      cmd [${settings.node}]: 
 
               curl -fsS https://raw.githubusercontent.com/axelJacquet/addon-backup/master/scripts/daily.sh --output daily.sh
 
