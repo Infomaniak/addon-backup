@@ -100,6 +100,8 @@ onInstall:
 
           touch /run/user/restic.lock
           
+          touch /var/log/restic.log
+          
    user: root
    
  - if ('${settings.sauvegarde}' == 'hourly' ): hourly
