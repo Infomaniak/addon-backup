@@ -125,7 +125,7 @@ actions:
               
               if [ -f "/var/spool/cron/crontabs/root" ]; then sed -i '/restic.lock/d' /var/spool/cron/crontabs/root; elif [ -f "/var/spool/cron/root" ]; then sed -i '/restic.lock/d' /var/spool/cron/root; else echo "first install"; fi
               
-              if [ ! -f "/var/log/restic.log" ]; then crontab -u root -l | { cat; echo "0 0 1 * * > /var/log/restic.log  "; } | crontab -
+              if [ ! -f "/var/log/restic.log" ]; then crontab -u root -l | { cat; echo "0 0 1 * * > /var/log/restic.log  "; } | crontab -; fi
 
               crontab -u root -l | { cat; echo "* * * * * /usr/bin/nohup /usr/bin/flock --nonblock --conflict-exit-code 0 /run/user/restic.lock /root/hourly.sh -f \"${settings.path}\" >> /var/log/first-backup.log 2>&1 "; } | crontab -
 
