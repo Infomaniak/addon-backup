@@ -30,14 +30,19 @@ fi
 > /home/plan.json
 
 function loopOverArray(){
-
          restic snapshots --json | jq -r '.?' | jq -c '.[]'| while read i; do
-         id=$(echo "$i" | jq -r '.| .short_id')
-         ctime=$(echo "$i" | jq -r '.| .time' | cut -f1 -d".")
-         paths=$(echo "$i" | jq -r '. | .paths | join(",")')
+           id=$(echo "$i" | jq -r '.| .short_id')
+              ctime=$(echo "$i" | jq -r '.| .time' | cut -f1 -d".")
+                  paths=$(echo "$i" | jq -r '. | .paths | join(",")')
+            hostname=$(echo $i | jq -r '.| .hostname')
+                                                      
+       printf "{\"id\":%-s, \"date\":%-s, \"path\":%-s, \"name\":%-s}," \"$id\" \"$ctime\" \"$paths\" \"$hostname\"
+     
+               done
+              }
+             function parse(){
+              local res=$(loopOverArray)
+       echo "[$res]" | sed 's/\(.*\),/\1 /' >> /home/plan.json
+          }
+         parse
 
-        printf "id: %-15s - %-25s - paths: %-10s \n" $id $ctime $paths >> /home/plan.json
-         done
-  }
-
-   loopOverArray
