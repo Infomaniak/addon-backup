@@ -1,4 +1,3 @@
-<br>Environnement ciblé: **${globals.env}**</br>
-<br>Sauvegarde effectuée avec succès --> **${settings.path}** **(${settings.sauvegarde})**. </br>
-<br>Veuillez conserver en lieu sûr la clé de chiffrement suivante qui sera requise en cas de restauration —> ${globals.pass}</br>  
-
+<br>Targeted environment: **${globals.env}** </br>
+<br>Backup completed successfully --> **${settings.path}**, chosen backup frequency: **(${settings.sauvegarde})**.</br>
+Backups duration Years: **"${settings.year}" Months: "${settings.month}" Days: "${settings.day}" Hours: "${settings.hour}"**
