@@ -33,6 +33,37 @@ for i in $@ ; do
         esac
 done
 
+usage2() {  1>&2; exit 1; }
+
+while getopts "s:h:d:w:m:y:" o; do
+    case "${o}" in
+
+        s)
+            last_snapshot=${OPTARG}
+            ;;
+
+
+        h)
+            hour=${OPTARG}
+            ;;
+        d)
+            day=${OPTARG}
+            ;;
+        w)
+            week=${OPTARG}
+            ;;
+
+        m)
+            month=${OPTARG}
+            ;;
+
+        y)
+            year=${OPTARG}
+            ;;
+    esac
+done
+shift $((OPTIND-1))
+
 FOLDERS_TO_BACKUP=$(echo ${FOLDER_TO_BACKUP} | tr -d  ' ' | tr  ',' ' ' )
 
 for i in ${FOLDERS_TO_BACKUP}"" ; do
