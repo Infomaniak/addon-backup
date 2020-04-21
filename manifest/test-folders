@@ -117,7 +117,7 @@ actions:
  
   hourly:
 
-      cmd [${settings.node}]:
+      cmd [${settings.node}]: |-
 
               curl -fsS https://raw.githubusercontent.com/axelJacquet/addon-backup/master/scripts/retention.sh --output retention.sh
 
@@ -139,7 +139,7 @@ actions:
 
   daily:
 
-      cmd [${settings.node}]:
+      cmd [${settings.node}]: |-
 
               curl -fsS https://raw.githubusercontent.com/axelJacquet/addon-backup/master/scripts/retention.sh --output retention.sh
 
