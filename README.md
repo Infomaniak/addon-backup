@@ -8,6 +8,8 @@ A dedicated solution for all of your Jelastic nodes allowing the simple configur
 each of your containers. Using the reliability of the infrastructures dedicated to SwissBackup, all your data is
 encrypted (end-to-end) and replicated 3 times in 3 differents geographic locations. You can easily restore a backup
 on any node in your account.
+
+You have 90 free days of Swiss Backup product. You can easily obtains your account in Infomaniak manager.
 ## Backup Process
 
 There are 2 types of backups possible.
