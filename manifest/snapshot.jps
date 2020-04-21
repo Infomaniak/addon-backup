@@ -82,7 +82,7 @@ actions:
 
       cmd [${settings.node}]: |-
 
-              curl -fsSL https://raw.githubusercontent.com/axelJacquet/addon-backup/master/scripts/hourly-all.sh --output retention-all.sh
+              curl -fsSL https://raw.githubusercontent.com/axelJacquet/addon-backup/master/scripts/retention-all.sh --output retention-all.sh
 
               chmod u+x retention-all.sh
               
@@ -98,7 +98,7 @@ actions:
 
       cmd [${settings.node}]: |-
 
-              curl -fsS https://raw.githubusercontent.com/axelJacquet/addon-backup/master/scripts/daily-all.sh --output retention-all.sh
+              curl -fsS https://raw.githubusercontent.com/axelJacquet/addon-backup/master/scripts/retention-all.sh --output retention-all.sh
 
               chmod u+x retention-all.sh
               
