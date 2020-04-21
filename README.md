@@ -13,19 +13,19 @@ You have 90 free days of Swiss Backup product. You can easily obtains your accou
 First step:
 
 <p align="left">
-<img src="images/device.png" width="100">
+<img src="images/device.png" width="400">
 </p>
 
 Choice Free storage space:
 
 <p align="left">
-<img src="images/storage.png" width="100">
+<img src="images/storage.png" width="400">
 </p>
 
 You can see your Swiss Backup credentials here and in your email:
 
 <p align="left">
-<img src="images/credential.png" width="100">
+<img src="images/credentials.png" width="400">
 </p>
 
 
