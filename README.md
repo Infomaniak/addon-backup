@@ -10,6 +10,25 @@ encrypted (end-to-end) and replicated 3 times in 3 differents geographic locatio
 on any node in your account.
 
 You have 90 free days of Swiss Backup product. You can easily obtains your account in Infomaniak manager.
+First step:
+
+<p align="left">
+<img src="images/device.png" width="100">
+</p>
+
+Choice Free storage space:
+
+<p align="left">
+<img src="images/storage.png" width="100">
+</p>
+
+You can see your Swiss Backup credentials here and in your email:
+
+<p align="left">
+<img src="images/credential.png" width="100">
+</p>
+
+
 ## Backup Process
 
 There are 2 types of backups possible.
