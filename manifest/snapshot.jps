@@ -82,30 +82,30 @@ actions:
 
       cmd [${settings.node}]: |-
 
-              curl -fsSL https://raw.githubusercontent.com/axelJacquet/addon-backup/master/scripts/hourly-all.sh --output hourly-all.sh
+              curl -fsSL https://raw.githubusercontent.com/axelJacquet/addon-backup/master/scripts/hourly-all.sh --output retention-all.sh
 
-              chmod u+x hourly-all.sh
+              chmod u+x retention-all.sh
               
               if [ -f "/var/spool/cron/crontabs/root" ]; then sed -i '/restic.lock/d' /var/spool/cron/crontabs/root; elif [ -f "/var/spool/cron/root" ]; then sed -i '/restic.lock/d' /var/spool/cron/root; else echo "first install"; fi
               
-              crontab -u root -l | { cat; echo "* * * * * /usr/bin/nohup /usr/bin/flock --nonblock --conflict-exit-code 0 /run/user/restic.lock /root/hourly-all.sh >> /var/log/first-backup.log 2>&1 "; } | crontab -
+              crontab -u root -l | { cat; echo "* * * * * /usr/bin/nohup /usr/bin/flock --nonblock --conflict-exit-code 0 /run/user/restic.lock /root/retention-all.sh -y \"${settings.year}\" -m \"${settings.month}\" -d \"${settings.day}\" -h \"${settings.hour}\" >> /var/log/first-backup.log 2>&1 "; } | crontab -
 
-              crontab -u root -l | { cat; echo "0 */1 * * * /usr/bin/nohup /usr/bin/flock --nonblock --conflict-exit-code 0 /run/user/restic.lock /root/hourly-all.sh >> /var/log/restic.log 2>&1 "; } | crontab -
+              crontab -u root -l | { cat; echo "0 */1 * * * /usr/bin/nohup /usr/bin/flock --nonblock --conflict-exit-code 0 /run/user/restic.lock /root/retention-all.sh -y \"${settings.year}\" -m \"${settings.month}\" -d \"${settings.day}\" -h \"${settings.hour}\" >> /var/log/restic.log 2>&1 "; } | crontab -
               
       user: root
 
   daily:
 
-      cmd [${settings.node}]:
+      cmd [${settings.node}]: |-
 
-              curl -fsS https://raw.githubusercontent.com/axelJacquet/addon-backup/master/scripts/daily-all.sh --output daily-all.sh
+              curl -fsS https://raw.githubusercontent.com/axelJacquet/addon-backup/master/scripts/daily-all.sh --output retention-all.sh
 
-              chmod u+x daily-all.sh
+              chmod u+x retention-all.sh
               
               if [ -f "/var/spool/cron/crontabs/root" ]; then sed -i '/restic.lock/d' /var/spool/cron/crontabs/root; elif [ -f "/var/spool/cron/root" ]; then sed -i '/restic.lock/d' /var/spool/cron/root; else echo "first install"; fi
               
-              crontab -u root -l | { cat; echo "* * * * * /usr/bin/nohup /usr/bin/flock --nonblock --conflict-exit-code 0 /run/user/restic.lock /root/daily-all.sh >> /var/log/first-backup.log 2>&1 "; } | crontab -
+              crontab -u root -l | { cat; echo "* * * * * /usr/bin/nohup /usr/bin/flock --nonblock --conflict-exit-code 0 /run/user/restic.lock /root/retention-all.sh -y \"${settings.year}\" -m \"${settings.month}\" -d \"${settings.day}\" -h \"${settings.hour}\" >> /var/log/first-backup.log 2>&1 "; } | crontab -
 
-              crontab -u root -l | { cat; echo "0 23 * * * /usr/bin/nohup /usr/bin/flock --nonblock --conflict-exit-code 0 /run/user/restic.lock /root/daily-all.sh >> /var/log/restic.log 2>&1 "; } | crontab -
+              crontab -u root -l | { cat; echo "0 23 * * * /usr/bin/nohup /usr/bin/flock --nonblock --conflict-exit-code 0 /run/user/restic.lock /root/retention-all.sh -y \"${settings.year}\" -m \"${settings.month}\" -d \"${settings.day}\" -h \"${settings.hour}\" >> /var/log/restic.log 2>&1 "; } | crontab -
 
       user: root
