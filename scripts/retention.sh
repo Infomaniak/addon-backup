@@ -71,7 +71,7 @@ for i in ${FOLDERS_TO_BACKUP}"" ; do
        restic unlock
 
        if ! eval "/usr/bin/restic backup --hostname $host --tag $i $i"; then
-       
+
                 restic unlock
        fi
 
@@ -81,10 +81,10 @@ for p in ${FOLDERS_TO_BACKUP}"" ; do
 
         sleep 5
 
-       if ! eval "/usr/bin/restic forget --tag $p --keep-hourly 24 --keep-daily 7 --keep-weekly 4 --keep-monthly 6 --keep-yearly 3 --prune"; then
-                
+       if ! eval "/usr/bin/restic forget --tag $p --keep-within "$year"y"$month"m"$day"d"$hour"h --prune"; then
+
                 restic unlock
-                
+
                 restic rebuild-index
        fi
 
@@ -98,9 +98,9 @@ function loopOverArray(){
               ctime=$(echo "$i" | jq -r '.| .time' | cut -f1 -d".")
                   paths=$(echo "$i" | jq -r '. | .paths | join(",")')
             hostname=$(echo $i | jq -r '.| .hostname')
-                                                      
+
        printf "{\"id\":%-s, \"date\":%-s, \"path\":%-s, \"name\":%-s}," \"$id\" \"$ctime\" \"$paths\" \"$hostname\"
-     
+
                done
               }
              function parse(){
