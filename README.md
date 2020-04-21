@@ -10,6 +10,7 @@ encrypted (end-to-end) and replicated 3 times in 3 differents geographic locatio
 on any node in your account.
 
 You have 90 free days of Swiss Backup product. You can easily obtains your account in Infomaniak manager.
+
 First step:
 
 <p align="left">
