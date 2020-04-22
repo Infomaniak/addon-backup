@@ -1,2 +1,3 @@
 <br>Targeted environment: **${globals.env}** </br>
-Successful restoration in environment: **${globals.env}** —> **${settings.destination}**.
+<br>Targeted node : **node${targetNodes[0].id}-${env.name}**
+Successful restoration in nodes: **node${targetNodes[0].id}-${env.name}** —> **${settings.destination}**.
