@@ -34,8 +34,7 @@ var params = {
 for (var x = 0, n = ids.length; x < n; x++) {
 
     nodesName[nodesArray[x]] = nodesArray[x];
-    restoNodes[nodesArray[x]] = nodesArray[x];
-
+    
 }
 
 
