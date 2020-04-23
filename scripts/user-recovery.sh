@@ -96,6 +96,12 @@ for i in ${TARGET_IDS}"" ; do
         echo " cet id est bon "
         eval "restic restore $i --target $RESTOREDIR"
         chown -R $user:$user $RESTOREDIR
+        
+                if [ ! -d "$destination" ]; then
+                
+                        mkdir $destination
+                fi
+                
         cp -a $RESTOREDIR/* $destination
         rm -rf $RESTOREDIR
 
