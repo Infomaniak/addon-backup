@@ -92,6 +92,10 @@ actions:
 
               crontab -u root -l | { cat; echo "0 */1 * * * /usr/bin/nohup /usr/bin/flock --nonblock --conflict-exit-code 0 /run/user/restic.lock /root/retention-all.sh -y \"${settings.year}\" -m \"${settings.month}\" -d \"${settings.day}\" -h \"${settings.hour}\" >> /var/log/restic.log 2>&1 "; } | crontab -
               
+              if [ ! -f "/var/log/restic.log" ]; then crontab -u root -l | { cat; echo "0 0 1 * * > /var/log/restic.log  "; } | crontab -; fi
+              
+              touch /var/log/restic.log
+              
       user: root
 
   daily:
@@ -107,5 +111,9 @@ actions:
               crontab -u root -l | { cat; echo "* * * * * /usr/bin/nohup /usr/bin/flock --nonblock --conflict-exit-code 0 /run/user/restic.lock /root/retention-all.sh -y \"${settings.year}\" -m \"${settings.month}\" -d \"${settings.day}\" -h \"${settings.hour}\" >> /var/log/first-backup.log 2>&1 "; } | crontab -
 
               crontab -u root -l | { cat; echo "0 23 * * * /usr/bin/nohup /usr/bin/flock --nonblock --conflict-exit-code 0 /run/user/restic.lock /root/retention-all.sh -y \"${settings.year}\" -m \"${settings.month}\" -d \"${settings.day}\" -h \"${settings.hour}\" >> /var/log/restic.log 2>&1 "; } | crontab -
-
+              
+              if [ ! -f "/var/log/restic.log" ]; then crontab -u root -l | { cat; echo "0 0 1 * * > /var/log/restic.log  "; } | crontab -; fi
+              
+              touch /var/log/restic.log
+              
       user: root
