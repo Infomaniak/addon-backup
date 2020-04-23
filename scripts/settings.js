@@ -48,12 +48,12 @@ ids.forEach(function(element) {
         file = FileReadResponse.body;
         file = file.replace(/T+(?=\d)/g, ' ');
         var array = toNative(new Yaml().load(file));
-        array.forEach(function(michel) {
-            if (!listBackups[michel["name"]]) {
-                listBackups[michel["name"]] = {};
+        array.forEach(function(objectBackup) {
+            if (!listBackups[objectBackup["name"]]) {
+                listBackups[objectBackup["name"]] = {};
             }
-            var toDisplay = michel["date"] + " " + michel["path"];
-            listBackups[michel["name"]][michel["id"]] = toDisplay
+            var toDisplay = objectBackup["date"] + " " + objectBackup["path"];
+            listBackups[objectBackup["name"]][objectBackup["id"]] = toDisplay
         })
     }
 });
