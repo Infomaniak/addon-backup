@@ -97,7 +97,7 @@ You just have to choose the container for which you want to restore the data.
 After selecting the container, the corresponding backup plan appears.
 
 <p align="left">
-<img src="select-backups.png" width="400">
+<img src="images/select-backups.png" width="400">
 </p>
 
 Just select the backup you want to restore, the directory where you want restore the backup and choose in which environment you want to restore your data.
@@ -114,6 +114,6 @@ first step: - to delete one backup :##### restic forget IdBackup --prune
             - to delete all backup of one file except one (security feature) ##### restic forget --tag folders --keep-last 1 --prune
 
 <p align="left">
-<img src="CLI-backups.png" width="400">
+<img src="images/CLI-backups.png" width="400">
 </p>
 
