@@ -1,24 +1,16 @@
 import org.yaml.snakeyaml.Yaml;
 
 var resp = jelastic.environment.control.GetEnvs(appid, session);
-if (resp.result != 0) return resp;
 var FileReadResponse2 = {};
-var x = {};
-var name = [];
-var exemple = {};
-var so = {};
-var tab = [];
-var mabite = {};
-plan = [];
-var buttonSettings = {};
-var show = {};
 var backupTemplate = "c3c375b4-83c6-434c-b8af-8ea6651e246d";
 var nodesArray = [];
 var nodesName = {};
-var restoNodes = {};
 var ids = [];
 var conteneur = '';
 var file = '';
+
+if (resp.result != 0) return resp;
+
 for (var i = 0; envInfo = resp.infos[i]; i++) {
     for (var j = 0; node = envInfo.nodes[j]; j++) {
         for (var m = 0; add = node.addons[m]; m++) {
