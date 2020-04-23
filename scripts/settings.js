@@ -49,11 +49,11 @@ ids.forEach(function(element) {
         file = file.replace(/T+(?=\d)/g, ' ');
         var array = toNative(new Yaml().load(file));
         array.forEach(function(michel) {
-            if (!listBackup[michel["name"]]) {
-                listBackup[michel["name"]] = {};
+            if (!listBackups[michel["name"]]) {
+                listBackups[michel["name"]] = {};
             }
             var toDisplay = michel["date"] + " " + michel["path"];
-            listBackup[michel["name"]][michel["id"]] = toDisplay
+            listBackups[michel["name"]][michel["id"]] = toDisplay
         })
     }
 });
@@ -144,7 +144,7 @@ return {
                                 "name": "snapshot",
                                 "required": true,
                                 "dependsOn": {
-                                    "nodes": listBackup
+                                    "nodes": listBackups
 
                                 }
 
