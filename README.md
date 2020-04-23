@@ -35,7 +35,7 @@ You can see your Swiss Backup credentials here and in your email:
 There are 2 types of backups possible.
 
 ### Back-up specific folders
-<img src="images/folders" width="400">
+<img src="images/folders.png" width="400">
 
 When you select "Back-up specifics folders "the "Folders to back-up" field appears. This allows the specification
 of the folders to save, you can specify several folders (separate each path with a ","). You must enter the absolute path of each folder that you want to save.
@@ -49,7 +49,7 @@ After specifying these folders, you must select a backup plan.
 
 
 ### Snapshot of the whole container
-<img src="images/snapshot" width="400">
+<img src="images/snapshot.png" width="400">
 
 When you select "Snapshot of the whole container" the "Backup all file system" field appears.
 This allows you to save the entire file system of your container.
@@ -81,22 +81,39 @@ So you first backup is done at 14:00 pm, each our retention policie is check ( 1
 When selecting "Restore your data" these fields appear.
 
 <p align="left">
-<img src="images/restoration" width="400">
+<img src="images/restoration.png" width="400">
 </p>
 
 In the same way as for backups, you must specify your SwissBackup ID and password
 associated.
 
-<img src="images/Capture d’écran 2020-04-13 à 09.44.52.png" width="400">
-
 The drop-down list displays the containers in which backups are present.
 You just have to choose the container for which you want to restore the data.
+
+<p align="left">
+<img src="images/select-node.png" width="400">
+</p>
 
 After selecting the container, the corresponding backup plan appears.
 
 <p align="left">
-<img src="images/Capture d’écran 2020-04-13 à 09.45.13.png" width="400">
+<img src="select-backups.png" width="400">
 </p>
 
-Just select the ID of the backup you want to restore, the directory where you want
-restore the backup and choose in which environment you want to restore your data.
+Just select the backup you want to restore, the directory where you want restore the backup and choose in which environment you want to restore your data.
+
+## Backups modification 
+
+If you want to modify the saved files, simply restart the addon from the marketplace. The automation of the saved files will be updated.
+
+## Delete backups directly in your nodes (CLI)
+
+first step : ##### . /home/.config/swissbackup/openrc.sh
+second step: ##### restic snapshots (see all your backups)
+first step: - to delete one backup :##### restic forget IdBackup --prune
+            - to delete all backup of one file except one (security feature) ##### restic forget --tag folders --keep-last 1 --prune
+
+<p align="left">
+<img src="CLI-backups.png" width="400">
+</p>
+
