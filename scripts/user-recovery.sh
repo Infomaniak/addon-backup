@@ -100,6 +100,7 @@ for i in ${TARGET_IDS}"" ; do
                 if [ ! -d "$destination" ]; then
                 
                         mkdir $destination
+                        chown $user:$user $destination
                 fi
                 
         cp -a $RESTOREDIR/* $destination
