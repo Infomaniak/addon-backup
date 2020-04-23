@@ -49,7 +49,7 @@ ids.forEach(function(element) {
         file = file.replace(/T+(?=\d)/g, ' ');
         var array = toNative(new Yaml().load(file));
         array.forEach(function(michel) {
-            if (!listBackup2[michel["name"]]) {
+            if (!listBackup[michel["name"]]) {
                 listBackup[michel["name"]] = {};
             }
             var toDisplay = michel["date"] + " " + michel["path"];
