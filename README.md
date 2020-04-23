@@ -114,8 +114,7 @@ second step: ``` restic snapshots (see all your backups) ```
 
 third step: to delete one backup : ```restic forget IdBackup --prune ```
 
-
-            to delete all backup of one file except one (security feature) ```restic forget --tag folders --keep-last 1 --prune```
+to delete all backup of one file except one (security feature): ```restic forget --tag folders --keep-last 1 --prune```
 
 <p align="left">
 <img src="images/CLI-backups.png" width="400">
