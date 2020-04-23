@@ -87,13 +87,6 @@ for (var w = 0, n = nodesArray.length; w < n; w++) {
     }]
 
 }
-//jelastic.marketplace.console.WriteLog("log array " + typeof(FileReadResponse2))
-jelastic.marketplace.console.WriteLog("log string " + typeof(file))
-jelastic.marketplace.console.WriteLog("log objet " + typeof(object))
-jelastic.marketplace.console.WriteLog(FileReadResponse2)
-jelastic.marketplace.console.WriteLog("je sjuis la" + exemple)
-// jelastic.marketplace.console.WriteLog("nom container" + name)
-
 
 return {
     result: 0,
