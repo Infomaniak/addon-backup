@@ -35,7 +35,7 @@ You can see your Swiss Backup credentials here and in your email:
 There are 2 types of backups possible.
 
 ### Back-up specific folders
-<img src="images/Capture d’écran 2020-04-13 à 09.44.15.png" width="400">
+<img src="images/folders" width="400">
 
 When you select "Back-up specifics folders "the "Folders to back-up" field appears. This allows the specification
 of the folders to save, you can specify several folders (separate each path with a ","). You must enter the absolute path of each folder that you want to save.
@@ -49,14 +49,14 @@ After specifying these folders, you must select a backup plan.
 
 
 ### Snapshot of the whole container
-<img src="images/Capture d’écran 2020-04-13 à 09.43.54.png" width="400">
+<img src="images/snapshot" width="400">
 
 When you select "Snapshot of the whole container" the "Backup all file system" field appears.
 This allows you to save the entire file system of your container.
 
 ### Backup policies
 
-2 backup plans are available:
+2 backup policies are available:
 
     - Daily 
     
@@ -64,19 +64,24 @@ This allows you to save the entire file system of your container.
     
 Daily provides a backup of your files once a day at 11:00 p.m.
 
-The associated retention policy is as follows : It will keep the most recent 7 daily snapshots, then 3  last-day-of-the-weeks and 6 last-day-of-the-months. And finally 3 last-day-of-the-year snapshots. This policy is applied every day at 11:00 p.m. on the target container.
-
 Hourly provides a backup of your files every hour (at the start of the hour at 1:00 p.m. for example)
 
-The associated retention policy is as follows : It will keep the most recent 24 hourly snapshots, the most recent 7 daily snapshots, then 3  last-day-of-the-weeks and 6 last-day-of-the-months. And finally 3 last-day-of-the-year snapshots.
-This policy is applied every hour on the target container.
+### Backup retention
+
+You can adjust **lifetime** of your backups.
+
+You can define the lifespan of your backups with years, months, days and hours
+Example:
+
+You backup your filesystem with Hourly policie and you choice 1 years 2 month 4 days 2 hours.
+So you first backup is done at 14:00 pm, each our retention policie is check ( 1 years 2 month 4 days 2 hours ) and if backups are older than 1 years 2 month 4 days 2 hours there are deleted.
 
 ## Restoration Process
 
 When selecting "Restore your data" these fields appear.
 
 <p align="left">
-<img src="images/Capture d’écran 2020-04-13 à 09.44.33.png" width="400">
+<img src="images/restoration" width="400">
 </p>
 
 In the same way as for backups, you must specify your SwissBackup ID and password
