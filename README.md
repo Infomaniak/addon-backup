@@ -76,11 +76,6 @@ Example:
 You backup your filesystem with Hourly policie and you choice 1 years 2 month 4 days 2 hours.
 So you first backup is done at 14:00 pm, each our retention policie is check ( 1 years 2 month 4 days 2 hours ) and if backups are older than 1 years 2 month 4 days 2 hours there are deleted.
 
-<p align="left">
-<img src="images/frequency.png" width="400">
-</p>
-
-
 ## Restoration Process
 
 When selecting "Restore your data" these fields appear.
