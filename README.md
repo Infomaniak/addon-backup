@@ -112,8 +112,10 @@ first step : ``` . /home/.config/swissbackup/openrc.sh ```
 
 second step: ``` restic snapshots (see all your backups) ```
 
-first step: * to delete one backup : ```restic forget IdBackup --prune ```
-            * to delete all backup of one file except one (security feature) ```restic forget --tag folders --keep-last 1 --prune```
+third step:
+            - to delete one backup : ```restic forget IdBackup --prune ```
+
+            - to delete all backup of one file except one (security feature) ```restic forget --tag folders --keep-last 1 --prune```
 
 <p align="left">
 <img src="images/CLI-backups.png" width="400">
