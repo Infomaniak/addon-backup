@@ -69,7 +69,6 @@ return {
                     "caption": "Swiss Backup username",
                     "type": "string",
                     "required": true,
-                    "placeholder": "SBI-234567",
                     "default": "SBI-"
                 }, {
                     "name": "key",
