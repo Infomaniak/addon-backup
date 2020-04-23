@@ -1,7 +1,7 @@
 import org.yaml.snakeyaml.Yaml;
 
 var resp = jelastic.environment.control.GetEnvs(appid, session);
-var FileReadResponse2 = {};
+var listBackups = {};
 var backupTemplate = "c3c375b4-83c6-434c-b8af-8ea6651e246d";
 var nodesArray = [];
 var nodesName = {};
@@ -49,11 +49,11 @@ ids.forEach(function(element) {
         file = file.replace(/T+(?=\d)/g, ' ');
         var array = toNative(new Yaml().load(file));
         array.forEach(function(michel) {
-            if (!FileReadResponse2[michel["name"]]) {
-                FileReadResponse2[michel["name"]] = {};
+            if (!listBackup2[michel["name"]]) {
+                listBackup[michel["name"]] = {};
             }
             var toDisplay = michel["date"] + " " + michel["path"];
-            FileReadResponse2[michel["name"]][michel["id"]] = toDisplay
+            listBackup[michel["name"]][michel["id"]] = toDisplay
         })
     }
 });
@@ -144,7 +144,7 @@ return {
                                 "name": "snapshot",
                                 "required": true,
                                 "dependsOn": {
-                                    "nodes": FileReadResponse2
+                                    "nodes": listBackup
 
                                 }
 
