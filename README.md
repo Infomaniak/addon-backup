@@ -91,7 +91,7 @@ The drop-down list displays the containers in which backups are present.
 You just have to choose the container for which you want to restore the data.
 
 <p align="left">
-<img src="images/select-node.png" width="400">
+<img src="images/select-nodes.png" width="400">
 </p>
 
 After selecting the container, the corresponding backup plan appears.
