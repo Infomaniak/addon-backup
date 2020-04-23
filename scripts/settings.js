@@ -34,7 +34,7 @@ var params = {
 for (var x = 0, n = ids.length; x < n; x++) {
 
     nodesName[nodesArray[x]] = nodesArray[x];
-    
+
 }
 
 
@@ -248,10 +248,16 @@ return {
                             {
                                 "name": "choice",
                                 "type": "radio-fieldset",
-                                "values": {
-                                    "full": "Back up all files",
-                                    "folder": "Back up specific folders"
-                                },
+                                "values": [{
+                                        "value": "full",
+                                        "caption": "Back up all files"
+
+                                    },
+                                    {
+                                        "value": "folder",
+                                        "caption": "Back up specific folders"
+                                    }
+                                ],
                                 "default": "full",
                                 "showIf": {
                                     "full": [{
