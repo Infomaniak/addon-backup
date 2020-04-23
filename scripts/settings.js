@@ -1,9 +1,4 @@
-import com.hivext.api.core.utils.JSONUtils;
-import com.hivext.api.json.JSONDeserializable;
 import org.yaml.snakeyaml.Yaml;
-
-
-
 
 var resp = jelastic.environment.control.GetEnvs(appid, session);
 if (resp.result != 0) return resp;
@@ -71,22 +66,6 @@ ids.forEach(function(element) {
         })
     }
 });
-
-
-
-
-for (var w = 0, n = nodesArray.length; w < n; w++) {
-    var node = nodesArray[w];
-    var backup = FileReadResponse2[w];
-    show[node] = [{
-        type: "text",
-        caption: "Available backups",
-        cls: "x-form-field-wrap",
-        height: 220,
-        value: backup
-    }]
-
-}
 
 return {
     result: 0,
