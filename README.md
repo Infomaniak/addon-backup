@@ -69,7 +69,7 @@ Hourly provides a backup of your files every hour (at the start of the hour at 1
 
 ### Backup retention
 
-You can adjust **lifetime** of your backups.
+You can adjust the **lifetime** of your backups.
 
 You can define the lifetime of your backups with years, months, days and hours.  
 No retention = set all parameters to 0 or 99.
