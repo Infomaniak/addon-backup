@@ -107,7 +107,7 @@ Just select the backup you want to restore, the directory where you want restore
 
 ## Backups modification 
 
-If you want to modify the saved files, simply restart the add-on from the marketplace. The automation of the saved files will be updated.
+If you want to modify the configuration of your backups, simply restart the add-on from the marketplace. The automation of the backups will be updated.
 
 ## Delete backups directly in your nodes (CLI)
 
