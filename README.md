@@ -2,14 +2,14 @@
 <img src="jelastic-logo.svg" width="100">
 </p>
 
-# Add-on SwissBackup 
+# Add-on Swiss Backup 
 
 A dedicated solution for all of your Jelastic nodes allowing the simple configuration of backup plans for
-each of your containers. Using the reliability of the infrastructures dedicated to SwissBackup, all your data is
-encrypted (end-to-end) and replicated 3 times in 3 differents geographic locations. You can easily restore a backup
+each of your containers. Using the reliability of the infrastructures dedicated to Swiss Backup, all your data is
+encrypted (end-to-end) and replicated 3 times in 3 different geographic locations. You can easily restore a backup
 on any node in your account.
 
-You have 90 free days of Swiss Backup product. You can easily obtains your account in Infomaniak manager.
+You have 90 free days of Swiss Backup product. You can easily create your account in the Infomaniak manager.
 
 First step:
 
@@ -17,7 +17,7 @@ First step:
 <img src="images/device.png" width="400">
 </p>
 
-Choice Free storage space:
+Choose Free storage space:
 
 <p align="left">
 <img src="images/storage.png" width="400">
@@ -37,26 +37,27 @@ There are 2 types of backups possible.
 ### Back-up specific folders
 <img src="images/folders.png" width="400">
 
-When you select "Back-up specifics folders "the "Folders to back-up" field appears. This allows the specification
-of the folders to save, you can specify several folders (separate each path with a ","). You must enter the absolute path of each folder that you want to save.
+When you select "Back-up specific folders" the field "Folders to back-up" appears. You can specify several folders (separate each path with a ","). You must enter the absolute path of each folder that you want to save.
 
 Example : /root/admin/, /home/user1/, /jelastic/containers/
 
 In this example 3 folders have been specified.
 
-After specifying these folders, you must select a backup plan.
+After specifying these folders, you must select a backup frequency.
 
 
 
 ### Snapshot of the whole container
 <img src="images/snapshot.png" width="400">
 
-When you select "Snapshot of the whole container" the "Backup all file system" field appears.
+When you select "Snapshot of the whole container", the field "Backup all file system" appears.
 This allows you to save the entire file system of your container.
+Please note that some files are excluded: /dev, /proc, /sys, /run
+Any filesystem which isn’t specifically mounted as part of the root partition will be excluded, including virtual file systems.
 
-### Backup policies
+### Backup frequency
 
-2 backup policies are available:
+2 backup frequencies are available:
 
     - Daily 
     
@@ -70,25 +71,27 @@ Hourly provides a backup of your files every hour (at the start of the hour at 1
 
 You can adjust **lifetime** of your backups.
 
-You can define the lifespan of your backups with years, months, days and hours
+You can define the lifetime of your backups with years, months, days and hours.  
+No retention = set all parameters to 0 or 99.
+
 Example:
 
-You backup your filesystem with Hourly policie and you choice 1 years 2 month 4 days 2 hours.
-So you first backup is done at 14:00 pm, each our retention policie is check ( 1 years 2 month 4 days 2 hours ) and if backups are older than 1 years 2 month 4 days 2 hours there are deleted.
+You back up your filesystem with the Hourly backup policy and you choose 1 year, 2 months, 4 days, 2 hours.
+This means that every single backup will be available over a period of 1 year, 2 months, 4 days, 2 hours.
+
 
 ## Restoration Process
 
-When selecting "Restore your data" these fields appear.
+When selecting "Restore your data" these fields will appear.
 
 <p align="left">
 <img src="images/restoration.png" width="400">
 </p>
 
-In the same way as for backups, you must specify your SwissBackup ID and password
-associated.
+In the same way as for backups, you must specify your Swiss Backup username and password.
 
-The drop-down list displays the containers in which backups are present.
-You just have to choose the container for which you want to restore the data.
+The drop-down list displays the containers in which associated backups are present.
+Select the container for which you want to restore the data.
 
 <p align="left">
 <img src="images/select-nodes.png" width="400">
@@ -104,7 +107,7 @@ Just select the backup you want to restore, the directory where you want restore
 
 ## Backups modification 
 
-If you want to modify the saved files, simply restart the addon from the marketplace. The automation of the saved files will be updated.
+If you want to modify the saved files, simply restart the add-on from the marketplace. The automation of the saved files will be updated.
 
 ## Delete backups directly in your nodes (CLI)
 
@@ -114,7 +117,7 @@ second step: ``` restic snapshots (see all your backups) ```
 
 third step: to delete one backup : ```restic forget IdBackup --prune ```
 
-to delete all backup of one file except one (security feature): ```restic forget --tag folders --keep-last 1 --prune```
+to delete all backups of one file except one (security feature): ```restic forget --tag folders --keep-last 1 --prune```
 
 <p align="left">
 <img src="images/CLI-backups.png" width="400">
