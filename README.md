@@ -111,13 +111,13 @@ If you want to modify the saved files, simply restart the add-on from the market
 
 ## Delete backups directly in your nodes (CLI)
 
-first step : ``` . /home/.config/swissbackup/openrc.sh ```
+First step : ``` . /home/.config/swissbackup/openrc.sh ```
 
-second step: ``` restic snapshots (see all your backups) ```
+Second step: ``` restic snapshots (see all your backups) ```
 
-third step: to delete one backup : ```restic forget IdBackup --prune ```
+Third step: to delete one backup : ```restic forget IdBackup --prune ```
 
-to delete all backups of one file except one (security feature): ```restic forget --tag folders --keep-last 1 --prune```
+To delete all backups of one file except one (security feature): ```restic forget --tag folders --keep-last 1 --prune```
 
 <p align="left">
 <img src="images/CLI-backups.png" width="400">
