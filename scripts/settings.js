@@ -46,13 +46,12 @@ ids.forEach(function(element) {
         delete nodesName['node'.concat('', element.id + '-').concat('', element.name)];
     } else {
         file = FileReadResponse.body;
-        file = file.replace(/T+(?=\d)/g, ' ');
         var array = toNative(new Yaml().load(file));
         array.forEach(function(objectBackup) {
             if (!listBackups[objectBackup["name"]]) {
                 listBackups[objectBackup["name"]] = {};
             }
-            var toDisplay = objectBackup["date"] + " " + objectBackup["path"];
+            var toDisplay = objectBackup["date"].replace('T',' ') + " " + objectBackup["path"];
             listBackups[objectBackup["name"]][objectBackup["id"]] = toDisplay
         })
     }
