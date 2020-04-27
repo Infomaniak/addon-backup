@@ -1,5 +1,5 @@
 <p align="left">
-<img src="jelastic-logo.svg" width="100">
+<img src="SwissBackup.svg" width="100">
 </p>
 
 # Add-on Swiss Backup 
