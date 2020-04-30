@@ -1,6 +1,6 @@
 type: update
 name: Add-on backup
-baseUrl: https://raw.githubusercontent.com/axelJacquet/addon-backup/master/
+baseUrl: https://raw.githubusercontent.com/Infomaniak/addon-backup/master/
 
 globals:
 
@@ -82,7 +82,7 @@ actions:
 
       cmd [${settings.node}]: |-
 
-              curl -fsSL https://raw.githubusercontent.com/axelJacquet/addon-backup/master/scripts/retention-all.sh --output retention-all.sh
+              curl -fsSL https://raw.githubusercontent.com/Infomaniak/addon-backup/master/scripts/retention-all.sh --output retention-all.sh
 
               chmod u+x retention-all.sh
               
@@ -102,7 +102,7 @@ actions:
 
       cmd [${settings.node}]: |-
 
-              curl -fsS https://raw.githubusercontent.com/axelJacquet/addon-backup/master/scripts/retention-all.sh --output retention-all.sh
+              curl -fsS https://raw.githubusercontent.com/Infomaniak/addon-backup/master/scripts/retention-all.sh --output retention-all.sh
 
               chmod u+x retention-all.sh
               
