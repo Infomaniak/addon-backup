@@ -1,6 +1,6 @@
 type: update
 name: Add-on backup
-baseUrl: https://raw.githubusercontent.com/Infomaniakt/addon-backup/master/
+baseUrl: https://raw.githubusercontent.com/Infomaniak/addon-backup/master/
 
 globals:
 
