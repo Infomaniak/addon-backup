@@ -1,6 +1,6 @@
 type: update
 name: Add-on restauration
-baseUrl: https://raw.githubusercontent.com/axelJacquet/addon-backup/master/
+baseUrl: https://raw.githubusercontent.com/Infomaniak/addon-backup/master/
 
 globals:
 
@@ -60,7 +60,7 @@ onInstall:
 
             . /home/.config/swissbackup/openrc2.sh
 
-            curl -fsS https://raw.githubusercontent.com/axelJacquet/addon-backup/master/scripts/recovery.sh --output recovery.sh
+            curl -fsS https://raw.githubusercontent.com/Infomaniak/addon-backup/master/scripts/recovery.sh --output recovery.sh
 
             chmod +x recovery.sh
 
