@@ -1,6 +1,6 @@
 type: update
 name: Add-on restauration
-baseUrl: https://raw.githubusercontent.com/Infomaniak/addon-backup/master/
+baseUrl: https://raw.githubusercontent.com/axelJacquet/addon-backup/master/
 
 globals:
 
@@ -30,9 +30,9 @@ onInstall:
 
             mkdir -p /home/.config/swissbackup/
 
-            touch /home/.config/swissbackup/openrc2.sh
+            touch /home/.config/swissbackup/openrc.sh
             
-            > /home/.config/swissbackup/openrc2.sh
+            > /home/.config/swissbackup/openrc.sh
 
             touch /home/.config/swissbackup/secret.txt
 
@@ -40,27 +40,29 @@ onInstall:
 
             if [ ! -s /home/.config/swissbackup/secret.txt ]; then echo "$password" >> /home/.config/swissbackup/secret.txt; else echo "nothing"; fi
 
-            echo "export OS_AUTH_URL="https://swiss-backup.infomaniak.com/identity/v3"" >> /home/.config/swissbackup/openrc2.sh
+            echo "export OS_AUTH_URL="https://swiss-backup.infomaniak.com/identity/v3"" >> /home/.config/swissbackup/openrc.sh
 
-            echo "export OS_REGION_NAME="RegionOne"" >> /home/.config/swissbackup/openrc2.sh
+            echo "export OS_REGION_NAME="RegionOne"" >> /home/.config/swissbackup/openrc.sh
 
-            echo "export OS_PROJECT_NAME="sb_project_${settings.User}"" >> /home/.config/swissbackup/openrc2.sh
+            echo "export OS_PROJECT_NAME="sb_project_${settings.User}"" >> /home/.config/swissbackup/openrc.sh
 
-            echo "export OS_PASSWORD="${settings.key}"" >> /home/.config/swissbackup/openrc2.sh
+            echo "export OS_PASSWORD="${settings.key}"" >> /home/.config/swissbackup/openrc.sh
 
-            echo "export OS_USER_DOMAIN_NAME="default"" >> /home/.config/swissbackup/openrc2.sh
+            echo "export OS_USER_DOMAIN_NAME="default"" >> /home/.config/swissbackup/openrc.sh
 
-            echo "export OS_USERNAME="${settings.User}"" >> /home/.config/swissbackup/openrc2.sh
+            echo "export OS_USERNAME="${settings.User}"" >> /home/.config/swissbackup/openrc.sh
 
-            echo "export OS_PROJECT_DOMAIN_NAME="default"" >> /home/.config/swissbackup/openrc2.sh
+            echo "export OS_PROJECT_DOMAIN_NAME="default"" >> /home/.config/swissbackup/openrc.sh
 
-            echo "export RESTIC_REPOSITORY="swift:sb_project_${settings.User}:/Jelastic-${settings.nodes}"" >> /home/.config/swissbackup/openrc2.sh
+            echo "export RESTIC_REPOSITORY="swift:sb_project_${settings.User}:/Jelastic-Infomaniak"" >> /home/.config/swissbackup/openrc.sh
 
-            echo "export RESTIC_PASSWORD_FILE=/home/.config/swissbackup/secret.txt" >> /home/.config/swissbackup/openrc2.sh
+            echo "export RESTIC_PASSWORD_FILE=/home/.config/swissbackup/secret.txt" >> /home/.config/swissbackup/openrc.sh
 
-            . /home/.config/swissbackup/openrc2.sh
+            . /home/.config/swissbackup/openrc.sh
+            
+            restic snapshots || restic -r swift:sb_project_${settings.User}:/Jelastic-Infomaniak init
 
-            curl -fsS https://raw.githubusercontent.com/Infomaniak/addon-backup/master/scripts/user-recovery.sh --output user-recovery.sh
+            curl -fsS https://raw.githubusercontent.com/axelJacquet/addon-backup/master/scripts/user-recovery.sh --output user-recovery.sh
 
             chmod +x user-recovery.sh
 
