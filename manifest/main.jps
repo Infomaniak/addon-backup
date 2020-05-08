@@ -1,3 +1,4 @@
+jversion: 0.9
 type: update
 name: Backup / Restoration
 baseUrl: https://raw.githubusercontent.com/Infomaniak/addon-backup/master/
@@ -86,8 +87,6 @@ actions:
 
                       destination: "${settings.destination}"
                       
-                      nodes: "${settings.nodes}"
-
                       node: "${targetNodes.nodeGroup}"
   user-restauration:
 
@@ -106,8 +105,6 @@ actions:
 
                       destination: "${settings.destination}"
                       
-                      nodes: "${settings.nodes}"
-
                       node: "${targetNodes.nodeGroup}"
                       
                       custom: "${settings.custom}"
@@ -137,7 +134,24 @@ actions:
                       
                       hour: "${settings.hour}"
 
+  desinstall:
+  
+                install:
 
+                   jps: manifest/uninstall.jps
+                setGlobals:
+                  SUCCESS: remove
+                settings:
+                         node: "${targetNodes.nodeGroup}"
+                        
+  user: root
+  
+buttons:
+    action: desinstall
+    caption: Remove backup routine 
+    submitButtonText: Remove backup routine 
+    loadingText: Remove backup routine...
+    
 success:
   text:  success/${globals.SUCCESS}.md
   mail:  success/${globals.SUCCESS}.md
