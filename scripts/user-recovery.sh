@@ -8,7 +8,7 @@ RESTOREDIR=$(mktemp -d /tmp/restore.XXXX)
 
 #Apply credentials openrc
 
-. /home/.config/swissbackup/openrc2.sh
+. /home/.config/swissbackup/openrc.sh
 
 
 
