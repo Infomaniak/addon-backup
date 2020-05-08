@@ -80,8 +80,12 @@ Example:
 You back up your filesystem with the Hourly backup policy and you choose 1 year, 2 months, 4 days, 2 hours.
 This means that every single backup will be available over a period of 1 year, 2 months, 4 days, 2 hours.
 
+### Requirement 
+
+You need to have at least one container lit with the add-on installed to see all your backups
 
 ## Restoration Process
+
 
 When selecting "Restore your data" these fields will appear.
 
