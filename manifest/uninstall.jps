@@ -1,0 +1,21 @@
+type: update
+name: Add-on backup
+
+targetNodes:
+
+  nodeGroup: '*'
+
+onInstall:
+        cmd [${settings.node}]:
+            - rm -rf /home/.config/
+            - rm -rf /usr/bin/restic /usr/bin/jq /home/.config/ /var/log/restic.log /root/purge.sh /root/user-recovery.sh /root/recovery.sh /root/retention-repo.sh /root/retention-all.sh /root/heal.sh /root/retention.log   /home/plan.json
+            - crontab -u root -l | grep -v '/run/user/restic.lock'  | crontab -u root -
+            - crontab -u root -l | grep -v '/var/log/retention.log'  | crontab -u root -
+            - crontab -u root -l | grep -v '/root/purge.sh'  | crontab -u root -
+            - crontab -u root -l | grep -v '/root/heal.sh'  | crontab -u root -
+            - crontab -u root -l | grep -v '/root/retention-repo.sh'  | crontab -u root -
+            - crontab -u root -l | grep -v '/root/retention-all.sh'  | crontab -u root -
+            - crontab -u root -l | grep -v '/root/purge.sh'  | crontab -u root -
+            - crontab -u root -l | grep -v '/root/retention.log'  | crontab -u root -
+            - crontab -u root -l | grep -v '/var/log/restic.log'  | crontab -u root -
+        user: root
