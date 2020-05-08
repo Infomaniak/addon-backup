@@ -88,13 +88,13 @@ onInstall:
 
           echo "export OS_PROJECT_DOMAIN_NAME="default"" >> /home/.config/swissbackup/openrc.sh
 
-          echo "export RESTIC_REPOSITORY="swift:sb_project_${settings.User}:/Jelastic-$(hostname -a)"" >> /home/.config/swissbackup/openrc.sh
+          echo "export RESTIC_REPOSITORY="swift:sb_project_${settings.User}:/Jelastic-Infomaniak"" >> /home/.config/swissbackup/openrc.sh
 
           echo "export RESTIC_PASSWORD_FILE=/home/.config/swissbackup/secret.txt" >> /home/.config/swissbackup/openrc.sh
 
           . /home/.config/swissbackup/openrc.sh
 
-          restic check || restic -r swift:sb_project_${settings.User}:/Jelastic-$(hostname -a) init
+          restic snapshots || restic -r swift:sb_project_${settings.User}:/Jelastic-Infomaniak init
           
           mkdir -p /run/user/
 
@@ -119,19 +119,39 @@ actions:
 
       cmd [${settings.node}]: |-
 
-              curl -fsS https://raw.githubusercontent.com/Infomaniak/addon-backup/master/scripts/retention.sh --output retention.sh
+              curl -fsS https://raw.githubusercontent.com/Infomaniak/addon-backup/master/scripts/retention-repo.sh --output retention-repo.sh
 
-              chmod u+x retention.sh
+              chmod u+x retention-repo.sh
+              
+              curl -fsS https://raw.githubusercontent.com/Infomaniak/addon-backup/master/scripts/purge.sh --output purge.sh
+              
+              chmod u+x purge.sh
+              
+              curl -fsS https://raw.githubusercontent.com/Infomaniak/addon-backup/master/scripts/heal.sh --output heal.sh
+              
+              chmod u+x heal.sh
               
               if [ -f "/var/spool/cron/crontabs/root" ]; then sed -i '/restic.lock/d' /var/spool/cron/crontabs/root; elif [ -f "/var/spool/cron/root" ]; then sed -i '/restic.lock/d' /var/spool/cron/root; else echo "first install"; fi
               
-              crontab -u root -l | { cat; echo "* * * * * /usr/bin/nohup /usr/bin/flock --nonblock --conflict-exit-code 0 /run/user/restic.lock /root/retention.sh -f \"${settings.path}\" -y \"${settings.year}\" -m \"${settings.month}\" -d \"${settings.day}\" -h \"${settings.hour}\" >> /var/log/first-backup.log 2>&1 "; } | crontab -
+              crontab -u root -l | grep -v '/root/heal.sh'  | crontab -u root -
+              
+              crontab -u root -l | { cat; echo "50 1 * * WED /root/heal.sh "; } | crontab -
+              
+              crontab -u root -l | { cat; echo "* * * * * /usr/bin/nohup /usr/bin/flock --nonblock --conflict-exit-code 0 /run/user/restic.lock /root/retention-repo.sh -f \"${settings.path}\" -y \"${settings.year}\" -m \"${settings.month}\" -d \"${settings.day}\" -h \"${settings.hour}\" >> /var/log/first-backup.log 2>&1 "; } | crontab -
 
-              crontab -u root -l | { cat; echo "0 */1 * * * /usr/bin/nohup /usr/bin/flock --nonblock --conflict-exit-code 0 /run/user/restic.lock /root/retention.sh -f \"${settings.path}\" -y \"${settings.year}\" -m \"${settings.month}\" -d \"${settings.day}\" -h \"${settings.hour}\" >> /var/log/restic.log 2>&1 "; } | crontab -
+              crontab -u root -l | { cat; echo "0 */1 * * * /usr/bin/nohup /usr/bin/flock --nonblock --conflict-exit-code 0 /run/user/restic.lock /root/retention-repo.sh -f \"${settings.path}\" -y \"${settings.year}\" -m \"${settings.month}\" -d \"${settings.day}\" -h \"${settings.hour}\" >> /var/log/restic.log 2>&1 "; } | crontab -
+              
+              crontab -u root -l | grep -v '/root/purge.sh'  | crontab -u root -
+              
+              crontab -u root -l | { cat; echo "30 22 * * SUN perl -le 'sleep rand 600' && /root/purge.sh -y \"${settings.year}\" -m \"${settings.month}\" -d \"${settings.day}\" -h \"${settings.hour}\" >> /var/log/retention.log 2>&1 "; } | crontab -
               
               if [ ! -f "/var/log/restic.log" ]; then crontab -u root -l | { cat; echo "0 0 1 * * > /var/log/restic.log  "; } | crontab -; fi
               
-              touch /var/log/restic.log
+              if [ ! -f "/var/log/retention.log" ]; then crontab -u root -l | { cat; echo "0 0 1 * * > /var/log/retention.log  "; } | crontab -; fi
+              
+              if [ ! -f "/root/retention.log" ]; then crontab -u root -l | { cat; echo "0 0 1 * * > /root/retention.log  "; } | crontab -; fi
+              
+              touch /var/log/restic.log /var/log/retention.log /root/retention.log
 
 
 
@@ -141,18 +161,38 @@ actions:
 
       cmd [${settings.node}]: |-
 
-              curl -fsS https://raw.githubusercontent.com/Infomaniak/addon-backup/master/scripts/retention.sh --output retention.sh
+              curl -fsS https://raw.githubusercontent.com/Infomaniak/addon-backup/master/scripts/retention-repo.sh --output retention-repo.sh
 
-              chmod u+x retention.sh
+              chmod u+x retention-repo.sh
+              
+              curl -fsS https://raw.githubusercontent.com/Infomaniak/addon-backup/master/scripts/purge.sh --output purge.sh
+              
+              chmod u+x purge.sh
+              
+              curl -fsS https://raw.githubusercontent.com/Infomaniak/addon-backup/master/scripts/heal.sh --output heal.sh
+              
+              chmod u+x heal.sh
               
               if [ -f "/var/spool/cron/crontabs/root" ]; then sed -i '/restic.lock/d' /var/spool/cron/crontabs/root; elif [ -f "/var/spool/cron/root" ]; then sed -i '/restic.lock/d' /var/spool/cron/root; else echo "first install"; fi
               
-              crontab -u root -l | { cat; echo "* * * * * /usr/bin/nohup /usr/bin/flock --nonblock --conflict-exit-code 0 /run/user/restic.lock /root/retention.sh -f \"${settings.path}\" -y \"${settings.year}\" -m \"${settings.month}\" -d \"${settings.day}\" -h \"${settings.hour}\" >> /var/log/first-backup.log 2>&1 "; } | crontab -
+              crontab -u root -l | grep -v '/root/heal.sh'  | crontab -u root -
+              
+              crontab -u root -l | { cat; echo "50 1 * * WED /root/heal.sh "; } | crontab -
+              
+              crontab -u root -l | { cat; echo "* * * * * /usr/bin/nohup /usr/bin/flock --nonblock --conflict-exit-code 0 /run/user/restic.lock /root/retention-repo.sh -f \"${settings.path}\" -y \"${settings.year}\" -m \"${settings.month}\" -d \"${settings.day}\" -h \"${settings.hour}\" >> /var/log/first-backup.log 2>&1 "; } | crontab -
 
-              crontab -u root -l | { cat; echo "0 23 * * * /usr/bin/nohup /usr/bin/flock --nonblock --conflict-exit-code 0 /run/user/restic.lock /root/retention.sh -f \"${settings.path}\" -y \"${settings.year}\" -m \"${settings.month}\" -d \"${settings.day}\" -h \"${settings.hour}\" >> /var/log/restic.log 2>&1 "; } | crontab -
+              crontab -u root -l | { cat; echo "0 23 * * * /usr/bin/nohup /usr/bin/flock --nonblock --conflict-exit-code 0 /run/user/restic.lock /root/retention-repo.sh -f \"${settings.path}\" -y \"${settings.year}\" -m \"${settings.month}\" -d \"${settings.day}\" -h \"${settings.hour}\" >> /var/log/restic.log 2>&1 "; } | crontab -
+              
+              crontab -u root -l | grep -v '/root/purge.sh'  | crontab -u root -
+              
+              crontab -u root -l | { cat; echo "30 22 * * SUN perl -le 'sleep rand 600' && /root/purge.sh -y \"${settings.year}\" -m \"${settings.month}\" -d \"${settings.day}\" -h \"${settings.hour}\" >> /var/log/retention.log 2>&1 "; } | crontab -
               
               if [ ! -f "/var/log/restic.log" ]; then crontab -u root -l | { cat; echo "0 0 1 * * > /var/log/restic.log  "; } | crontab -; fi
+              
+              if [ ! -f "/var/log/retention.log" ]; then crontab -u root -l | { cat; echo "0 0 1 * * > /var/log/retention.log  "; } | crontab -; fi
+              
+              if [ ! -f "/root/retention.log" ]; then crontab -u root -l | { cat; echo "0 0 1 * * > /root/retention.log  "; } | crontab -; fi
 
-              touch /var/log/restic.log
+              touch /var/log/restic.log /var/log/retention.log /root/retention.log
 
       user: root
