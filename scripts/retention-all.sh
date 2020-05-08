@@ -2,7 +2,6 @@
 
 set -x
 set -e
-test=test
 host=$(hostname -a)
 
 
