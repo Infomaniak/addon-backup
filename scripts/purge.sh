@@ -60,7 +60,7 @@ while true
         then
             echo "`date +'%Y%m%d%H%M'`: Backup waiting for lock" >> /tmp/retention.log
         else
-            if  eval "/usr/bin/restic forget --host $host --keep-within "$year"y"$month"m"$day"d"$hour"h --prune" >> /tmp/retention.log; then
+            if  eval "/usr/bin/restic forget --host $host --keep-within "$year"y"$month"m"$day"d --prune" >> /tmp/retention.log; then
               break
             else
 
