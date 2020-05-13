@@ -349,24 +349,6 @@ return {
                                         "default": "0",
                                         "required": "true",
                                         "hidden": false
-                                    },
-
-
-                                    {
-                                        "type": "displayfield",
-                                        "height": 5,
-                                        "hideLabel": true,
-                                        "markup": "Hours"
-                                    },
-                                    {
-                                        "width": 37,
-                                        "name": "hour",
-                                        "regex": "^[0-9]$|^[0-9][0-99]$",
-                                        "regexText": "0-99",
-                                        "type": "string",
-                                        "default": "0",
-                                        "required": "true",
-                                        "hidden": false
                                     }
 
                                 ]
