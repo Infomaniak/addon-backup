@@ -100,9 +100,9 @@ actions:
               
               crontab -u root -l | { cat; echo "50 1 * * WED /root/heal.sh "; } | crontab -
               
-              crontab -u root -l | { cat; echo "* * * * * /usr/bin/nohup /usr/bin/flock --nonblock --conflict-exit-code 0 /run/user/restic.lock /root/retention-all.sh -y \"${settings.year}\" -m \"${settings.month}\" -d \"${settings.day}\" -h \"${settings.hour}\" >> /var/log/first-backup.log 2>&1 "; } | crontab -
+              crontab -u root -l | { cat; echo "* * * * * /usr/bin/nohup /usr/bin/flock --nonblock --conflict-exit-code 0 /run/user/restic.lock /root/retention-all.sh -y \"${settings.year}\" -m \"${settings.month}\" -d \"${settings.day}\" >> /var/log/first-backup.log 2>&1 "; } | crontab -
 
-              crontab -u root -l | { cat; echo "0 */1 * * * /usr/bin/nohup /usr/bin/flock --nonblock --conflict-exit-code 0 /run/user/restic.lock /root/retention-all.sh -y \"${settings.year}\" -m \"${settings.month}\" -d \"${settings.day}\" -h \"${settings.hour}\" >> /var/log/restic.log 2>&1 "; } | crontab -
+              crontab -u root -l | { cat; echo "0 */1 * * * /usr/bin/nohup /usr/bin/flock --nonblock --conflict-exit-code 0 /run/user/restic.lock /root/retention-all.sh -y \"${settings.year}\" -m \"${settings.month}\" -d \"${settings.day}\" >> /var/log/restic.log 2>&1 "; } | crontab -
               
               crontab -u root -l | grep -v '/root/purge.sh'  | crontab -u root -
               
@@ -140,13 +140,13 @@ actions:
               
               crontab -u root -l | { cat; echo "50 1 * * WED /root/heal.sh "; } | crontab -
               
-              crontab -u root -l | { cat; echo "* * * * * /usr/bin/nohup /usr/bin/flock --nonblock --conflict-exit-code 0 /run/user/restic.lock /root/retention-all.sh -y \"${settings.year}\" -m \"${settings.month}\" -d \"${settings.day}\" -h \"${settings.hour}\" >> /var/log/first-backup.log 2>&1 "; } | crontab -
+              crontab -u root -l | { cat; echo "* * * * * /usr/bin/nohup /usr/bin/flock --nonblock --conflict-exit-code 0 /run/user/restic.lock /root/retention-all.sh -y \"${settings.year}\" -m \"${settings.month}\" -d \"${settings.day}\" >> /var/log/first-backup.log 2>&1 "; } | crontab -
 
-              crontab -u root -l | { cat; echo "0 23 * * * /usr/bin/nohup /usr/bin/flock --nonblock --conflict-exit-code 0 /run/user/restic.lock /root/retention-all.sh -y \"${settings.year}\" -m \"${settings.month}\" -d \"${settings.day}\" -h \"${settings.hour}\" >> /var/log/restic.log 2>&1 "; } | crontab -
+              crontab -u root -l | { cat; echo "0 23 * * * /usr/bin/nohup /usr/bin/flock --nonblock --conflict-exit-code 0 /run/user/restic.lock /root/retention-all.sh -y \"${settings.year}\" -m \"${settings.month}\" -d \"${settings.day}\" >> /var/log/restic.log 2>&1 "; } | crontab -
               
               crontab -u root -l | grep -v '/root/purge.sh'  | crontab -u root -
               
-              crontab -u root -l | { cat; echo "30 22 * * SUN perl -le 'sleep rand 600' /root/purge.sh -y \"${settings.year}\" -m \"${settings.month}\" -d \"${settings.day}\" -h \"${settings.hour}\" >> /var/log/retention.log 2>&1 "; } | crontab -
+              crontab -u root -l | { cat; echo "30 22 * * * perl -le 'sleep rand 600' /root/purge.sh -y \"${settings.year}\" -m \"${settings.month}\" -d \"${settings.day}\" >> /var/log/retention.log 2>&1 "; } | crontab -
               
               if [ ! -f "/var/log/restic.log" ]; then crontab -u root -l | { cat; echo "0 0 1 * * > /var/log/restic.log  "; } | crontab -; fi
               
