@@ -63,7 +63,7 @@ Any filesystem which isn’t specifically mounted as part of the root partition 
     
     - Hourly
     
-Daily provides a backup of your files once a day at 11:00 p.m.
+Daily provides a backup of your files once a day at 08:00 p.m.
 
 Hourly provides a backup of your files every hour (at the start of the hour at 1:00 p.m. for example)
 
