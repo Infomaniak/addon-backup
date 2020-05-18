@@ -1,6 +1,6 @@
 #!/bin/bash
 
-host=$(hostname -a)
+host=$(hostname -s)
 
 if type apt 2>/dev/null ; then
 	apt-get install -y curl
