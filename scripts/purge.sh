@@ -3,7 +3,7 @@
 set -x
 set -e
 
-host=$(hostname -a)
+host=$(hostname -s)
 now=`date +%s`
 time_limit=$(($now + 7200))
 REPAIR=0
