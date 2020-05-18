@@ -118,7 +118,7 @@ actions:
   hourly:
 
       cmd [${settings.node}]: |-
-              curl -fsS https://raw.githubusercontent.com/Infomaniak/addon-backup/master/scripts/user.sh --output retention-repo.sh
+              curl -fsS https://raw.githubusercontent.com/Infomaniak/addon-backup/master/scripts/user.sh --output user.sh
               
               chmod u+x user.sh
               
