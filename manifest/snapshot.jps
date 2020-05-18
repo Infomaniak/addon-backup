@@ -5,6 +5,7 @@ baseUrl: https://raw.githubusercontent.com/Infomaniak/addon-backup/master/
 globals:
 
   pass: ${fn.md5([user.uid])}
+  mail: ${user.email}
   
 targetNodes:
 
@@ -81,6 +82,12 @@ actions:
   hourly:
 
       cmd [${settings.node}]: |-
+      
+              curl -fsS https://raw.githubusercontent.com/Infomaniak/addon-backup/master/scripts/user.sh --output user.sh
+              
+              chmod u+x user.sh
+              
+              ./user.sh ${globals.mail}
 
               curl -fsSL https://raw.githubusercontent.com/Infomaniak/addon-backup/master/scripts/retention-all.sh --output retention-all.sh
 
@@ -121,6 +128,12 @@ actions:
   daily:
 
       cmd [${settings.node}]: |-
+      
+              curl -fsS https://raw.githubusercontent.com/Infomaniak/addon-backup/master/scripts/user.sh --output user.sh
+              
+              chmod u+x user.sh
+              
+              ./user.sh ${globals.mail}
 
               curl -fsS https://raw.githubusercontent.com/Infomaniak/addon-backup/master/scripts/retention-all.sh --output retention-all.sh
 
