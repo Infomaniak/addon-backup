@@ -67,7 +67,7 @@ actions:
                       
                       day: "${settings.day}"
                       
-                      hour: "${settings.hour}"
+                      
 
 
   restauration:
@@ -132,7 +132,7 @@ actions:
                       
                       day: "${settings.day}"
                       
-                      hour: "${settings.hour}"
+                      
 
   desinstall:
   
