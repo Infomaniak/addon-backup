@@ -73,7 +73,7 @@ You can define how long to keep your backups (in years, months, days and hours).
 If you want to keep your backups forever set the parameters to 0
 Example:
 If you backup every hour and you define a retention policy to 1 year, 2 months, 4 days, 2 hours, then every backup performed will be available for this defined period ( =10322 backups)
-Note that the retention policy (deletion of the backups) is done once a week, namely Sunday at 10:30PM (UTC)
+Note that the retention policy (deletion of the backups) is done all days at 10:30PM (UTC)
 
 Example:
 
