@@ -106,7 +106,7 @@ return {
                     "type": "radio-fieldset",
                     "values": {
                         "restauration": "Restore your data",
-                        "backup": "Back up your data"
+                        "backup": "Backup your data"
                     },
                     "default": "backup",
                     "showIf": {
@@ -133,7 +133,7 @@ return {
                             {
                                 "type": "list",
                                 "caption": "Display backups for",
-                                "tooltip": "See our FAQ <a href='https://www.infomaniak.com/fr'>Add-on SwissBackup</a> section restoration",
+                                "tooltip": "See our FAQ <a href='https://faq.infomaniak.com/2420'>Add-on SwissBackup</a> section restoration",
                                 "name": "nodes",
                                 "hidden": false,
                                 "values": nodesHostname,
@@ -267,7 +267,7 @@ return {
                                     "full": [{
                                         "type": "displayfield",
                                         "cls": "x-item-disabled",
-                                        "markup": "Some system files will be excluded. See our FAQ <a target='_blank' href='https://www.infomaniak.com/fr'>Add-on SwissBackup</a> for more detail.",
+                                        "markup": "Some system files will be excluded. See our FAQ <a target='_blank' href='https://faq.infomaniak.com/2420'>Add-on SwissBackup</a> for more detail.",
                                         "name": "info",
                                         "hidden": false
                                     }],
@@ -357,7 +357,7 @@ return {
                                 "type": "list",
                                 "name": "sauvegarde",
                                 "caption": "Backup frequency",
-                                "tooltip": "See our FAQ <a target='_blank' href='https://www.infomaniak.com/fr'>Add-on SwissBackup</a> section back up frequency",
+                                "tooltip": "See our FAQ <a target='_blank' href='https://faq.infomaniak.com/2420'>Add-on SwissBackup</a> section backup frequency",
                                 "values": {
                                     "daily": "Daily",
                                     "hourly": "Hourly"
