@@ -11,7 +11,7 @@ on any node in your account.
 
 Add-on user manual:
 
-[Infomaniak's FAQ](https://faq.infomaniak.com/2420)
+[Infomaniak's FAQ](https://faq.infomaniak.com/2420){:target="_blank"}
 
 You have 90 free days of Swiss Backup product. You can easily create your account in the Infomaniak manager.
 
