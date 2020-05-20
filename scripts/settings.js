@@ -133,7 +133,7 @@ return {
                             {
                                 "type": "list",
                                 "caption": "Display backups for",
-                                "tooltip": "See our FAQ <a href='https://faq.infomaniak.com/2420'>Add-on SwissBackup</a> section restoration",
+                                "tooltip": "See our FAQ <a target='_blank' href='https://faq.infomaniak.com/2420'>Add-on SwissBackup</a> section restoration",
                                 "name": "nodes",
                                 "hidden": false,
                                 "values": nodesHostname,
@@ -293,7 +293,7 @@ return {
                                 "defaultPadding": 0,
                                 "defaultFlex": 0,
                                 "caption": "Retention period",
-                                "tooltip": "See our FAQ for more details",
+                                "tooltip": "See our FAQ <a target='_blank' href='https://faq.infomaniak.com/2420'>Add-on SwissBackup</a> section backup retention",
                                 "hideLabel": false,
                                 "type": "compositefield",
                                 "name": "compositefield",
