@@ -10,7 +10,8 @@ encrypted (end-to-end) and replicated 3 times in 3 different geographic location
 on any node in your account.
 
 Add-on user manual:
-[Infomaniak's FAQ](https://faq.infomaniak.com/2420)[target="_blank"]
+
+[Infomaniak's FAQ](https://faq.infomaniak.com/2420)
 
 You have 90 free days of Swiss Backup product. You can easily create your account in the Infomaniak manager.
 
