@@ -94,8 +94,7 @@ function loopOverArray(){
                   paths=$(echo "$i" | jq -r '. | .paths | join(",")')
                 hostname=$(echo $i | jq -r '.| .hostname')
 
-       printf "{\"id\":%-s, \"date\":%-s, \"path\":%-s, \"name\":%-s}," \"$id\" \"$ctime\" \"$paths\" \"$hostname\"
-
+       printf "{\"id\":%-s, \"date\":%-s, \"size\":%-s, \"path\":%-s, \"name\":%-s}," \"$id\" \"$ctime\" \"$size\" \"$paths\" \"$hostname\"
                done
               }
              function parse(){
