@@ -1,5 +1,5 @@
 type: update
-name: Add-on restauration
+name: Add-on restoration
 baseUrl: https://raw.githubusercontent.com/axelJacquet/addon-backup/master/
 
 globals:
