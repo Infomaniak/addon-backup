@@ -52,7 +52,7 @@ ids.forEach(function(element) {
                 if (!listBackups[objectBackup["name"]]) {
                     listBackups[objectBackup["name"]] = {};
                 }
-                var toDisplay = objectBackup["date"].replace('T', ' ') + " " + objectBackup["path"];
+                var toDisplay = objectBackup["date"].replace('T', ' ') + " " + objectBackup["path"] + " " + objectBackup["size"];
                 listBackups[objectBackup["name"]][objectBackup["id"]] = toDisplay
 
                 nodesHostname[objectBackup.name] = objectBackup.name;
