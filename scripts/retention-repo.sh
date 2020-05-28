@@ -81,7 +81,7 @@ done
 function loopOverArray(){
          restic snapshots --json | jq -r '.?' | jq -c '.[]'| while read i; do
            id=$(echo "$i" | jq -r '.| .short_id')
-                test=$(restic stats $id | awk '{b=$3$4; print b}' |tail -1|sed 's/%$//g')
+                test=$(restic --no-lock stats $id | awk '{b=$3$4; print b}' |tail -1|sed 's/%$//g')
                    size=$(echo $test)
               ctime=$(echo "$i" | jq -r '.| .time' | cut -f1 -d".")
                   paths=$(echo "$i" | jq -r '. | .paths | join(",")')
