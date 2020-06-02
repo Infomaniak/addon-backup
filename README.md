@@ -132,3 +132,9 @@ To delete all backups of one file except one (security feature): ```restic forge
 <img src="images/CLI-backups.png" width="400">
 </p>
 
+## Remove backup routine and uninstall add-on
+
+### Remove backup routine 
+
+
+
