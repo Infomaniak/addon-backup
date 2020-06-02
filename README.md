@@ -136,10 +136,17 @@ To delete all backups of one file except one (security feature): ```restic forge
 
 ### Remove backup routine 
 
-To delete the backup routine from your container.
+To delete the backup routine from your container. This step delete automatisation of your backup.
+To uninstall the add-on it is mandatory to delete the backup routine before.
 
 <p align="left">
 <img src="images/clear-backup-routine.png" width="400">
 </p>
 
+### Uninstall add-on 
 
+After deletion of backup routine click on "Désinstaller" to completely uninstall add-on on container.
+
+<p align="left">
+<img src="images/uninstall.png" width="400">
+</p>
