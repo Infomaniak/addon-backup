@@ -1,19 +1,12 @@
 type: update
 name: Add-on backup
 
-globals:
-
-  mail: ${user.email}
-
 targetNodes:
 
   nodeGroup: '*'
 
 onInstall:
         cmd [${settings.node}]:
-            - curl -fsS https://raw.githubusercontent.com/Infomaniak/addon-backup/master/scripts/delete.sh --output delete.sh
-            - chmod u+x delete.sh
-            - ./delete.sh ${globals.mail}
             - rm -rf /home/.config/
             - rm -rf /usr/bin/restic /usr/bin/jq /home/.config/ /var/log/restic.log /root/purge.sh /root/user-recovery.sh /root/recovery.sh /root/retention-repo.sh /root/retention-all.sh /root/heal.sh /root/retention.log /home/plan.json /root/user.sh
             - crontab -u root -l | grep -v '/run/user/restic.lock'  | crontab -u root -
