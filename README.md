@@ -114,7 +114,7 @@ After selecting the container, the corresponding backup plan appears.
 
 Just select the backup you want to restore, the directory where you want restore the backup and choose in which environment you want to restore your data.
 
-## Restore specific folders from a snapshot
+## Restore specific folders from a snapshot (CLI)
 
 All your backups correspond to IDS. You can include and exclude folders from your snapshots during a restore.
 To see yours snapshots.
@@ -129,15 +129,10 @@ you can see :
 </p>
 
 Use --exclude and --include to restrict the restore to a subset of files in the snapshot. For example, to restore a single file:
+
 step 3 : ```restore 79766175 --target /tmp/restore-work --include /work/foo```
 
 There are case insensitive variants of --exclude and --include called --iexclude and --iinclude. These options will behave the same way but ignore the casing of paths.
-
-
-
-
-
-
 
 ## Backups modification 
 
