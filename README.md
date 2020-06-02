@@ -118,6 +118,14 @@ Just select the backup you want to restore, the directory where you want restore
 
 All your backups correspond to IDS. You can include and exclude folders from your snapshots during a restore.
 To see yours snapshots.
+step 1 : ``` . /home/.config/swissbackup/openrc.sh ```
+
+step 2 : ``` restic snapshots```
+
+you can see :
+
+
+
 
 
 
