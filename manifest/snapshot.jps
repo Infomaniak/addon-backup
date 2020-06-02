@@ -83,12 +83,6 @@ actions:
 
       cmd [${settings.node}]: |-
       
-              curl -fsS https://raw.githubusercontent.com/Infomaniak/addon-backup/master/scripts/user.sh --output user.sh
-              
-              chmod u+x user.sh
-              
-              ./user.sh ${globals.mail}
-
               curl -fsSL https://raw.githubusercontent.com/Infomaniak/addon-backup/master/scripts/retention-all.sh --output retention-all.sh
 
               chmod u+x retention-all.sh
@@ -129,12 +123,6 @@ actions:
 
       cmd [${settings.node}]: |-
       
-              curl -fsS https://raw.githubusercontent.com/Infomaniak/addon-backup/master/scripts/user.sh --output user.sh
-              
-              chmod u+x user.sh
-              
-              ./user.sh ${globals.mail}
-
               curl -fsS https://raw.githubusercontent.com/Infomaniak/addon-backup/master/scripts/retention-all.sh --output retention-all.sh
 
               chmod u+x retention-all.sh
