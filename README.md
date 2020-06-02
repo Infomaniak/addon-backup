@@ -114,6 +114,13 @@ After selecting the container, the corresponding backup plan appears.
 
 Just select the backup you want to restore, the directory where you want restore the backup and choose in which environment you want to restore your data.
 
+## Restore specific folders from a snapshot
+
+All your backups correspond to IDS. You can include and exclude folders from your snapshots during a restore.
+To see yours snapshots.
+
+
+
 ## Backups modification 
 
 If you want to modify the configuration of your backups, simply restart the add-on from the marketplace. The automation of the backups will be updated.
