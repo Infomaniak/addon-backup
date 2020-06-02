@@ -136,5 +136,10 @@ To delete all backups of one file except one (security feature): ```restic forge
 
 ### Remove backup routine 
 
+To delete the backup routine from your container.
+
+<p align="left">
+<img src="images/clear-backup-routine.png" width="400">
+</p>
 
 
