@@ -51,7 +51,7 @@ onInstall:
 
           echo "export OS_PROJECT_NAME="sb_project_${settings.User}"" >> /home/.config/swissbackup/openrc.sh
 
-          echo "export OS_PASSWORD='${settings.key}'" >> /home/.config/swissbackup/openrc.sh
+          echo 'export OS_PASSWORD="${settings.key}"' >> /home/.config/swissbackup/openrc.sh
 
           echo "export OS_USER_DOMAIN_NAME="default"" >> /home/.config/swissbackup/openrc.sh
 
