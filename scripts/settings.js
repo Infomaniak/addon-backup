@@ -65,7 +65,8 @@ ids.forEach(function(element) {
 return {
     result: 0,
     "settings": {
-        "main": {
+        "formId": "swiss-backup-create",
+        "formCfg": {
             "fields": [
 
                 {
