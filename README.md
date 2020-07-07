@@ -158,7 +158,7 @@ How to modify the backups schedule
 
 Schedule of the backups is defined by a cronjob.
 To change when the backup operations are perfomed, edit the cronjob following these steps :
-As root user, run the command crontal -l to display the current schedules.
+As root user, run the command ``` crontab -l ``` to display the current schedules.
 The line containing retention-all.sh corresponds to the backup task
 The line containing purge.sh corresponds to the backup retention task, meaning when the cleanup will be done according to the retention policy you chose when you install the add-on.
 
