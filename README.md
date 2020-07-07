@@ -159,7 +159,7 @@ In root you can show crontab entries :  ``` crontab -l ```
 You see : 
 
 <p align="left">
-<img src="images/cron.png" width="400">
+<img src="images/cron.png" width="500">
 </p>
 
 
