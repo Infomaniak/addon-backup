@@ -154,15 +154,23 @@ To delete all backups of one file except one (security feature): ```restic forge
 
 ## Modify backups routines in your nodes (CLI)
 
-In root you can show crontab entries :  ``` crontab -l ```
+How to modify the backups schedule
 
-You see : 
+Schedule of the backups is defined by a cronjob.
+To change when the backup operations are perfomed, edit the cronjob following these steps :
+As root user, run the command crontal -l to display the current schedules.
+The line containing retention-all.sh corresponds to the backup task
+The line containing purge.sh corresponds to the backup retention task, meaning when the cleanup will be done according to the retention policy you chose when you install the add-on.
+
+Example :
 
 <p align="left">
 <img src="images/crons.png" width="600">
 </p>
 
-You can edit this in root user : ``` crontab -e ```
+Edit the schedule using the command ``` crontab -e ```
+For more information about cronjobs, visit https://crontab.guru
+Backups are performed using the tool restic. For more information about restic, visit https://restic.net/
 
 You can modify the line composed of the script rentention-all.sh or retention.sh, these scripts correspond to the launching of your backups.
 help for cron : https://crontab.guru/
