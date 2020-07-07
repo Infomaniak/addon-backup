@@ -159,12 +159,15 @@ In root you can show crontab entries :  ``` crontab -l ```
 You see : 
 
 <p align="left">
-<img src="images/cron.png" width="600">
+<img src="images/crons.png" width="600">
 </p>
 
 You can edit this in root user : ``` crontab -e ```
 
 You can modify the line composed of the script rentention-all.sh or retention.sh, these scripts correspond to the launching of your backups.
+help for cron : https://crontab.guru/
+
+Important: The design of the crons was thought to cause no problems between multiple backups and deletions, I advise you to harmonize the time of backups as well as the time of deletions
 
 ## Remove backup routine and uninstall add-on
 
