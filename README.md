@@ -152,6 +152,18 @@ To delete all backups of one file except one (security feature): ```restic forge
 <img src="images/CLI-backups.png" width="400">
 </p>
 
+## Modify backups routines in your nodes (CLI)
+
+In root you can show crontab entries :  ``` crontab -l ```
+
+You see : 
+
+<p align="left">
+<img src="images/cron.png" width="400">
+</p>
+
+
+
 ## Remove backup routine and uninstall add-on
 
 ### Remove backup routine 
