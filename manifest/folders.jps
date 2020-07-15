@@ -74,7 +74,7 @@ onInstall:
 
           if [ ! -s /home/.config/swissbackup/secret.txt ]; then echo "$password" >> /home/.config/swissbackup/secret.txt; else echo "nothing"; fi
 
-          echo "export OS_AUTH_URL="https://swiss-backup.infomaniak.com/identity/v3"" >> /home/.config/swissbackup/openrc.sh
+          echo "export OS_AUTH_URL="https://swift01-api.cloud.infomaniak.ch/identity/v3"" >> /home/.config/swissbackup/openrc.sh
 
           echo "export OS_REGION_NAME="RegionOne"" >> /home/.config/swissbackup/openrc.sh
 
