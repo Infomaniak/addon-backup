@@ -48,6 +48,8 @@ ids.forEach(function(element) {
         var plan = toNative(new Yaml().load(file));
         if (typeof plan == 'null'){
             
+            
+         jelastic.marketplace.console.WriteLog("ta mere");  
          return { type: "error", message: "Your Backup plan was not loaded, contact Infomaniak support to solve this issue" }; 
             
         }
