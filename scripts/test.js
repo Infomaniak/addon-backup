@@ -47,7 +47,7 @@ ids.forEach(function(element) {
         file = FileReadResponse.body;
         var plan = toNative(new Yaml().load(file));
         jelastic.marketplace.console.WriteLog("ta mere" + typeof plan);
-        if (plan == {}{
+        if (plan == {}){
             
          jelastic.marketplace.console.WriteLog("ta mere" + typeof plan);  
          jelastic.marketplace.console.WriteLog("ta mere" + typeof plan);  
