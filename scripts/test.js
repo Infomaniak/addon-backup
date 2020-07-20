@@ -47,7 +47,7 @@ ids.forEach(function(element) {
         file = FileReadResponse.body;
         var plan = toNative(new Yaml().load(file));
         
-        if( typeof (plan.last_update) ){
+        if( typeof plan.last_update == "null" ){
             
                return { type: "error", message: "Problem to load your Backup plan, contact Infomaniak support to solve issue" };
                        
