@@ -48,7 +48,7 @@ ids.forEach(function(element) {
         var plan = toNative(new Yaml().load(file));
         
         
-        if(typeof plan.last_update == 'undefined'){
+        if(!plan.last_update ){
                jelastic.marketplace.console.WriteLog("je suis ici")            
                return { type: "error", message: "Problem to load your Backup plan, contact Infomaniak support to solve issue" };
                        
