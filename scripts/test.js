@@ -50,7 +50,7 @@ ids.forEach(function(element) {
            plan.last_update > local_date
            
        }
-       catch () {
+       catch (err) {
             return { type: "error", message: "Problem to load your Backup plan, contact Infomaniak support to solve issue" };
  
        }
