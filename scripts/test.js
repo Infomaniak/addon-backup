@@ -49,7 +49,7 @@ ids.forEach(function(element) {
         
         
         if(!plan.includes("last_update") ){
-            
+               jelastic.marketplace.console.WriteLog("je suis ici")            
                return { type: "error", message: "Problem to load your Backup plan, contact Infomaniak support to solve issue" };
                        
         }
