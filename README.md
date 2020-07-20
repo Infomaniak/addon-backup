@@ -74,7 +74,12 @@ Hourly provides a backup of your files every hour (at the start of the hour at 1
 ### Backup retention
 
 You can define how long to keep your backups (in years, months, days and hours).
-If you want to keep your backups forever set the parameters to 0
+
+Please don't set all parameters to 0 because forever backups can cause backup fails. 
+
+Limit: year: 1 month: 12 days: 99
+
+Important: For hourly routine i recommand 3 months of retention max, beyond this value some backups can fails.
 Example:
 If you backup every hour and you define a retention policy to 1 year, 2 months, 4 days, 2 hours, then every backup performed will be available for this defined period ( =10322 backups)
 Note that the retention policy (deletion of the backups) is done all days at 10:30PM (UTC)
