@@ -8,8 +8,6 @@ host=$(hostname -s)
 
 crontab -u root -l | grep -v '/var/log/first-backup.log'  | crontab -u root -
 
-touch /home/plan.json
-
 . /home/.config/swissbackup/openrc.sh
 
 usage () {
@@ -75,9 +73,6 @@ for i in ${FOLDERS_TO_BACKUP}"" ; do
 
 done
 
-
-> /home/plan.json
-
 function loopOverArray(){
          restic snapshots --json | jq -r '.?' | jq -c '.[]'| while read i; do
            id=$(echo "$i" | jq -r '.| .short_id')
@@ -96,6 +91,7 @@ function loopOverArray(){
                   res_clean=$(echo "[$res]" | sed 's/\(.*\),/\1 /')
                   now=`date +%s`
                   myplan="{\"last_update\": \"$now\", \"backup_plan\":$res_clean}"
-                  echo $myplan >> /home/plan.json
+                  touch /home/plan.json
+                  echo $myplan > /home/plan.json
                   }
          parse
