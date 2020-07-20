@@ -327,7 +327,7 @@ return {
                                     {
                                         "width": 37,
                                         "name": "month",
-                                        "regex": "^[0-9]$|^[0-9][0-99]$",
+                                        "regex": "^(1[0-2]|[1-9])$",
                                         "regexText": "0-99",
                                         "type": "string",
                                         "default": "0",
