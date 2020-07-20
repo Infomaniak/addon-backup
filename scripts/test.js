@@ -10,7 +10,7 @@ var conteneur = '';
 var file = '';
 var nodesHostname = {};
 if (resp.result != 0) return resp;
-
+var plan = {};
 
 for (var i = 0; envInfo = resp.infos[i]; i++) {
     if (envInfo.env.status == "1") {
@@ -46,7 +46,7 @@ ids.forEach(function(element) {
     } else {
         file = FileReadResponse.body;
         var plan = toNative(new Yaml().load(file));
-        if (plan.length === 0){
+        if (!("last_update" in plan)){
             
             
          jelastic.marketplace.console.WriteLog("ta mere" + typeof plan);  
