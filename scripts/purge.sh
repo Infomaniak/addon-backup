@@ -83,8 +83,6 @@ while true
 done
 
 
-> /home/plan.json
-
 function loopOverArray(){
          restic snapshots --json | jq -r '.?' | jq -c '.[]'| while read i; do
            id=$(echo "$i" | jq -r '.| .short_id')
@@ -102,6 +100,6 @@ function loopOverArray(){
                   res_clean=$(echo "[$res]" | sed 's/\(.*\),/\1 /')
                   now_date=`date +%s`
                   myplan="{\"last_update\": \"$now_date\", \"backup_plan\":$res_clean}"
-                  echo $myplan >> /home/plan.json
+                  echo $myplan > /home/plan.json
                   }
          parse
