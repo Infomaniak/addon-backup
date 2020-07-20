@@ -46,6 +46,7 @@ ids.forEach(function(element) {
     } else {
         file = FileReadResponse.body;
         var plan = toNative(new Yaml().load(file));
+        jelastic.marketplace.console.WriteLog("ta mere" + typeof plan);
         if (!("last_update" in plan)){
             
             
