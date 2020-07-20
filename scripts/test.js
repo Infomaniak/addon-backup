@@ -48,7 +48,7 @@ ids.forEach(function(element) {
         var plan = toNative(new Yaml().load(file));
         var x = "je suis ici wallah"
         jelastic.marketplace.console.WriteLog(x)
-        jelastic.marketplace.console.WriteLog(typeof plan);
+        jelastic.marketplace.console.WriteLog(typeof plan.last_update);
         
         if( typeof (plan) == "null" ){
             
