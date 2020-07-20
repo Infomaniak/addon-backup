@@ -49,6 +49,7 @@ ids.forEach(function(element) {
         var x = "je suis ici wallah"
         jelastic.marketplace.console.WriteLog(x)
         jelastic.marketplace.console.WriteLog(typeof plan.last_update);
+        jelastic.marketplace.console.WriteLog("putin repond moi null wsh")
         
         if( typeof (plan) == "null" ){
             
