@@ -48,7 +48,7 @@ ids.forEach(function(element) {
         var plan = toNative(new Yaml().load(file));
         
         
-        if(!plan.includes("last_update") ){
+        if(!plan.hasOwnProperty("last_update") ){
                jelastic.marketplace.console.WriteLog("je suis ici")            
                return { type: "error", message: "Problem to load your Backup plan, contact Infomaniak support to solve issue" };
                        
