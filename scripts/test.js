@@ -48,15 +48,15 @@ ids.forEach(function(element) {
         var plan = toNative(new Yaml().load(file));
         jelastic.marketplace.console.WriteLog(typeof(plan));
         
-        for (var i in plan) {
-             if (plan.hasOwnProperty(i) === 0) {
-                return { type: "error", message: "Your Backup plan was not loaded, contact Infomaniak support to solve this issue" }; 
+            for (var i in plan) {
+                if (plan.hasOwnProperty(i) === 0) {
+                    return { type: "error", message: "Your Backup plan was not loaded, contact Infomaniak support to solve this issue" }; 
 
-             }
-         }
+                }
+            }
               
             
-        }
+        
         if (plan.last_update > local_date) {
             local_date = plan.last_update;
             plan.backup_plan.forEach(function(objectBackup) {
