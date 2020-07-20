@@ -49,7 +49,7 @@ ids.forEach(function(element) {
         var plan = toNative(new Yaml().load(file));
         
            for (var key in plan) {
-              if (!Object.prototype.hasOwnProperty.call(plan, key) {
+              if (!Object.prototype.hasOwnProperty.call(plan, key)) {
                var i  = {
                                             "type": "displayfield",
                                             "cls": "warning",
