@@ -46,6 +46,7 @@ ids.forEach(function(element) {
     } else {
         file = FileReadResponse.body;
         var plan = toNative(new Yaml().load(file));
+        jelastic.marketplace.console.WriteLog(typeof plan);
         
         if( typeof (plan) == "null" ){
             
