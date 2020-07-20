@@ -47,9 +47,9 @@ ids.forEach(function(element) {
         file = FileReadResponse.body;
         var plan = toNative(new Yaml().load(file));
         jelastic.marketplace.console.WriteLog("ta mere" + typeof plan);
-        if (!("last_update" in plan)){
+        if (plan == {}{
             
-            
+         jelastic.marketplace.console.WriteLog("ta mere" + typeof plan);  
          jelastic.marketplace.console.WriteLog("ta mere" + typeof plan);  
          return { type: "error", message: "Your Backup plan was not loaded, contact Infomaniak support to solve this issue" }; 
             
