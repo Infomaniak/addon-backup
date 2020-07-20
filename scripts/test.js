@@ -48,11 +48,18 @@ ids.forEach(function(element) {
         file = FileReadResponse.body;
         var plan = toNative(new Yaml().load(file));
         
-        if (plan == null) {
-            jelastic.marketplace.console.WriteLog("je suis la")
-            return { result: 1, type: "error", message: "The Swissbackup identifiers are not correct, please check the connection information in your emails" };        
-        
-        }
+           for (var key in plan) {
+              if (!Object.prototype.hasOwnProperty.call(plan, key) {
+               var i  = {
+                                            "type": "displayfield",
+                                            "cls": "warning",
+                                            "height": 20,
+                                            "hideLabel": true,
+                                            "markup": "Your Backup plan can't be loaded, please contact Infomaniak support team"
+                                        }
+                break;
+              }
+            }
         
         if (plan.last_update > local_date) {
             local_date = plan.last_update;
@@ -158,7 +165,9 @@ return {
                                 "dependsOn": {
                                     "nodes": listBackups
 
-                                }
+                                },
+                                
+                                i
 
                             },
 
