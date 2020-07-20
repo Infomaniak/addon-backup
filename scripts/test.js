@@ -48,10 +48,12 @@ ids.forEach(function(element) {
         var plan = toNative(new Yaml().load(file));
        try { 
            if( plan ){
+               
+               throw "Problem to load your Backup plan, contact Infomaniak support to solve issue";
             }           
        }
        catch (err){
-            return { type: "error", message: "Problem to load your Backup plan, contact Infomaniak support to solve issue" };
+            return { type: "error", message: err  };
  
        }
         if (plan.last_update > local_date) {
