@@ -9,8 +9,9 @@ var ids = [];
 var conteneur = '';
 var file = '';
 var nodesHostname = {};
-if (resp.result != 0) return resp;
 var plan = {};
+if (resp.result != 0) return resp;
+
 
 for (var i = 0; envInfo = resp.infos[i]; i++) {
     if (envInfo.env.status == "1") {
@@ -46,16 +47,11 @@ ids.forEach(function(element) {
     } else {
         file = FileReadResponse.body;
         var plan = toNative(new Yaml().load(file));
-        jelastic.marketplace.console.WriteLog(typeof(plan));
-        
-            for (var i in plan) {
-                if (plan.hasOwnProperty(i) === 0) {
-                    return { type: "error", message: "Your Backup plan was not loaded, contact Infomaniak support to solve this issue" }; 
-
-                }
-            }
-              
-            
+        for (var i in plan) {
+             if (plan.hasOwnProperty(i) == 0) {
+                return { type: "error", message: "The Swissbackup identifiers are not correct, please check the connection information in your emails" };
+             }
+        }
         
         if (plan.last_update > local_date) {
             local_date = plan.last_update;
