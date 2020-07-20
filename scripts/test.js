@@ -48,7 +48,8 @@ ids.forEach(function(element) {
         file = FileReadResponse.body;
         var plan = toNative(new Yaml().load(file));
         for (var i in plan) {
-             if (plan.hasOwnProperty(i) == 0) {
+                 jelastic.marketplace.console.WriteLog("je suis la ")           
+                 if (plan.hasOwnProperty(i) == 0) {
                 return { type: "error", message: "The Swissbackup identifiers are not correct, please check the connection information in your emails" };
              }
         }
