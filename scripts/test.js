@@ -46,7 +46,11 @@ ids.forEach(function(element) {
     } else {
         file = FileReadResponse.body;
         var plan = toNative(new Yaml().load(file));
-       
+        if (plan.length === 0){
+            
+         return { type: "error", message: "Your Backup plan was not loaded, contact Infomaniak support to solve this issue" }; 
+            
+        }
         if (plan.last_update > local_date) {
             local_date = plan.last_update;
             plan.backup_plan.forEach(function(objectBackup) {
