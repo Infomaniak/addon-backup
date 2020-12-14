@@ -37,7 +37,7 @@ while getopts "s:h:d:w:m:y:" o; do
     case "${o}" in
 
         s)
-            last_snapshot=${OPTARG}
+            user=${OPTARG}
             ;;
 
 
@@ -90,7 +90,7 @@ function loopOverArray(){
                   local res=$(loopOverArray)
                   res_clean=$(echo "[$res]" | sed 's/\(.*\),/\1 /')
                   now=`date +%s`
-                  myplan="{\"last_update\": \"$now\", \"backup_plan\":$res_clean}"
+                  myplan="{\"last_update\": \"$now\", \"user\": \"$user\", \"backup_plan\":$res_clean}"
                   touch /home/plan.json
                   echo $myplan > /home/plan.json
                   }
