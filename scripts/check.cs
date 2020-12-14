@@ -64,8 +64,8 @@ import org.apache.commons.httpclient.methods.StringRequestEntity;
 
           }), "application/json", "UTF-8");
 
-          var swift01 = "https://swiss-backup.infomaniak.com/identity/v3/auth/tokens"
-          var swift02 = "https://swift02-api.cloud.infomaniak.ch/identity/v3/auth/tokens"
+          var swift01 = "https://swiss-backup.infomaniak.com/identity/v3"
+          var swift02 = "https://swift02-api.cloud.infomaniak.ch/identity/v3"
           var post = new PostMethod("https://swiss-backup.infomaniak.com/identity/v3/auth/tokens");
           var post2 = new PostMethod("https://swift02-api.cloud.infomaniak.ch/identity/v3/auth/tokens");
 
