@@ -77,7 +77,7 @@ onInstall:
 
           if [ ! -s /home/.config/swissbackup/secret.txt ]; then echo "$password" >> /home/.config/swissbackup/secret.txt; else echo "nothing"; fi
 
-          echo "export OS_AUTH_URL="$(endpoint)"" >> /home/.config/swissbackup/openrc.sh
+          echo "export OS_AUTH_URL="$endpoint"" >> /home/.config/swissbackup/openrc.sh
 
           echo "export OS_REGION_NAME="RegionOne"" >> /home/.config/swissbackup/openrc.sh
 
