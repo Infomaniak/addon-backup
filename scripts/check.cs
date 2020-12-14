@@ -64,6 +64,8 @@ import org.apache.commons.httpclient.methods.StringRequestEntity;
 
           }), "application/json", "UTF-8");
 
+          var swift01 = "https://swiss-backup.infomaniak.com/identity/v3/auth/tokens"
+          var swift02 = "https://swift02-api.cloud.infomaniak.ch/identity/v3/auth/tokens"
           var post = new PostMethod("https://swiss-backup.infomaniak.com/identity/v3/auth/tokens");
           var post2 = new PostMethod("https://swift02-api.cloud.infomaniak.ch/identity/v3/auth/tokens");
 
@@ -81,9 +83,9 @@ import org.apache.commons.httpclient.methods.StringRequestEntity;
 
           if (status == HttpStatus.SC_CREATED || status2 == HttpStatus.SC_CREATED ) { // 201
             if (status == HttpStatus.SC_CREATED) {
-              return { result : 0, post: post}
+              return { result : 0, post: swift01}
             } else if (status2 == HttpStatus.SC_CREATED) {
-              return { result : 0, post: post2}
+              return { result : 0, post: swift02}
             }
             return { result : 0 };
 
