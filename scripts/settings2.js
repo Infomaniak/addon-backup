@@ -35,6 +35,7 @@ var params = {
     nodeType: "",
     nodeGroup: ""
 }
+account = "";
 local_date = 0;
 ids.forEach(function(element) {
 
@@ -46,7 +47,7 @@ ids.forEach(function(element) {
     } else {
         file = FileReadResponse.body;
         var plan = toNative(new Yaml().load(file));
-        if (plan.last_update > local_date) {
+        if (plan.last_update > local_date || plan.user != account) {
             local_date = plan.last_update;
             plan.backup_plan.forEach(function(objectBackup) {
                 if (!listBackups[objectBackup["name"]]) {
