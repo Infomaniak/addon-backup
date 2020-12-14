@@ -80,7 +80,11 @@ import org.apache.commons.httpclient.methods.StringRequestEntity;
 
 
           if (status == HttpStatus.SC_CREATED || status2 == HttpStatus.SC_CREATED ) { // 201
-
+            if (status == HttpStatus.SC_CREATED) {
+              return { result : 0, post: post}
+            } else if (status2 == HttpStatus.SC_CREATED) {
+              return { result : 0, post2: post2}
+            }
             return { result : 0 };
 
           } else if (status == HttpStatus.SC_UNAUTHORIZED && status2 == HttpStatus.SC_UNAUTHORIZED ) { // 401
