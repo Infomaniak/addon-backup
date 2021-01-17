@@ -160,7 +160,7 @@ actions:
 
       user: root
 
- daily:
+  daily:
 
       cmd [${settings.node}]: |-
 
@@ -199,3 +199,4 @@ actions:
               touch /var/log/restic.log /var/log/retention.log /root/retention.log
 
       user: root
+      
