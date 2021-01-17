@@ -5,7 +5,7 @@ baseUrl: https://raw.githubusercontent.com/Infomaniak/addon-backup/master/
 globals:
 
   pass: ${fn.md5([user.uid])}
-  
+
 targetNodes:
 
   nodeGroup: '*'
@@ -16,9 +16,9 @@ onInstall:
 
  - cmd[${settings.node}]: |-
           endpoint=${response.post}
-          
+
           echo "je suis $endpoint"
-          
+
           test=$(echo ${settings.path} | tr  ',' ' ' )
 
           for i in ${test}"" ; do
@@ -56,15 +56,15 @@ onInstall:
           chmod +x restic
 
           mv restic /usr/bin/
-          
+
           restic self-update
 
           curl -L -o jq https://github.com/stedolan/jq/releases/download/jq-1.6/jq-linux64 && chmod +x jq
-          
+
           mv jq /usr/bin/
 
           mkdir -p /home/.config/
-          
+
           mkdir -p /home/.config/swissbackup/
 
           touch /home/.config/swissbackup/openrc.sh
@@ -98,16 +98,16 @@ onInstall:
           . /home/.config/swissbackup/openrc.sh
 
           restic snapshots || restic -r swift:sb_project_${settings.User}:/Jelastic-Infomaniak init
-          
+
           mkdir -p /run/user/
 
           touch /run/user/restic.lock
-          
+
    user: root
-   
+
  - if ('${settings.sauvegarde}' == 'hourly' ): hourly
- 
- - if ( '${settings.sauvegarde}' == 'daily' ): daily    
+
+ - if ( '${settings.sauvegarde}' == 'daily' ): daily
 responses:
 
   4109:
@@ -115,87 +115,96 @@ responses:
     type: error
 
     message: Your filled files do not exist, look in /tmp/fails-folders
-    
+
 actions:
- 
+
   hourly:
 
       cmd [${settings.node}]: |-
-              
+
               curl -fsS https://raw.githubusercontent.com/Infomaniak/addon-backup/master/scripts/retention-repo.sh --output retention-repo.sh
 
               chmod u+x retention-repo.sh
-              
+
               curl -fsS https://raw.githubusercontent.com/Infomaniak/addon-backup/master/scripts/purge.sh --output purge.sh
-              
+
               chmod u+x purge.sh
-              
+
               curl -fsS https://raw.githubusercontent.com/Infomaniak/addon-backup/master/scripts/heal.sh --output heal.sh
-              
+
               chmod u+x heal.sh
-              
+
               if [ -f "/var/spool/cron/crontabs/root" ]; then sed -i '/restic.lock/d' /var/spool/cron/crontabs/root; elif [ -f "/var/spool/cron/root" ]; then sed -i '/restic.lock/d' /var/spool/cron/root; else echo "first install"; fi
-              
+
               crontab -u root -l | grep -v '/root/heal.sh'  | crontab -u root -
-              
+
               crontab -u root -l | { cat; echo "50 1 * * WED /root/heal.sh "; } | crontab -
-              
+
               crontab -u root -l | { cat; echo "* * * * * /usr/bin/nohup /usr/bin/flock --nonblock --conflict-exit-code 0 /run/user/restic.lock /root/retention-repo.sh -f \"${settings.path}\" >> /var/log/first-backup.log 2>&1 "; } | crontab -
 
               crontab -u root -l | { cat; echo "0 */1 * * * /usr/bin/nohup /usr/bin/flock --nonblock --conflict-exit-code 0 /run/user/restic.lock /root/retention-repo.sh -f \"${settings.path}\" >> /var/log/restic.log 2>&1 "; } | crontab -
-              
+
               crontab -u root -l | grep -v '/root/purge.sh'  | crontab -u root -
-              
+
               crontab -u root -l | { cat; echo "30 22 * * * perl -le 'sleep rand 600' && /root/purge.sh -y \"${settings.year}\" -m \"${settings.month}\" -d \"${settings.day}\" >> /var/log/retention.log 2>&1 "; } | crontab -
-              
+
               if [ ! -f "/var/log/restic.log" ]; then crontab -u root -l | { cat; echo "0 0 1 * * > /var/log/restic.log  "; } | crontab -; fi
-              
+
               if [ ! -f "/var/log/retention.log" ]; then crontab -u root -l | { cat; echo "0 0 1 * * > /var/log/retention.log  "; } | crontab -; fi
-              
+
               if [ ! -f "/root/retention.log" ]; then crontab -u root -l | { cat; echo "0 0 1 * * > /root/retention.log  "; } | crontab -; fi
-              
+
               touch /var/log/restic.log /var/log/retention.log /root/retention.log
 
 
 
       user: root
 
-  daily:
+ daily:
 
       cmd [${settings.node}]: |-
-              
+
               curl -fsS https://raw.githubusercontent.com/Infomaniak/addon-backup/master/scripts/backup_v2.sh --output backup_v2.sh
 
               chmod u+x backup_v2.sh
-              
+
               curl -fsS https://raw.githubusercontent.com/Infomaniak/addon-backup/master/scripts/purge.sh --output purge.sh
-              
+
               chmod u+x purge.sh
-              
+
               curl -fsS https://raw.githubusercontent.com/Infomaniak/addon-backup/master/scripts/heal.sh --output heal.sh
-              
+
               chmod u+x heal.sh
-              
+
               if [ -f "/var/spool/cron/crontabs/root" ]; then sed -i '/restic.lock/d' /var/spool/cron/crontabs/root; elif [ -f "/var/spool/cron/root" ]; then sed -i '/restic.lock/d' /var/spool/cron/root; else echo "first install"; fi
-              
+
               crontab -u root -l | grep -v '/root/heal.sh'  | crontab -u root -
-              
+
               crontab -u root -l | { cat; echo "50 1 * * WED /root/heal.sh "; } | crontab -
-              
+
               crontab -u root -l | { cat; echo "* * * * * /usr/bin/nohup /usr/bin/flock --nonblock --conflict-exit-code 0 /run/user/restic.lock /root/backup_v2.sh -f \"${settings.path}\" -s \"${settings.User}\"  >> /var/log/first-backup.log 2>&1 "; } | crontab -
 
               crontab -u root -l | { cat; echo "0 20 * * * /usr/bin/nohup /usr/bin/flock --nonblock --conflict-exit-code 0 /run/user/restic.lock /root/backup_v2.sh -f \"${settings.path}\" -s \"${settings.User}\" >> /var/log/restic.log 2>&1 "; } | crontab -
-              
+
               crontab -u root -l | grep -v '/root/purge.sh'  | crontab -u root -
-              
+
               crontab -u root -l | { cat; echo "30 22 * * * perl -le 'sleep rand 600' && /root/purge.sh -y \"${settings.year}\" -m \"${settings.month}\" -d \"${settings.day}\" >> /var/log/retention.log 2>&1 "; } | crontab -
-              
+
               if [ ! -f "/var/log/restic.log" ]; then crontab -u root -l | { cat; echo "0 0 1 * * > /var/log/restic.log  "; } | crontab -; fi
-              
+
               if [ ! -f "/var/log/retention.log" ]; then crontab -u root -l | { cat; echo "0 0 1 * * > /var/log/retention.log  "; } | crontab -; fi
-              
+
               if [ ! -f "/root/retention.log" ]; then crontab -u root -l | { cat; echo "0 0 1 * * > /root/retention.log  "; } | crontab -; fi
 
               touch /var/log/restic.log /var/log/retention.log /root/retention.log
 
       user: root
+
+ volume-persistence:
+
+     - api:
+          - method: environment.Control.AddContainerVolume
+            params:
+              envName: ${env.name}
+              nodeid: ${targetNodes[0].id}
+              path: /home/
