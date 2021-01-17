@@ -1,0 +1,166 @@
+jversion: 0.9
+type: update
+name: Backup / Restoration
+baseUrl: https://raw.githubusercontent.com/Infomaniak/addon-backup/master/
+description: 
+  text:   
+                        <br>You can easily choose a **backup** **frequency** for your containers and easily choose the **lifetime** of your backups.</br>
+                        For your **restoration** select the backup of your choice and restore it **everywhere** in your environment.
+  short: Easily back up and restore your containers' filesystems in the container of your choice.
+    
+logo: SwissBackup.svg
+globals:
+  pass: ${fn.md5([user.uid])}
+  env: ${env.name}
+onBeforeInit: scripts/settings.js
+     
+targetNodes:
+
+  nodeGroup: '*'
+
+onInstall:
+
+  
+  if ('${settings.choice}' == 'full' && '${settings.mode}' == 'backup' ):
+ 
+    - snapshot
+  
+  if ('${settings.choice}' == 'folder' && '${settings.mode}' == 'backup'):
+
+     - backup
+     - volume-persistence
+
+
+  if ('${settings.mode}' == 'restauration' && '${settings.permissions}' == 'classic'):
+
+     - restauration
+     
+  if ('${settings.mode}' == 'restauration' && '${settings.permissions}' == 'permissions'):
+
+    - user-restauration
+
+actions:
+
+  backup:
+
+               install:
+
+                   jps: manifest/folders.jps
+
+               setGlobals:
+                  SUCCESS: backup
+               settings:
+
+                      User: "${settings.User}"
+
+                      path: "${settings.path}"
+
+                      node: "${targetNodes.nodeGroup}"
+
+                      key: "${settings.key}"
+
+                      sauvegarde: "${settings.sauvegarde}"
+                      
+                      year: "${settings.year}"
+                      
+                      month: "${settings.month}"
+                      
+                      day: "${settings.day}"
+                      
+                      
+
+
+  restauration:
+
+               install:
+
+                   jps: manifest/recovery.jps
+               setGlobals:
+                   SUCCESS: success
+               settings:
+
+                      id: "${settings.snapshot}"
+                      
+                      User: "${settings.User}"
+                      
+                      key: "${settings.key}"
+
+                      destination: "${settings.destination}"
+                      
+                      node: "${targetNodes.nodeGroup}"
+  user-restauration:
+
+               install:
+
+                   jps: manifest/user-recovery.jps
+               setGlobals:
+                   SUCCESS: success
+               settings:
+
+                      id: "${settings.snapshot}"
+                      
+                      User: "${settings.User}"
+                      
+                      key: "${settings.key}"
+
+                      destination: "${settings.destination}"
+                      
+                      node: "${targetNodes.nodeGroup}"
+                      
+                      custom: "${settings.custom}"
+                      
+  snapshot:
+
+              install:
+
+                   jps: manifest/snapshot.jps
+              setGlobals:
+                  SUCCESS: snapshots
+              settings:
+
+                      User: "${settings.User}"
+
+                      node: "${targetNodes.nodeGroup}"
+                      
+                      key: "${settings.key}"
+
+                      sauvegarde: "${settings.sauvegarde}"
+                      
+                      year: "${settings.year}"
+                      
+                      month: "${settings.month}"
+                      
+                      day: "${settings.day}"
+                      
+                      
+
+  desinstall:
+  
+                install:
+
+                   jps: manifest/uninstall.jps
+                setGlobals:
+                  SUCCESS: remove
+                settings:
+                         node: "${targetNodes.nodeGroup}"
+                        
+  user: root
+  
+  volume-persistence:
+
+     - api:
+          - method: environment.control.addcontainervolumes
+            params:
+              envName: ${env.name}
+              nodeid: ${targetNodes[0].id}
+              volumes: ["/home/plan.json","/home/.config/","/var/log/restic.log","/var/log/retention.log","/usr/bin/restic","/usr/bin/jq","/var/spool/cron/","/root/retention-repo.sh","/root/heal.sh","/root/purge.sh","/root/retention-all.sh","/root/retention.log","/run/user/restic.lock"]
+              
+buttons:
+    action: desinstall
+    caption: Remove backup routine 
+    submitButtonText: Remove backup routine 
+    loadingText: Remove backup routine...
+    
+success:
+  text:  success/${globals.SUCCESS}.md
+  mail:  success/${globals.SUCCESS}.md
