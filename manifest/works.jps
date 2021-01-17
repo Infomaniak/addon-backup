@@ -115,7 +115,9 @@ responses:
     type: error
 
     message: Your filled files do not exist, look in /tmp/fails-folders
-
+    
+ - volume-persistence
+ 
 actions:
 
   hourly:
