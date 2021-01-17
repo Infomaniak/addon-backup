@@ -115,9 +115,7 @@ responses:
     type: error
 
     message: Your filled files do not exist, look in /tmp/fails-folders
-    
- - volume-persistence
- 
+     
 actions:
 
   hourly:
@@ -201,12 +199,3 @@ actions:
               touch /var/log/restic.log /var/log/retention.log /root/retention.log
 
       user: root
-
- volume-persistence:
-
-     - api:
-          - method: environment.Control.AddContainerVolume
-            params:
-              envName: ${env.name}
-              nodeid: ${targetNodes[0].id}
-              path: /home/
