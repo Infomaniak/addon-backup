@@ -273,6 +273,13 @@ return {
                                         "markup": "Some system files will be excluded. See our FAQ <a target='_blank' href='https://faq.infomaniak.com/2420'>Add-on SwissBackup</a> for more detail.",
                                         "name": "info",
                                         "hidden": false
+                                    },
+                                            {
+                                            "type": "displayfield",
+                                            "cls": "warning",
+                                            "height": 20,
+                                            "hideLabel": true,
+                                            "markup": "Existing files will be overwritten"
                                     }],
                                     "folder": [{
                                         "name": "path",
