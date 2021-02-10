@@ -279,7 +279,7 @@ return {
                                             "cls": "warning",
                                             "height": 20,
                                             "hideLabel": true,
-                                            "markup": " DB server requires to be automatically backed up into a file with another tool."
+                                            "markup": " DB server requires to be automatically backed up into a file with another tool before install of this add-on."
                                     }],
                                     "folder": [{
                                         "name": "path",
@@ -294,7 +294,7 @@ return {
                                             "cls": "warning",
                                             "height": 20,
                                             "hideLabel": true,
-                                            "markup": " DB server requires to be automatically backed up into a file with another tool."
+                                            "markup": " DB server requires to be automatically backed up into a file with another tool before install of this add-on."
                                     }]
                                 }
                             },
