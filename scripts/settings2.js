@@ -279,7 +279,7 @@ return {
                                             "cls": "warning",
                                             "height": 20,
                                             "hideLabel": true,
-                                            "markup": "Existing files will be overwritten"
+                                            "markup": "If the target server is a DB server it requires the Database to be automatically backed up into a file with another tool. Swiss Backup is a file level backup which cannot work correctly with running databases"
                                     }],
                                     "folder": [{
                                         "name": "path",
