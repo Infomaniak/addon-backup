@@ -279,7 +279,7 @@ return {
                                             "cls": "warning",
                                             "height": 20,
                                             "hideLabel": true,
-                                            "markup": "If the target server is a DB server it requires the Database to be automatically backed up into a file with another tool. Swiss Backup is a file level backup which cannot work correctly with running databases"
+                                            "markup": " DB server requires to be automatically backed up into a file with another tool. Swiss Backup is a file level backup which cannot work correctly with running databases"
                                     }],
                                     "folder": [{
                                         "name": "path",
@@ -288,6 +288,13 @@ return {
                                         "regexText": "Use Snapshot of the whole container button for backup / ",
                                         "type": "string",
                                         "placeholder": "path/to/folder1/, path/to/folder2/, path/to/folderX"
+                                    },
+                                              {
+                                            "type": "displayfield",
+                                            "cls": "warning",
+                                            "height": 20,
+                                            "hideLabel": true,
+                                            "markup": " DB server requires to be automatically backed up into a file with another tool. Swiss Backup is a file level backup which cannot work correctly with running databases"
                                     }]
                                 }
                             },
