@@ -279,7 +279,7 @@ return {
                                             "cls": "warning",
                                             "height": 20,
                                             "hideLabel": true,
-                                            "markup": " DB server requires to be automatically backed up into a file with another tool. Swiss Backup is a file level backup which cannot work correctly with running databases"
+                                            "markup": " DB server requires to be automatically backed up into a file with another tool."
                                     }],
                                     "folder": [{
                                         "name": "path",
@@ -294,7 +294,7 @@ return {
                                             "cls": "warning",
                                             "height": 20,
                                             "hideLabel": true,
-                                            "markup": " DB server requires to be automatically backed up into a file with another tool. Swiss Backup is a file level backup which cannot work correctly with running databases"
+                                            "markup": " DB server requires to be automatically backed up into a file with another tool."
                                     }]
                                 }
                             },
