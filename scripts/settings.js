@@ -271,6 +271,13 @@ return {
                                         "markup": "Some system files will be excluded. See our FAQ <a target='_blank' href='https://faq.infomaniak.com/2420'>Add-on SwissBackup</a> for more detail.",
                                         "name": "info",
                                         "hidden": false
+                                    },
+                                             {
+                                            "type": "displayfield",
+                                            "cls": "warning",
+                                            "height": 20,
+                                            "hideLabel": true,
+                                            "markup": " DB server requires to be automatically backed up into a file with another tool before install."
                                     }],
                                     "folder": [{
                                         "name": "path",
@@ -279,6 +286,13 @@ return {
                                         "regexText": "Use Snapshot of the whole container button for backup / ",
                                         "type": "string",
                                         "placeholder": "path/to/folder1/, path/to/folder2/, path/to/folderX"
+                                    },
+                                               {
+                                            "type": "displayfield",
+                                            "cls": "warning",
+                                            "height": 20,
+                                            "hideLabel": true,
+                                            "markup": " DB server requires to be automatically backed up into a file with another tool before install."
                                     }]
                                 }
                             },
