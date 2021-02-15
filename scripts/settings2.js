@@ -210,8 +210,6 @@ return {
                                     "permissions": [{
                                             "name": "custom",
                                             "caption": "Restore to this username",
-                                            "regex": "[^s/ *]",
-                                            "regexText": "please indicate other folder than / ",
                                             "type": "string",
                                             "required": true,
                                             "placeholder": "example: nginx"
@@ -219,6 +217,8 @@ return {
                                         {
                                             "name": "destination",
                                             "caption": "Restore location",
+                                            "regex": "[^s/ *]",
+                                            "regexText": "please indicate other folder than / ",
                                             "type": "string",
                                             "required": true,
                                             "placeholder": "/tmp/restore/"
