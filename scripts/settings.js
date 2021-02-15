@@ -191,6 +191,8 @@ return {
                                     "classic": [{
                                             "name": "destination",
                                             "caption": "Restore location",
+                                            "regex": "[^s/ *]",
+                                            "regexText": "please indicate other folder than / ",
                                             "type": "string",
                                             "required": true,
                                             "placeholder": "/tmp/restore/"
@@ -213,6 +215,8 @@ return {
                                         {
                                             "name": "destination",
                                             "caption": "Restore location",
+                                            "regex": "[^s/ *]",
+                                            "regexText": "please indicate other folder than / ",
                                             "type": "string",
                                             "required": true,
                                             "placeholder": "/tmp/restore/"
