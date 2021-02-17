@@ -281,7 +281,7 @@ return {
                                             "cls": "warning",
                                             "height": 20,
                                             "hideLabel": true,
-                                            "markup": " DB server requires to be automatically backed up into a file with another tool before install."
+                                            "markup": " DB server requires to be automatically backed up into a file with another tool before installation."
                                     }],
                                     "folder": [{
                                         "name": "path",
@@ -296,7 +296,7 @@ return {
                                             "cls": "warning",
                                             "height": 20,
                                             "hideLabel": true,
-                                            "markup": " DB server requires to be automatically backed up into a file with another tool before install."
+                                            "markup": " DB server requires to be automatically backed up into a file with another tool before installation."
                                     }]
                                 }
                             },
