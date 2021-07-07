@@ -1,7 +1,7 @@
 jversion: 0.9
 type: update
 name: Backup / Restoration
-baseUrl: https://raw.githubusercontent.com/Infomaniak/addon-backup/master/
+baseUrl: https://raw.githubusercontent.com/SlavaKatiukha/addon-backup/master/
 description: 
   text:   
                         <br>You can easily choose a **backup** **frequency** for your containers and easily choose the **lifetime** of your backups.</br>
