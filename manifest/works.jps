@@ -5,6 +5,9 @@ baseUrl: https://raw.githubusercontent.com/Infomaniak/addon-backup/master/
 globals:
 
   pass: ${fn.md5([user.uid])}
+  
+onBeforeInit: scripts/settings2.js
+
 
 targetNodes:
 
