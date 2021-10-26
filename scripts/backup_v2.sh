@@ -76,11 +76,11 @@ done
 function loopOverArray(){
          restic snapshots --json | jq -r '.?' | jq -c '.[]'| while read i; do
            id=$(echo "$i" | jq -r '.| .short_id')
-                test=$(restic --no-lock stats $id | awk '{b=$3$4; print b}' |tail -1|sed 's/%$//g')
-                   size=$(echo $test)
-              ctime=$(echo "$i" | jq -r '.| .time' | cut -f1 -d".")
-                  paths=$(echo "$i" | jq -r '. | .paths | join(",")')
-            hostname=$(echo $i | jq -r '.| .hostname')
+           size=$(cat /home/plan.json | jq ".backup_plan[] | select(.id == \"$id\") | .size" | grep -E '[0-9]{1,4}' || restic --no-lock stats $id | awk '{b=$3$4; print b}' |tail -1|sed 's/%$//g')
+           size=$(echo $size | tr -d "\"")
+           ctime=$(echo "$i" | jq -r '.| .time' | cut -f1 -d".")
+           paths=$(echo "$i" | jq -r '. | .paths | join(",")')
+           hostname=$(echo $i | jq -r '.| .hostname')
 
        printf "{\"id\":%-s, \"date\":%-s, \"size\":%-s, \"path\":%-s, \"name\":%-s}," \"$id\" \"$ctime\" \"$size\" \"$paths\" \"$hostname\"
 
