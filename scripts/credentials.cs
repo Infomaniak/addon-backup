@@ -102,4 +102,4 @@ import org.apache.commons.httpclient.methods.StringRequestEntity;
 
           }
 
-          return { type: "error", message: "unknown error" };
+          return { type: "error", message: "unknown error", status: status3 };
