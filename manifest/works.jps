@@ -15,7 +15,7 @@ targetNodes:
 
 onInstall:
 
- - script: scripts/check.cs
+ - script: scripts/credentials.cs
 
  - cmd[${settings.node}]: |-
           endpoint=${response.post}
