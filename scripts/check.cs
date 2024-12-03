@@ -91,7 +91,7 @@ import org.apache.commons.httpclient.methods.StringRequestEntity;
           post4.releaseConnection();
 
 
-          if (status == HttpStatus.SC_CREATED || status2 == HttpStatus.SC_CREATED || status3 == HttpStatus.SC_CREATED ) { // 201
+          if (status == HttpStatus.SC_CREATED || status2 == HttpStatus.SC_CREATED || status3 == HttpStatus.SC_CREATED || status4 == HttpStatus.SC_CREATED ) { // 201
             if (status == HttpStatus.SC_CREATED) {
               return { result : 0, post: swift01}
             } else if (status2 == HttpStatus.SC_CREATED) {
