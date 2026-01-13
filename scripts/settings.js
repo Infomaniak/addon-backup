@@ -11,12 +11,12 @@ var file = '';
 var nodesHostname = {};
 if (resp.result != 0) return resp;
 
-var curEnv = api.env.control.GetEnvInfo
-jelastic.marketplace.console.WriteLog("current env" + " " + curEnv)
+
 
 for (var i = 0; envInfo = resp.infos[i]; i++) {
-    if (envInfo.env.status != "1") continue;
-        jelastic.marketplace.console.WriteLog("env is started" + " " + envInfo.env.domain)
+    if (envInfo.env.status == "1") {
+        jelastic.marketplace.console.WriteLog("env is started " + envInfo.env.domain)
+        var found = false
         for (var j = 0; node = envInfo.nodes[j]; j++) {
             for (var m = 0; add = node.addons[m]; m++) {
                 if (add.appTemplateId == backupTemplate) {
@@ -26,11 +26,14 @@ for (var i = 0; envInfo = resp.infos[i]; i++) {
                         name: conteneur.substring(conteneur.indexOf('-') + 1, conteneur.length),
                         id: conteneur.substring(4, conteneur.indexOf('-'))
                     });
+                    found = true
+                    break
                 }
             }
+            if (found) break
         }
-        break
     }
+}
 
 var params = {
     session: session,
