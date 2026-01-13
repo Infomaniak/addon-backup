@@ -30,6 +30,7 @@ for (var i = 0; envInfo = resp.infos[i]; i++) {
                     break
                 }
             }
+            if (found) break;
         }
     }
 }
