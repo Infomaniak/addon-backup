@@ -11,7 +11,7 @@ var file = '';
 var nodesHostname = {};
 if (resp.result != 0) return resp;
 
-var curEnv = jelastic.environment.control.GetEnvInfo
+var curEnv = api.env.control.GetEnvInfo
 jelastic.marketplace.console.WriteLog("current env" + '' + curEnv)
 
 for (var i = 0; envInfo = resp.infos[i]; i++) {
