@@ -12,11 +12,11 @@ var nodesHostname = {};
 if (resp.result != 0) return resp;
 
 var curEnv = api.env.control.GetEnvInfo
-jelastic.marketplace.console.WriteLog("current env" + '' + curEnv)
+jelastic.marketplace.console.WriteLog("current env" + " " + curEnv)
 
 for (var i = 0; envInfo = resp.infos[i]; i++) {
     if (envInfo.env.status != "1") continue;
-        jelastic.marketplace.console.WriteLog("env is started" + '' + envInfo.env.domain)
+        jelastic.marketplace.console.WriteLog("env is started" + " " + envInfo.env.domain)
         for (var j = 0; node = envInfo.nodes[j]; j++) {
             for (var m = 0; add = node.addons[m]; m++) {
                 if (add.appTemplateId == backupTemplate) {
