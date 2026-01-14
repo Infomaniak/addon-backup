@@ -19,25 +19,34 @@ targetNodes:
   nodeGroup: '*'
 
 onInstall:
-  
-  if ('${settings.choice}' == 'full' && '${settings.mode}' == 'backup' ):
- 
-    - snapshot
-  
-  if ('${settings.choice}' == 'folder' && '${settings.mode}' == 'backup'):
 
-     - backup
+  if (${settings.mode} == 'backup' && (${settings.choice} == 'full' || ${settings.choice} == 'folder')):
+    - script: |
+        if (
+          settings.year === "0" &&
+          settings.month === "0" &&
+          settings.day === "0"
+        ) {
+          return {
+            result: 1,
+            error: "Please specify a retention period greater than 0 (in years, months, or days)."
+          };
+        }
+
+    if (${settings.choice} == 'full'):
+      - snapshot
+
+    if (${settings.choice} == 'folder'):
+      - backup
 
 
-  if ('${settings.mode}' == 'restauration' && '${settings.permissions}' == 'classic'):
+  if (${settings.mode} == 'restauration' && (${settings.permissions} == 'classic' || ${settings.permissions} == 'permissions')):
 
-     - restauration
-     
-  if ('${settings.mode}' == 'restauration' && '${settings.permissions}' == 'permissions'):
+    if (${settings.permissions} == 'classic'):
+      - restauration
 
-    - user-restauration
-
-
+    if (${settings.permissions} == 'permissions'):
+      - user-restauration
 
 actions:
 
