@@ -362,8 +362,8 @@ return {
                                     {
                                         "width": 37,
                                         "name": "day",
-                                        "regex": "^[0-9]$|^[0-9][0-99]$",
-                                        "regexText": "0-99",
+                                        "regex": "^[1-9][0-9]?$",
+                                        "regexText": "1-99",
                                         "type": "string",
                                         "required": "true",
                                         "hidden": false
