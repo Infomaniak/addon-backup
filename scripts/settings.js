@@ -11,12 +11,14 @@ var file = '';
 var nodesHostname = {};
 if (resp.result != 0) return resp;
 
-var sorted_env_array = resp.infos.sort();
+resp.infos.sort(function (a, b) {
+  return a.env.domain.localeCompare(b.env.domain);
+});
 
 jelastic.marketplace.console.WriteLog(
-  Object.prototype.toString.call(sorted_env_array)
+  Object.prototype.toString.call(resp.infos)
 );
-
+var found = false
 for (var i = 0; envInfo = resp.infos[i]; i++) {
     if (envInfo.env.status == "1") {
         jelastic.marketplace.console.WriteLog("env is started " + envInfo.env.domain)
@@ -29,8 +31,11 @@ for (var i = 0; envInfo = resp.infos[i]; i++) {
                         name: conteneur.substring(conteneur.indexOf('-') + 1, conteneur.length),
                         id: conteneur.substring(4, conteneur.indexOf('-'))
                     });
+                    found = true
+                    break
                 }
             }
+            if (found) break;
         }
     }
 }
