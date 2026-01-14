@@ -32,16 +32,6 @@ onInstall:
             if ('${settings.choice}' == 'folder'):
               - backup
 
-
-  if ('${settings.mode}' == 'restauration' && ('${settings.permissions}' == 'classic' || '${settings.permissions}' == 'permissions')):
-
-    if ('${settings.permissions}' == 'classic'):
-      - restauration
-
-    if ('${settings.permissions}' == 'permissions'):
-      - user-restauration
-
-
   if ('${settings.mode}' == 'restauration' && ('${settings.permissions}' == 'classic' || '${settings.permissions}' == 'permissions')):
 
     if ('${settings.permissions}' == 'classic'):
