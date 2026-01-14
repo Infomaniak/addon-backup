@@ -20,12 +20,12 @@ targetNodes:
 
 onInstall:
 
-  if (${settings.mode} == 'backup' && (${settings.choice} == 'full' || ${settings.choice} == 'folder')):
+  if ('${settings.mode}' == 'backup' && ('${settings.choice}' == 'full' || '${settings.choice}' == 'folder')):
     - script: |
         if (
-          settings.year === "0" &&
-          settings.month === "0" &&
-          settings.day === "0"
+          '${settings.year}' == "0" &&
+          '${settings.month}' == "0" &&
+          '${settings.day}' == "0"
         ) {
           return {
             result: 1,
@@ -33,19 +33,19 @@ onInstall:
           };
         }
 
-    if (${settings.choice} == 'full'):
+    if ('${settings.choice}' == 'full'):
       - snapshot
 
-    if (${settings.choice} == 'folder'):
+    if ('${settings.choice}' == 'folder'):
       - backup
 
 
-  if (${settings.mode} == 'restauration' && (${settings.permissions} == 'classic' || ${settings.permissions} == 'permissions')):
+  if ('${settings.mode}' == 'restauration' && ('${settings.permissions}' == 'classic' || '${settings.permissions}' == 'permissions')):
 
-    if (${settings.permissions} == 'classic'):
+    if ('${settings.permissions}' == 'classic'):
       - restauration
 
-    if (${settings.permissions} == 'permissions'):
+    if ('${settings.permissions}' == 'permissions'):
       - user-restauration
 
 actions:
