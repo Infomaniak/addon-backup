@@ -16,8 +16,8 @@ if (resp.result != 0) return resp;
 for (var i = 0; envInfo = resp.infos[i]; i++) {
     if (envInfo.env.status == "1") {
         jelastic.marketplace.console.WriteLog("env is started " + envInfo.env.domain)
-        var found = false
         for (var j = 0; node = envInfo.nodes[j]; j++) {
+            var found = false
             for (var m = 0; add = node.addons[m]; m++) {
                 if (add.appTemplateId == backupTemplate) {
                     var conteneur = node.adminUrl.replace("https://", "").replace("http://", "").replace(/\..*/, "").replace("docker", "node").replace("vds", "node");
