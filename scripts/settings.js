@@ -11,7 +11,9 @@ var file = '';
 var nodesHostname = {};
 if (resp.result != 0) return resp;
 
+var sorted_env_array = resp.infos.sort();
 
+jelastic.marketplace.console.WriteLog("env :" + sorted_env_array)
 
 for (var i = 0; envInfo = resp.infos[i]; i++) {
     if (envInfo.env.status == "1") {
@@ -25,7 +27,6 @@ for (var i = 0; envInfo = resp.infos[i]; i++) {
                         name: conteneur.substring(conteneur.indexOf('-') + 1, conteneur.length),
                         id: conteneur.substring(4, conteneur.indexOf('-'))
                     });
-                   return envInfo.nodes;
                 }
             }
         }
