@@ -11,17 +11,10 @@ var file = '';
 var nodesHostname = {};
 if (resp.result != 0) return resp;
 
-resp.infos.sort(function (a, b) {
-  return a.env.domain.localeCompare(b.env.domain);
-});
 
-jelastic.marketplace.console.WriteLog(
-  Object.prototype.toString.call(resp.infos)
-);
-var found = false
 for (var i = 0; envInfo = resp.infos[i]; i++) {
     if (envInfo.env.status == "1") {
-        jelastic.marketplace.console.WriteLog("env is started " + envInfo.env.domain)
+        jelastic.marketplace.console.WriteLog("env is started" + envInfo.env.domain)
         for (var j = 0; node = envInfo.nodes[j]; j++) {
             for (var m = 0; add = node.addons[m]; m++) {
                 if (add.appTemplateId == backupTemplate) {
@@ -31,11 +24,8 @@ for (var i = 0; envInfo = resp.infos[i]; i++) {
                         name: conteneur.substring(conteneur.indexOf('-') + 1, conteneur.length),
                         id: conteneur.substring(4, conteneur.indexOf('-'))
                     });
-                    found = true
-                    break
                 }
             }
-            if (found) break;
         }
     }
 }
