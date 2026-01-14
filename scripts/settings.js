@@ -25,7 +25,7 @@ for (var i = 0; envInfo = resp.infos[i]; i++) {
                         name: conteneur.substring(conteneur.indexOf('-') + 1, conteneur.length),
                         id: conteneur.substring(4, conteneur.indexOf('-'))
                     });
-                   return;
+                   return envInfo.nodes;
                 }
             }
         }
