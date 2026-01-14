@@ -29,7 +29,6 @@ for (var i = 0; envInfo = resp.infos[i]; i++) {
         }
     }
 }
-
 var params = {
     session: session,
     path: "/home/plan.json",
