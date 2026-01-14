@@ -13,7 +13,9 @@ if (resp.result != 0) return resp;
 
 var sorted_env_array = resp.infos.sort();
 
-jelastic.marketplace.console.WriteLog(sorted_env_array)
+jelastic.marketplace.console.WriteLog(
+  Object.prototype.toString.call(sorted_env_array)
+);
 
 for (var i = 0; envInfo = resp.infos[i]; i++) {
     if (envInfo.env.status == "1") {
