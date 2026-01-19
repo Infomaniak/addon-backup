@@ -74,7 +74,7 @@ for i in ${FOLDERS_TO_BACKUP}"" ; do
 done
 
 function loopOverArray(){
-         restic snapshots --json | jq -r '.?' | jq -c '.[]'| while read i; do
+         restic snapshots --hostname $host --json | jq -r '.?' | jq -c '.[]'| while read i; do
            id=$(echo "$i" | jq -r '.| .short_id')
                 test=$(restic --no-lock stats $id | awk '{b=$3$4; print b}' |tail -1|sed 's/%$//g')
                    size=$(echo $test)
