@@ -46,11 +46,10 @@ ids.forEach(function(element) {
     } else {
         file = FileReadResponse.body;
         var plan = toNative(new Yaml().load(file));
-        // Limit the nb of snapshots passed to the UI
-        var DisplayedPlan = plan.backup_plan.slice(-7);
-        if (DisplayedPlan.last_update > local_date) {
-            local_date = DisplayedPlan.last_update;
-            DisplayedPlan.backup_plan.forEach(function(objectBackup) {
+        var DisplayedPlan = plan.backup_plan.slice(-2);
+        if (plan.last_update > local_date) {
+            local_date = plan.last_update;
+            DisplayedPlan.forEach(function(objectBackup) {
                 if (!listBackups[objectBackup["name"]]) {
                     listBackups[objectBackup["name"]] = {};
                 }
