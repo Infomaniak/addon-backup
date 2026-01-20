@@ -40,9 +40,10 @@ ids.forEach(function(element) {
 
 
     var FileReadResponse = jelastic.environment.file.Read(element.name, params.session, params.path, params.nodeType, params.nodeGroup, element.id);
-    jelastic.marketplace.console.WriteLog("file read response : " + FileReadResponse)
+
     if (FileReadResponse.result != 0) {
         delete nodesName['node'.concat('', element.id + '-').concat('', element.name)];
+    
     } else {
         file = FileReadResponse.body;
         jelastic.marketplace.console.WriteLog("file: " + file + "cavientdou" + element.name)
@@ -50,11 +51,14 @@ ids.forEach(function(element) {
         var DisplayedPlan = plan.backup_plan.slice(-1);
         jelastic.marketplace.console.WriteLog("plansliced: " + DisplayedPlan)
         if (plan.last_update > local_date) {
+            
             local_date = plan.last_update;
             DisplayedPlan.backup_plan.forEach(function(objectBackup) {
+                
                 if (!listBackups[objectBackup["name"]]) {
                     listBackups[objectBackup["name"]] = {};
                 }
+                
                 var toDisplay = objectBackup["date"].replace('T', ' ') + " " + objectBackup["path"] + " " + objectBackup["size"];
                 listBackups[objectBackup["name"]][objectBackup["id"]] = toDisplay
 
