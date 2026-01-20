@@ -14,21 +14,36 @@ if (resp.result != 0) return resp;
 
 for (var i = 0; envInfo = resp.infos[i]; i++) {
     if (envInfo.env.status == "1") {
-        jelastic.marketplace.console.WriteLog("env is started " + envInfo.env.domain)
+        jelastic.marketplace.console.WriteLog("env is started" + envInfo.env.domain)
         for (var j = 0; node = envInfo.nodes[j]; j++) {
+
+            var hasBackupAddon = false;
+
             for (var m = 0; add = node.addons[m]; m++) {
                 if (add.appTemplateId == backupTemplate) {
-                    var conteneur = node.adminUrl.replace("https://", "").replace("http://", "").replace(/\..*/, "").replace("docker", "node").replace("vds", "node");
-                    nodesArray.push(conteneur);
-                    ids.push({
-                        name: conteneur.substring(conteneur.indexOf('-') + 1, conteneur.length),
-                        id: conteneur.substring(4, conteneur.indexOf('-'))
-                    });
+                    hasBackupAddon = true;
+                    break;
                 }
+            }
+
+            if (hasBackupAddon) {
+                var conteneur = node.adminUrl.replace("https://", "").replace("http://", "").replace(/\..*/, "").replace("docker", "node").replace("vds", "node");
+                ids.push({
+                    name: conteneur.substring(conteneur.indexOf('-') + 1, conteneur.length),
+                    id: conteneur.substring(4, conteneur.indexOf('-'))
+                });
             }
         }
     }
 }
+
+var seen = {};
+ids = ids.filter(function(e) {
+    var k = e.id + "|" + e.name;
+    if (seen[k]) return false;
+    seen[k] = true;
+    return true;
+});
 var params = {
     session: session,
     path: "/home/plan.json",
