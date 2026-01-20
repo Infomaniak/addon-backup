@@ -47,8 +47,9 @@ ids.forEach(function(element) {
         file = FileReadResponse.body;
         jelastic.marketplace.console.WriteLog("file: " + file)
         var plan = toNative(new Yaml().load(file));
+        jelastic.marketplace.console.WriteLog("plans: " + plan)
         var DisplayedPlan = plan.backup_plan.slice(-2);
-        jelastic.marketplace.console.WriteLog("plan: " + DisplayedPlan)
+        jelastic.marketplace.console.WriteLog("plansliced: " + DisplayedPlan)
         if (plan.last_update > local_date) {
             local_date = plan.last_update;
             DisplayedPlan.forEach(function(objectBackup) {
