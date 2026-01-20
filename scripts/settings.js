@@ -50,7 +50,7 @@ ids.forEach(function(element) {
         var DisplayedPlan = plan.backup_plan.slice(-20);
         if (DisplayedPlan.last_update > local_date) {
             local_date = DisplayedPlan.last_update;
-            DisplayedPlan.forEach(function(objectBackup) {
+            DisplayedPlan.backup_plan.forEach(function(objectBackup) {
                 if (!listBackups[objectBackup["name"]]) {
                     listBackups[objectBackup["name"]] = {};
                 }
