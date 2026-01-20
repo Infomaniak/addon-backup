@@ -14,7 +14,7 @@ if (resp.result != 0) return resp;
 
 for (var i = 0; envInfo = resp.infos[i]; i++) {
     if (envInfo.env.status == "1") {
-        jelastic.marketplace.console.WriteLog("env is started" + envInfo.env.domain)
+        jelastic.marketplace.console.WriteLog("env is started " + envInfo.env.domain)
         for (var j = 0; node = envInfo.nodes[j]; j++) {
             for (var m = 0; add = node.addons[m]; m++) {
                 if (add.appTemplateId == backupTemplate) {
