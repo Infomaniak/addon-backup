@@ -51,7 +51,7 @@ ids.forEach(function(element) {
         jelastic.marketplace.console.WriteLog("plansliced: " + DisplayedPlan)
         if (plan.last_update > local_date) {
             local_date = plan.last_update;
-            DisplayedPlan.forEach(function(objectBackup) {
+            DisplayedPlani.backup_plan.forEach(function(objectBackup) {
                 if (!listBackups[objectBackup["name"]]) {
                     listBackups[objectBackup["name"]] = {};
                 }
