@@ -45,7 +45,7 @@ ids.forEach(function(element) {
         delete nodesName['node'.concat('', element.id + '-').concat('', element.name)];
     } else {
         file = FileReadResponse.body;
-        jelastic.marketplace.console.WriteLog("file: " + file + "cavientdou" + envInfo.env.domain)
+        jelastic.marketplace.console.WriteLog("file: " + file + "cavientdou" + element.name)
         var plan = toNative(new Yaml().load(file));
         jelastic.marketplace.console.WriteLog("plans: " + plan)
         var DisplayedPlan = plan.backup_plan.slice(-1);
