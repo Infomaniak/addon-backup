@@ -40,7 +40,7 @@ ids.forEach(function(element) {
 
 
     var FileReadResponse = jelastic.environment.file.Read(element.name, params.session, params.path, params.nodeType, params.nodeGroup, element.id);
-
+    jelastic.marketplace.console.WriteLog("file read response : " + FileReadResponse)
     if (FileReadResponse.result != 0) {
         delete nodesName['node'.concat('', element.id + '-').concat('', element.name)];
     } else {
