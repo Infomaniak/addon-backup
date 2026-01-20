@@ -46,7 +46,7 @@ ids.forEach(function(element) {
     
     } else {
         file = FileReadResponse.body;
-        jelastic.marketplace.console.WriteLog("file: " + file + "cavientdou" + element.name)
+        jelastic.marketplace.console.WriteLog("file ca vient dou " + element.name)
         var plan = toNative(new Yaml().load(file));
         var DisplayedPlan = plan.backup_plan.slice(-1);
         jelastic.marketplace.console.WriteLog("plansliced: " + DisplayedPlan)
