@@ -12,6 +12,12 @@ targetNodes:
 
 onInstall:
 
+  if ('${settings.node.nodeType}' == 'kubernetes'):
+    return:
+      result: 1
+      error: "This addon cannot be installed on Kubernetes nodes."
+
+
  - script: scripts/check.cs
 
  - cmd[${settings.node}]: |-
