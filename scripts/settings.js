@@ -4,7 +4,7 @@ var resp = jelastic.environment.control.GetEnvs(appid, session);
 var listBackups = {};
 var backupTemplate = "c3c375b4-83c6-434c-b8af-8ea6651e246d";
 var nodesArray = [];
-var nodesName = {};
+//var nodesName = {};
 var ids = [];
 var conteneur = '';
 var file = '';
@@ -51,18 +51,17 @@ ids.forEach(function(element) {
         // Reducing the number of snapshots that will be displayed slicing the backup_plan found per node
         // It does actually contains all node from the environment, which is not wanted. Actually corrected in the code but need to wait for it to run and fix itself.
         // Therefore might be better with even value right now, anyway...
-        var DisplayedPlan = plan.backup_plan.slice(-30);
+        var DisplayedPlan = plan.backup_plan.slice(-15);
         DisplayedPlan.forEach(function(objectBackup) { 
-
-            if (!listBackups[objectBackup.name.split('-')[0]]) {
-                    
-                listBackups[objectBackup.name.split('-')[0]] = {};
-            }                
+            if (!listBackups[objectBackup["name"]]) {
+                listBackups[objectBackup["name"]] = {};
+            }
             var toDisplay = objectBackup["date"].replace('T', ' ') + " " + objectBackup["path"] + " " + objectBackup["size"];
-            listBackups[objectBackup.name.split('-')[0]][objectBackup["id"]] = toDisplay
-            nodesHostname[objectBackup.name.split('-')[0]] = objectBackup.name.split('-')[0];
+            listBackups[objectBackup["name"]][objectBackup["id"]] = toDisplay
+
+            nodesHostname[objectBackup.name] = objectBackup.name;
         })
-      }
+    }
 
 
 });
