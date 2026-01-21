@@ -14,14 +14,10 @@ if (resp.result != 0) return resp;
 
 for (var i = 0; envInfo = resp.infos[i]; i++) {
     if (envInfo.env.status == "1") {
-        jelastic.marketplace.console.WriteLog("env is started " + envInfo.env.domain)
         for (var j = 0; node = envInfo.nodes[j]; j++) {
-            jelastic.marketplace.console.WriteLog("node : " + envInfo.nodes)
             for (var m = 0; add = node.addons[m]; m++) {
-                jelastic.marketplace.console.WriteLog("addon on node : " + node.addons)
                 if (add.appTemplateId == backupTemplate) {
                     var conteneur = node.adminUrl.replace("https://", "").replace("http://", "").replace(/\..*/, "").replace("docker", "node").replace("vds", "node");
-                    jelastic.marketplace.console.WriteLog("conteneur with backup addon : " + conteneur)
                     nodesArray.push(conteneur);
                     ids.push({
                         name: conteneur.substring(conteneur.indexOf('-') + 1, conteneur.length),
@@ -40,10 +36,9 @@ var params = {
 }
 local_date = 0;
 ids.forEach(function(element) {
-    jelastic.marketplace.console.WriteLog("dans le each ids sa mere " + ids )
     var FileReadResponse = jelastic.environment.file.Read(element.name, params.session, params.path, params.nodeType, params.nodeGroup, element.id);
-
     if (FileReadResponse.result != 0) {
+        
         delete nodesName['node'.concat('', element.id + '-').concat('', element.name)];
     
     } else {
@@ -55,15 +50,13 @@ ids.forEach(function(element) {
         if (plan.last_update > local_date) {
             
             local_date = plan.last_update;
-            plan.backup_plan.forEach(function(objectBackup) {
-                
+            plan.backup_plan.forEach(function(objectBackup) {                
                 if (!listBackups[objectBackup["name"]]) {
+                    
                     listBackups[objectBackup["name"]] = {};
-                }
-                
+                }                
                 var toDisplay = objectBackup["date"].replace('T', ' ') + " " + objectBackup["path"] + " " + objectBackup["size"];
                 listBackups[objectBackup["name"]][objectBackup["id"]] = toDisplay
-
                 nodesHostname[objectBackup.name] = objectBackup.name;
             })
         }
