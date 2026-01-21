@@ -36,6 +36,7 @@ var params = {
 }
 local_date = 0;
 ids.forEach(function(element) {
+    jelastic.marketplace.console.WriteLog("dans les each id sa mere : " + ids)
     var FileReadResponse = jelastic.environment.file.Read(element.name, params.session, params.path, params.nodeType, params.nodeGroup, element.id);
     if (FileReadResponse.result != 0) {
         
@@ -43,14 +44,14 @@ ids.forEach(function(element) {
     
     } else {
         file = FileReadResponse.body;
-        jelastic.marketplace.console.WriteLog("file ca vient dou " + element.name)
+        jelastic.marketplace.console.WriteLog("file ca vient dou " + element.name + element.id)
         var plan = toNative(new Yaml().load(file));
         var DisplayedPlan = plan.backup_plan.slice(-1);
         jelastic.marketplace.console.WriteLog("plansliced: " + DisplayedPlan)
         if (plan.last_update > local_date) {
             
             local_date = plan.last_update;
-            plan.backup_plan.forEach(function(objectBackup) {                
+            DisplayedPlan.forEach(function(objectBackup) {                
                 if (!listBackups[objectBackup["name"]]) {
                     
                     listBackups[objectBackup["name"]] = {};
