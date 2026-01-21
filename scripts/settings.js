@@ -8,13 +8,14 @@ var ids = [];
 var conteneur = '';
 var file = '';
 var nodesHostname = {};
+var ctxNodeId = (settings && settings.nodeId);// || (params && (params.nodeId || params.nodeid));
 if (resp.result != 0) return resp;
-
+jelastic.marketplace.console.WriteLog("node id = " + ctxNodeId)
 
 for (var i = 0; envInfo = resp.infos[i]; i++) {
     if (envInfo.env.status == "1") {
         for (var j = 0; node = envInfo.nodes[j]; j++) {
-            jelastic.marketplace.console.WriteLog("nodeType=" + envInfo.nodes[j].nodeType + " | nodeGroup=" + envInfo.nodes[j].nodeGroup);
+            jelastic.marketplace.console.WriteLog("nodeType=" + envInfo.nodes[j].nodeType + " | nodeGroup=" + envInfo.nodes[j].nodeGroup)
             for (var m = 0; add = node.addons[m]; m++) {
                 if (add.appTemplateId == backupTemplate) {
                     var conteneur = node.adminUrl.replace("https://", "").replace("http://", "").replace(/\..*/, "").replace("docker", "node").replace("vds", "node");
