@@ -41,8 +41,9 @@ ids.forEach(function(element) {
     // Logging to see what's going on
     jelastic.marketplace.console.WriteLog("reading plan from : " + element.id + " " + element.name )
     var FileReadResponse = jelastic.environment.file.Read(element.name, params.session, params.path, params.nodeType, params.nodeGroup, element.id);
-//    if (FileReadResponse.result != 0) {
-        
+    if (FileReadResponse.result != 0) {
+        return;
+    }
 //        delete nodesName['node'.concat('', element.id + '-').concat('', element.name)];
     
 //    } else {
