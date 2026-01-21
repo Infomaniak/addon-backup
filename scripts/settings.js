@@ -8,7 +8,7 @@ var ids = [];
 var conteneur = '';
 var file = '';
 var nodesHostname = {};
-var ctxNodeId = (settings && settings.nodeId);// || (params && (params.nodeId || params.nodeid));
+var ctxNodeId = (params && (params.nodeId || params.nodeid));
 if (resp.result != 0) return resp;
 jelastic.marketplace.console.WriteLog("node id = " + ctxNodeId)
 
