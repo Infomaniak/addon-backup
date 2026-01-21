@@ -54,12 +54,12 @@ ids.forEach(function(element) {
             
             local_date = plan.last_update;
             DisplayedPlan.forEach(function(objectBackup) {                
-                if (!listBackups[objectBackup["name"]]) {
+                if (!listBackups[objectBackup.name.split('-')[0]]) {
                     
-                    listBackups[objectBackup["name"]] = {};
+                    listBackups[objectBackup.name.split('-')[0]] = {};
                 }                
                 var toDisplay = objectBackup["date"].replace('T', ' ') + " " + objectBackup["path"] + " " + objectBackup["size"];
-                listBackups[objectBackup["name"]][objectBackup["id"]] = toDisplay
+                listBackups[objectBackup.name.split('-')[0]][objectBackup["id"]] = toDisplay
                 nodesHostname[objectBackup.name.split('-')[0]] = objectBackup.name.split('-')[0];
             })
         }
