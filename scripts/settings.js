@@ -53,23 +53,22 @@ ids.forEach(function(element) {
         // It does actually contains all node from the environment, which is not wanted. Actually corrected in the code but need to wait for it to run and fix itself.
         // Therefore might be better with even value right now, anyway...
         var DisplayedPlan = plan.backup_plan.slice(-30);
-        if (plan.last_update > local_date) {
+ //       if (plan.last_update > local_date) {
             
-            local_date = plan.last_update;
-            DisplayedPlan.forEach(function(objectBackup) { 
+//            local_date = plan.last_update;
+        DisplayedPlan.forEach(function(objectBackup) { 
 
-                if (!listBackups[objectBackup.name.split('-')[0]]) {
+            if (!listBackups[objectBackup.name.split('-')[0]]) {
                     
-                    listBackups[objectBackup.name.split('-')[0]] = {};
-                }                
-                var toDisplay = objectBackup["date"].replace('T', ' ') + " " + objectBackup["path"] + " " + objectBackup["size"];
-                listBackups[objectBackup.name.split('-')[0]][objectBackup["id"]] = toDisplay
-                nodesHostname[objectBackup.name.split('-')[0]] = objectBackup.name.split('-')[0];
-            })
-        }
+                listBackups[objectBackup.name.split('-')[0]] = {};
+            }                
+            var toDisplay = objectBackup["date"].replace('T', ' ') + " " + objectBackup["path"] + " " + objectBackup["size"];
+            listBackups[objectBackup.name.split('-')[0]][objectBackup["id"]] = toDisplay
+            nodesHostname[objectBackup.name.split('-')[0]] = objectBackup.name.split('-')[0];
+        })
+      }
 
 
-    }
 });
 return {
     result: 0,
