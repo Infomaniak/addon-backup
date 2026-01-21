@@ -41,27 +41,26 @@ ids.forEach(function(element) {
     // Logging to see what's going on
     jelastic.marketplace.console.WriteLog("reading plan from : " + element.id + " " + element.name )
     var FileReadResponse = jelastic.environment.file.Read(element.name, params.session, params.path, params.nodeType, params.nodeGroup, element.id);
-    if (FileReadResponse.result != 0) {
+//    if (FileReadResponse.result != 0) {
         
-        delete nodesName['node'.concat('', element.id + '-').concat('', element.name)];
+//        delete nodesName['node'.concat('', element.id + '-').concat('', element.name)];
     
-    } else {
-        file = FileReadResponse.body;
-        var plan = toNative(new Yaml().load(file));
-        // Reducing the number of snapshots that will be displayed slicing the backup_plan found per node
-        // It does actually contains all node from the environment, which is not wanted. Actually corrected in the code but need to wait for it to run and fix itself.
-        // Therefore might be better with even value right now, anyway...
-        var DisplayedPlan = plan.backup_plan.slice(-15);
-        DisplayedPlan.forEach(function(objectBackup) { 
-            if (!listBackups[objectBackup["name"]]) {
-                listBackups[objectBackup["name"]] = {};
-            }
-            var toDisplay = objectBackup["date"].replace('T', ' ') + " " + objectBackup["path"] + " " + objectBackup["size"];
-            listBackups[objectBackup["name"]][objectBackup["id"]] = toDisplay
-
+//    } else {
+    file = FileReadResponse.body;
+    var plan = toNative(new Yaml().load(file));
+    // Reducing the number of snapshots that will be displayed slicing the backup_plan found per node
+    // It does actually contains all node from the environment, which is not wanted. Actually corrected in the code but need to wait for it to run and fix itself.
+    // Therefore might be better with even value right now, anyway...
+    var DisplayedPlan = plan.backup_plan.slice(-15);
+    DisplayedPlan.forEach(function(objectBackup) { 
+        if (!listBackups[objectBackup["name"]]) {
+            listBackups[objectBackup["name"]] = {};
+        }
+        var toDisplay = objectBackup["date"].replace('T', ' ') + " " + objectBackup["path"] + " " + objectBackup["size"];
+        listBackups[objectBackup["name"]][objectBackup["id"]] = toDisplay
             nodesHostname[objectBackup.name] = objectBackup.name;
-        })
-    }
+    })
+//}
 
 
 });
