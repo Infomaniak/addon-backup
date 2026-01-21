@@ -36,7 +36,7 @@ var params = {
 }
 local_date = 0;
 ids.forEach(function(element) {
-    jelastic.marketplace.console.WriteLog("dans les each id sa mere : " + ids)
+    jelastic.marketplace.console.WriteLog("dans les each id sa mere, en cours : " + element.id)
     var FileReadResponse = jelastic.environment.file.Read(element.name, params.session, params.path, params.nodeType, params.nodeGroup, element.id);
     if (FileReadResponse.result != 0) {
         
