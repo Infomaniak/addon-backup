@@ -46,7 +46,7 @@ ids.forEach(function(element) {
         file = FileReadResponse.body;
         jelastic.marketplace.console.WriteLog("file ca vient dou " + element.name + element.id)
         var plan = toNative(new Yaml().load(file));
-        var DisplayedPlan = plan.backup_plan.slice(-5);
+        var DisplayedPlan = plan.backup_plan.slice(-10);
         jelastic.marketplace.console.WriteLog("plansliced: " + DisplayedPlan)
         if (plan.last_update > local_date) {
             
