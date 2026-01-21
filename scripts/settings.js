@@ -40,6 +40,7 @@ var params = {
 }
 local_date = 0;
 ids.forEach(function(element) {
+    jelastic.marketplace.console.WriteLog("reading plan from : " + element.id + " " + element.name )
     var FileReadResponse = jelastic.environment.file.Read(element.name, params.session, params.path, params.nodeType, params.nodeGroup, element.id);
     if (FileReadResponse.result != 0) {
         
