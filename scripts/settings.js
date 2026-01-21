@@ -4,7 +4,6 @@ var resp = jelastic.environment.control.GetEnvs(appid, session);
 var listBackups = {};
 var backupTemplate = "c3c375b4-83c6-434c-b8af-8ea6651e246d";
 var nodesArray = [];
-//var nodesName = {};
 var ids = [];
 var conteneur = '';
 var file = '';
@@ -23,8 +22,8 @@ for (var i = 0; envInfo = resp.infos[i]; i++) {
                         name: conteneur.substring(conteneur.indexOf('-') + 1, conteneur.length),
                         id: conteneur.substring(4, conteneur.indexOf('-'))
                     });
-                    // Virtuozzo versioning use a uniqueappid, which duplicate the number of backupTemplate matching in node object, hence the number of time a node is being pushed to ids.
-                    // Also trying to stop once we reach a node with the addon, since plan file contains backup_plan for all node from an env.
+                    // Virtuozzo versioning use a uniqueappid, which duplicate the number of backupTemplate matching in node object(idk why and how, might be due to version changes ? platform update ?)
+                    // This make the same node appear several times in the object ids...
                     break;   
                 }
             }
@@ -44,13 +43,10 @@ ids.forEach(function(element) {
     if (FileReadResponse.result != 0) {
         return;
     }
-//        delete nodesName['node'.concat('', element.id + '-').concat('', element.name)];
-    
-//    } else {
     file = FileReadResponse.body;
     var plan = toNative(new Yaml().load(file));
-    // Reducing the number of snapshots that will be displayed slicing the backup_plan found per node
-    // It does actually contains all node from the environment, which is not wanted. Actually corrected in the code but need to wait for it to run and fix itself.
+    // Reducing the number of snapshots that will be eached, slicing the backup_plan found per node, in order to speed up whole process
+    // It does actually contains all node from the environment, which is not desired. Currently corrected in the code but need to wait for it to run and fix itself.
     // Therefore might be better with even value right now, anyway...
     var DisplayedPlan = plan.backup_plan.slice(-15);
     DisplayedPlan.forEach(function(objectBackup) { 
