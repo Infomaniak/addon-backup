@@ -84,15 +84,15 @@ actions:
 
       cmd [${settings.node}]: |-
       
-              curl -fsSL https://raw.githubusercontent.com/Infomaniak/addon-backup/master/scripts/retention-all.sh --output retention-all.sh
+              curl -fsSL https://raw.githubusercontent.com/vdecarva/addon-backup/master/scripts/retention-all.sh --output retention-all.sh
 
               chmod u+x retention-all.sh
               
-              curl -fsS https://raw.githubusercontent.com/Infomaniak/addon-backup/master/scripts/purge.sh --output purge.sh
+              curl -fsS https://raw.githubusercontent.com/vdecarva/addon-backup/master/scripts/purge.sh --output purge.sh
               
               chmod u+x purge.sh
               
-              curl -fsS https://raw.githubusercontent.com/Infomaniak/addon-backup/master/scripts/heal.sh --output heal.sh
+              curl -fsS https://raw.githubusercontent.com/vdecarva/addon-backup/master/scripts/heal.sh --output heal.sh
               
               chmod u+x heal.sh
               
@@ -124,15 +124,15 @@ actions:
 
       cmd [${settings.node}]: |-
       
-              curl -fsS https://raw.githubusercontent.com/Infomaniak/addon-backup/master/scripts/retention-all.sh --output retention-all.sh
+              curl -fsS https://raw.githubusercontent.com/vdecarva/addon-backup/master/scripts/retention-all.sh --output retention-all.sh
 
               chmod u+x retention-all.sh
               
-              curl -fsS https://raw.githubusercontent.com/Infomaniak/addon-backup/master/scripts/purge.sh --output purge.sh
+              curl -fsS https://raw.githubusercontent.com/vdecarva/addon-backup/master/scripts/purge.sh --output purge.sh
               
               chmod u+x purge.sh
               
-              curl -fsS https://raw.githubusercontent.com/Infomaniak/addon-backup/master/scripts/heal.sh --output heal.sh
+              curl -fsS https://raw.githubusercontent.com/vdecarva/addon-backup/master/scripts/heal.sh --output heal.sh
               
               chmod u+x heal.sh
               
