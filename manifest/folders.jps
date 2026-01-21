@@ -12,11 +12,6 @@ targetNodes:
 
 onInstall:
 
-  if ('${settings.node.nodeType}' == 'kubernetes'):
-    return:
-      result: 1
-      error: "This addon cannot be installed on Kubernetes nodes."
-
 
  - script: scripts/check.cs
 
@@ -111,7 +106,13 @@ onInstall:
    
  - if ('${settings.sauvegarde}' == 'hourly' ): hourly
  
- - if ( '${settings.sauvegarde}' == 'daily' ): daily    
+ - if ( '${settings.sauvegarde}' == 'daily' ): daily  
+
+ - if ('${settings.node.nodeType}' == 'kubernetes'):
+     return:
+       result: 1
+       error: "This addon cannot be installed on Kubernetes nodes."
+
 responses:
 
   4109:
