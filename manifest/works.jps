@@ -125,15 +125,15 @@ actions:
 
       cmd [${settings.node}]: |-
 
-              curl -fsS https://raw.githubusercontent.com/Infomaniak/addon-backup/master/scripts/retention-repo.sh --output retention-repo.sh
+              curl -fsS https://raw.githubusercontent.com/vdecarva/addon-backup/master/scripts/retention-repo.sh --output retention-repo.sh
 
               chmod u+x retention-repo.sh
 
-              curl -fsS https://raw.githubusercontent.com/Infomaniak/addon-backup/master/scripts/purge.sh --output purge.sh
+              curl -fsS https://raw.githubusercontent.com/vdecarva/addon-backup/master/scripts/purge.sh --output purge.sh
 
               chmod u+x purge.sh
 
-              curl -fsS https://raw.githubusercontent.com/Infomaniak/addon-backup/master/scripts/heal.sh --output heal.sh
+              curl -fsS https://raw.githubusercontent.com/vdecarva/addon-backup/master/scripts/heal.sh --output heal.sh
 
               chmod u+x heal.sh
 
@@ -167,15 +167,15 @@ actions:
 
       cmd [${settings.node}]: |-
 
-              curl -fsS https://raw.githubusercontent.com/Infomaniak/addon-backup/master/scripts/backup_v2.sh --output backup_v2.sh
+              curl -fsS https://raw.githubusercontent.com/vdecarva/addon-backup/master/scripts/backup_v2.sh --output backup_v2.sh
 
               chmod u+x backup_v2.sh
 
-              curl -fsS https://raw.githubusercontent.com/Infomaniak/addon-backup/master/scripts/purge.sh --output purge.sh
+              curl -fsS https://raw.githubusercontent.com/vdecarva/addon-backup/master/scripts/purge.sh --output purge.sh
 
               chmod u+x purge.sh
 
-              curl -fsS https://raw.githubusercontent.com/Infomaniak/addon-backup/master/scripts/heal.sh --output heal.sh
+              curl -fsS https://raw.githubusercontent.com/vdecarva/addon-backup/master/scripts/heal.sh --output heal.sh
 
               chmod u+x heal.sh
 
