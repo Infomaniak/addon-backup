@@ -78,10 +78,6 @@ onInstall:
  
  - if ( '${settings.sauvegarde}' == 'daily' ): daily
 
- - if ('${settings.node.nodeType}' == 'kubernetes'):
-     return:
-       result: 1
-       error: "This addon cannot be installed on Kubernetes nodes."
    
 actions:
  
