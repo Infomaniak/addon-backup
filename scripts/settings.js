@@ -15,8 +15,8 @@ if (resp.result != 0) return resp;
 for (var i = 0; envInfo = resp.infos[i]; i++) {
     if (envInfo.env.status == "1") {
         for (var j = 0; node = envInfo.nodes[j]; j++) {
+            jelastic.marketplace.console.WriteLog("node id=" + node.id + " url=" + node.adminUrl + " addons=" + (node.addons ? node.addons.length : 0));
             for (var m = 0; add = node.addons[m]; m++) {
-                jelastic.marketplace.console.WriteLog("node : " + node )
                 if (add.appTemplateId == backupTemplate) {
                     var conteneur = node.adminUrl.replace("https://", "").replace("http://", "").replace(/\..*/, "").replace("docker", "node").replace("vds", "node");
                     nodesArray.push(conteneur);
