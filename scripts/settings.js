@@ -44,8 +44,8 @@ ids.forEach(function(element) {
     
     } else {
         file = FileReadResponse.body;
-        jelastic.marketplace.console.WriteLog("file ca vient dou " + element.name + element.id)
         var plan = toNative(new Yaml().load(file));
+        jelastic.marketplace.console.WriteLog("putain j'ai pas de plan B : " + plan)
         var DisplayedPlan = plan.backup_plan.slice(-10);
         jelastic.marketplace.console.WriteLog("plansliced: " + DisplayedPlan)
         if (plan.last_update > local_date) {
