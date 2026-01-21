@@ -15,7 +15,7 @@ if (resp.result != 0) return resp;
 for (var i = 0; envInfo = resp.infos[i]; i++) {
     if (envInfo.env.status == "1") {
         for (var j = 0; node = envInfo.nodes[j]; j++) {
-            jelastic.marketplace.console.WriteLog("node id=" + node.id + " url=" + node.adminUrl + " addons=" + (node.addons ? node.addons.length : 0));
+            if (done) break;
             for (var m = 0; add = node.addons[m]; m++) {
                 if (add.appTemplateId == backupTemplate) {
                     var conteneur = node.adminUrl.replace("https://", "").replace("http://", "").replace(/\..*/, "").replace("docker", "node").replace("vds", "node");
@@ -25,7 +25,9 @@ for (var i = 0; envInfo = resp.infos[i]; i++) {
                         id: conteneur.substring(4, conteneur.indexOf('-'))
                     });
                     // Virtuozzo versioning use a uniqueappid, which duplicate the number of backupTemplate matching in node object, hence being pushed to ids.
-                    break; 
+                    // Also trying to stop once we reach a node with the addon, since plan file contains backup_plan for all node from an env.
+                    done = true;
+                    break;                    
                 }
             }
         }
@@ -39,7 +41,6 @@ var params = {
 }
 local_date = 0;
 ids.forEach(function(element) {
-    jelastic.marketplace.console.WriteLog("dans les each id sa mere, en cours : " + element.id + " " + element.name)
     var FileReadResponse = jelastic.environment.file.Read(element.name, params.session, params.path, params.nodeType, params.nodeGroup, element.id);
     if (FileReadResponse.result != 0) {
         
