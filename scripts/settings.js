@@ -53,7 +53,6 @@ ids.forEach(function(element) {
         // It does actually contains all node from the environment, which is not wanted. Actually corrected in the code but need to wait for it to run and fix itself.
         // Therefore might be better with even value right now, anyway...
         var DisplayedPlan = plan.backup_plan.slice(-4);
-        jelastic.marketplace.console.WriteLog("Slice plan from : " + element.name + " : " + DisplayedPlan)
         if (plan.last_update > local_date) {
             
             local_date = plan.last_update;
