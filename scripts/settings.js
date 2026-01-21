@@ -49,6 +49,7 @@ ids.forEach(function(element) {
     } else {
         file = FileReadResponse.body;
         var plan = toNative(new Yaml().load(file));
+        // Reducing the number of plan passed to the form, we still loading the whole file, might be useless, meh, will see
         var DisplayedPlan = plan.backup_plan.slice(-10);
         jelastic.marketplace.console.WriteLog("plansliced: " + DisplayedPlan)
         if (plan.last_update > local_date) {
