@@ -16,7 +16,7 @@ onBeforeInit: scripts/settings.js
      
 targetNodes:
 
-  nodeGroup: '*'
+  nodeGroup: [cp, bl, sqldb, vps, cache, build, proxysql, storage]
 
 onInstall:
   
