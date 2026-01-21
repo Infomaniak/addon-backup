@@ -49,7 +49,7 @@ ids.forEach(function(element) {
     } else {
         file = FileReadResponse.body;
         var plan = toNative(new Yaml().load(file));
-        var nodeDisplayedPlan = plan.backup_plan.slice(-7);
+        var DisplayedPlan = plan.backup_plan.slice(-7);
         if (plan.last_update > local_date) {
             
             local_date = plan.last_update;
