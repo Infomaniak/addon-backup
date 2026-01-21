@@ -39,6 +39,7 @@ var params = {
 }
 local_date = 0;
 ids.forEach(function(element) {
+    // Logging to see what's going on
     jelastic.marketplace.console.WriteLog("reading plan from : " + element.id + " " + element.name )
     var FileReadResponse = jelastic.environment.file.Read(element.name, params.session, params.path, params.nodeType, params.nodeGroup, element.id);
     if (FileReadResponse.result != 0) {
@@ -48,12 +49,16 @@ ids.forEach(function(element) {
     } else {
         file = FileReadResponse.body;
         var plan = toNative(new Yaml().load(file));
+        // Reducing the number of snapshots that will be displayed slicing the backup_plan found per node
+        // It does actually contains all node from the environment, which is not wanted. Actually corrected in the code but need to wait for it to run and fix itself.
+        // Therefore might be better with even value right now, anyway...
         var DisplayedPlan = plan.backup_plan.slice(-7);
         jelastic.marketplace.console.WriteLog("Slice plan from : " + element.name + " : " + DisplayedPlan)
         if (plan.last_update > local_date) {
             
             local_date = plan.last_update;
-            DisplayedPlan.forEach(function(objectBackup) {                
+            DisplayedPlan.forEach(function(objectBackup) { 
+
                 if (!listBackups[objectBackup.name.split('-')[0]]) {
                     
                     listBackups[objectBackup.name.split('-')[0]] = {};
