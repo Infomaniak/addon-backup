@@ -60,7 +60,7 @@ ids.forEach(function(element) {
                 }                
                 var toDisplay = objectBackup["date"].replace('T', ' ') + " " + objectBackup["path"] + " " + objectBackup["size"];
                 listBackups[objectBackup["name"]][objectBackup["id"]] = toDisplay
-                nodesHostname[objectBackup.name] = objectBackup.name;
+                nodesHostname[objectBackup.name.split('-')[0]] = objectBackup.name.split('-')[0];
             })
         }
 
