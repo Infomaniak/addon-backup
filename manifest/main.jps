@@ -17,6 +17,7 @@ onBeforeInit: scripts/settings.js
 targetNodes:
 
   nodeGroup: [cp, bl, sqldb, vps, cache, build, proxysql, storage]
+  nodeType: [docker, vds]
 
 onInstall:
   
