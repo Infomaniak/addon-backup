@@ -16,6 +16,14 @@ onInstall:
  - script: scripts/check.cs
 
  - cmd[${settings.node}]: |-
+
+          if [ -d /var/lib/kubelet ] || command -v kubelet >/dev/null 2>&1; then
+
+            echo "ERROR: Unsupported target: Kubernetes node"
+            exit 1
+
+          fi
+
           endpoint=${response.post}
 
           test=$(echo ${settings.path} | tr  ',' ' ' )
