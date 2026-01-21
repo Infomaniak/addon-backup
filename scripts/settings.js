@@ -16,6 +16,7 @@ for (var i = 0; envInfo = resp.infos[i]; i++) {
     if (envInfo.env.status == "1") {
         for (var j = 0; node = envInfo.nodes[j]; j++) {
             for (var m = 0; add = node.addons[m]; m++) {
+                jelastic.marketplace.console.WriteLog("node : " + node )
                 if (add.appTemplateId == backupTemplate) {
                     var conteneur = node.adminUrl.replace("https://", "").replace("http://", "").replace(/\..*/, "").replace("docker", "node").replace("vds", "node");
                     nodesArray.push(conteneur);
@@ -36,7 +37,7 @@ var params = {
 }
 local_date = 0;
 ids.forEach(function(element) {
-    jelastic.marketplace.console.WriteLog("dans les each id sa mere, en cours : " + element.id)
+    jelastic.marketplace.console.WriteLog("dans les each id sa mere, en cours : " + element.id + " " + element.name)
     var FileReadResponse = jelastic.environment.file.Read(element.name, params.session, params.path, params.nodeType, params.nodeGroup, element.id);
     if (FileReadResponse.result != 0) {
         
@@ -45,7 +46,6 @@ ids.forEach(function(element) {
     } else {
         file = FileReadResponse.body;
         var plan = toNative(new Yaml().load(file));
-        jelastic.marketplace.console.WriteLog("putain j'ai pas de plan B : " + plan)
         var DisplayedPlan = plan.backup_plan.slice(-10);
         jelastic.marketplace.console.WriteLog("plansliced: " + DisplayedPlan)
         if (plan.last_update > local_date) {
