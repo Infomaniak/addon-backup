@@ -23,7 +23,7 @@ for (var i = 0; envInfo = resp.infos[i]; i++) {
                         name: conteneur.substring(conteneur.indexOf('-') + 1, conteneur.length),
                         id: conteneur.substring(4, conteneur.indexOf('-'))
                     });
-                    // Virtuozzo versioning use a uniqueappid, which duplicate the number of backupTemplate matching in node object, hence being pushed to ids.
+                    // Virtuozzo versioning use a uniqueappid, which duplicate the number of backupTemplate matching in node object, hence the number of time a node is being pushed to ids.
                     // Also trying to stop once we reach a node with the addon, since plan file contains backup_plan for all node from an env.
                     break;   
                 }
