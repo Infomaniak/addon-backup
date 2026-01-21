@@ -57,8 +57,6 @@ ids.forEach(function(element) {
         listBackups[objectBackup["name"]][objectBackup["id"]] = toDisplay
             nodesHostname[objectBackup.name] = objectBackup.name;
     })
-//}
-
 
 });
 return {
