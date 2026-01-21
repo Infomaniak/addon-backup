@@ -16,7 +16,6 @@ if (resp.result != 0) return resp;
 for (var i = 0; envInfo = resp.infos[i]; i++) {
     if (envInfo.env.status == "1") {
         for (var j = 0; node = envInfo.nodes[j]; j++) {
-            if (done) break;
             for (var m = 0; add = node.addons[m]; m++) {
                 if (add.appTemplateId == backupTemplate) {
                     var conteneur = node.adminUrl.replace("https://", "").replace("http://", "").replace(/\..*/, "").replace("docker", "node").replace("vds", "node");
@@ -27,7 +26,6 @@ for (var i = 0; envInfo = resp.infos[i]; i++) {
                     });
                     // Virtuozzo versioning use a uniqueappid, which duplicate the number of backupTemplate matching in node object, hence being pushed to ids.
                     // Also trying to stop once we reach a node with the addon, since plan file contains backup_plan for all node from an env.
-                    done = true;
                     break;                    
                 }
             }
