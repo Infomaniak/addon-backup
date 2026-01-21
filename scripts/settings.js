@@ -23,10 +23,11 @@ for (var i = 0; envInfo = resp.infos[i]; i++) {
                         name: conteneur.substring(conteneur.indexOf('-') + 1, conteneur.length),
                         id: conteneur.substring(4, conteneur.indexOf('-'))
                     });
-                    // Virtuozzo versioning use a uniqueappid, which duplicate the number of backupTemplate matching in node object, hence being pushed to ids.
-                    // Also trying to stop once we reach a node with the addon, since plan file contains backup_plan for all node from an env.
-                break;                    
+                   
                 }
+            // Virtuozzo versioning use a uniqueappid, which duplicate the number of backupTemplate matching in node object, hence being pushed to ids.
+            // Also trying to stop once we reach a node with the addon, since plan file contains backup_plan for all node from an env.
+            break; 
             }
         }
     }
@@ -47,13 +48,10 @@ ids.forEach(function(element) {
     } else {
         file = FileReadResponse.body;
         var plan = toNative(new Yaml().load(file));
-        // Reducing the number of plan passed to the form, we still loading the whole file, might be useless, meh, will see
-        var DisplayedPlan = plan.backup_plan.slice(-10);
-        jelastic.marketplace.console.WriteLog("plansliced: " + DisplayedPlan)
         if (plan.last_update > local_date) {
             
             local_date = plan.last_update;
-            DisplayedPlan.forEach(function(objectBackup) {                
+            plan.backup_plan.forEach(function(objectBackup) {                
                 if (!listBackups[objectBackup["name"]]) {
                     
                     listBackups[objectBackup["name"]] = {};
