@@ -9,6 +9,7 @@ var ids = [];
 var conteneur = '';
 var file = '';
 var nodesHostname = {};
+var done = false;
 if (resp.result != 0) return resp;
 
 
