@@ -19,6 +19,7 @@ for (var i = 0; envInfo = resp.infos[i]; i++) {
             for (var m = 0; add = node.addons[m]; m++) {
                 if (add.appTemplateId == backupTemplate) {
                     var conteneur = node.adminUrl.replace("https://", "").replace("http://", "").replace(/\..*/, "").replace("docker", "node").replace("vds", "node");
+                    jelastic.marketplace.console.WriteLog("conteneur with backup addon" + conteneur)
                     nodesArray.push(conteneur);
                     ids.push({
                         name: conteneur.substring(conteneur.indexOf('-') + 1, conteneur.length),
