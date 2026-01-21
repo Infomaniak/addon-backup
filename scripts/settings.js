@@ -48,7 +48,7 @@ ids.forEach(function(element) {
     } else {
         file = FileReadResponse.body;
         var plan = toNative(new Yaml().load(file));
-        var DisplayedPlan = plan.backup_plan.slice(-10);
+        var DisplayedPlan = plan.backup_plan.slice(-7);
         jelastic.marketplace.console.WriteLog("Slice plan from : " + element.name + " : " + DisplayedPlan)
         if (plan.last_update > local_date) {
             
