@@ -24,6 +24,8 @@ for (var i = 0; envInfo = resp.infos[i]; i++) {
                         name: conteneur.substring(conteneur.indexOf('-') + 1, conteneur.length),
                         id: conteneur.substring(4, conteneur.indexOf('-'))
                     });
+                    // Virtuozzo versioning use a uniqueappid, which duplicate the number of backupTemplate matching in node object, hence being pushed to ids.
+                    break; 
                 }
             }
         }
