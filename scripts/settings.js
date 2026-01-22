@@ -2,7 +2,7 @@ import org.yaml.snakeyaml.Yaml;
 
 var resp = jelastic.environment.control.GetEnvs(appid, session);
 var listBackups = {};
-var backupTemplate = "c26ac12d-32ab-497e-a05b-43d7d270aa3a";
+var backupTemplate = "c3c375b4-83c6-434c-b8af-8ea6651e246d";
 var nodesArray = [];
 var ids = [];
 var conteneur = '';
@@ -13,7 +13,6 @@ if (resp.result != 0) return resp;
 for (var i = 0; envInfo = resp.infos[i]; i++) {
     if (envInfo.env.status == "1") {
         for (var j = 0; node = envInfo.nodes[j]; j++) {
-            jelastic.marketplace.console.WriteLog("nodeType=" + envInfo.nodes[j].nodeType + " | nodeGroup=" + envInfo.nodes[j].nodeGroup + " | nodeId=" + envInfo.nodes[j].nodeId)
             for (var m = 0; add = node.addons[m]; m++) {
                 if (add.appTemplateId == backupTemplate) {
                     var conteneur = node.adminUrl.replace("https://", "").replace("http://", "").replace(/\..*/, "").replace("docker", "node").replace("vds", "node");
@@ -22,8 +21,6 @@ for (var i = 0; envInfo = resp.infos[i]; i++) {
                         name: conteneur.substring(conteneur.indexOf('-') + 1, conteneur.length),
                         id: conteneur.substring(4, conteneur.indexOf('-'))
                     });
-                    // Virtuozzo versioning use a uniqueappid, which duplicate the number of backupTemplate matching in node object(idk why and how, might be due to version changes ? platform update ?)
-                    // This make the same node appear several times in the object ids...
                     break;   
                 }
             }
@@ -37,7 +34,6 @@ var params = {
     nodeGroup: ""
 }
 ids.forEach(function(element) {
-    // Logging to see what's going on
     jelastic.marketplace.console.WriteLog("reading plan from : " + element.id + " " + element.name )
     var FileReadResponse = jelastic.environment.file.Read(element.name, params.session, params.path, params.nodeType, params.nodeGroup, element.id);
     if (FileReadResponse.result != 0) {
@@ -45,9 +41,6 @@ ids.forEach(function(element) {
     }
     file = FileReadResponse.body;
     var plan = toNative(new Yaml().load(file));
-    // Reducing the number of snapshots that will be eached, slicing the backup_plan found per node, in order to speed up whole process
-    // It does actually contains all node from the environment, which is not desired. Currently corrected in the code but need to wait for it to run and fix itself.
-    // Therefore might be better with even value right now, anyway...
     var DisplayedPlan = plan.backup_plan.slice(-15);
     DisplayedPlan.forEach(function(objectBackup) { 
         if (!listBackups[objectBackup["name"]]) {
