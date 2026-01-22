@@ -16,7 +16,8 @@ onBeforeInit: scripts/settings.js
      
 targetNodes:
 
-  nodeGroup: '*'
+  nodeType: [docker, vds]
+  nodeGroup: [cp, bl, sqldb, vps, cache, build, proxysql, storage]
 
 onInstall:
   
@@ -36,7 +37,6 @@ onInstall:
   if ('${settings.mode}' == 'restauration' && '${settings.permissions}' == 'permissions'):
 
     - user-restauration
-
 
 
 actions:

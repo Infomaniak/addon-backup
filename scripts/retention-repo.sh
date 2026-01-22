@@ -67,14 +67,14 @@ FOLDERS_TO_BACKUP=$(echo ${FOLDER_TO_BACKUP} | tr -d  ' ' | tr  ',' ' ' )
 for i in ${FOLDERS_TO_BACKUP}"" ; do
 
 
-       eval "/usr/bin/restic backup --hostname $host --tag $i $i"
+       eval "/usr/bin/restic backup --host $host --tag $i $i"
        
        
 
 done
 
 function loopOverArray(){
-         restic snapshots --json | jq -r '.?' | jq -c '.[]'| while read i; do
+         restic snapshots --host $host --json | jq -r '.?' | jq -c '.[]'| while read i; do
            id=$(echo "$i" | jq -r '.| .short_id')
                 test=$(restic --no-lock stats $id | awk '{b=$3$4; print b}' |tail -1|sed 's/%$//g')
                    size=$(echo $test)

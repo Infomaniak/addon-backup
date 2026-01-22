@@ -4,17 +4,14 @@ var resp = jelastic.environment.control.GetEnvs(appid, session);
 var listBackups = {};
 var backupTemplate = "c3c375b4-83c6-434c-b8af-8ea6651e246d";
 var nodesArray = [];
-var nodesName = {};
 var ids = [];
 var conteneur = '';
 var file = '';
 var nodesHostname = {};
 if (resp.result != 0) return resp;
 
-
 for (var i = 0; envInfo = resp.infos[i]; i++) {
     if (envInfo.env.status == "1") {
-        jelastic.marketplace.console.WriteLog("env is started" + envInfo.env.domain)
         for (var j = 0; node = envInfo.nodes[j]; j++) {
             for (var m = 0; add = node.addons[m]; m++) {
                 if (add.appTemplateId == backupTemplate) {
@@ -24,6 +21,7 @@ for (var i = 0; envInfo = resp.infos[i]; i++) {
                         name: conteneur.substring(conteneur.indexOf('-') + 1, conteneur.length),
                         id: conteneur.substring(4, conteneur.indexOf('-'))
                     });
+                    break;   
                 }
             }
         }
@@ -35,32 +33,24 @@ var params = {
     nodeType: "",
     nodeGroup: ""
 }
-local_date = 0;
 ids.forEach(function(element) {
-
-
+    jelastic.marketplace.console.WriteLog("reading plan from : " + element.id + " " + element.name )
     var FileReadResponse = jelastic.environment.file.Read(element.name, params.session, params.path, params.nodeType, params.nodeGroup, element.id);
-
     if (FileReadResponse.result != 0) {
-        delete nodesName['node'.concat('', element.id + '-').concat('', element.name)];
-    } else {
-        file = FileReadResponse.body;
-        var plan = toNative(new Yaml().load(file));
-        if (plan.last_update > local_date) {
-            local_date = plan.last_update;
-            plan.backup_plan.forEach(function(objectBackup) {
-                if (!listBackups[objectBackup["name"]]) {
-                    listBackups[objectBackup["name"]] = {};
-                }
-                var toDisplay = objectBackup["date"].replace('T', ' ') + " " + objectBackup["path"] + " " + objectBackup["size"];
-                listBackups[objectBackup["name"]][objectBackup["id"]] = toDisplay
-
-                nodesHostname[objectBackup.name] = objectBackup.name;
-            })
-        }
-
-
+        return;
     }
+    file = FileReadResponse.body;
+    var plan = toNative(new Yaml().load(file));
+    var DisplayedPlan = plan.backup_plan.slice(-15);
+    DisplayedPlan.forEach(function(objectBackup) { 
+        if (!listBackups[objectBackup["name"]]) {
+            listBackups[objectBackup["name"]] = {};
+        }
+        var toDisplay = objectBackup["date"].replace('T', ' ') + " " + objectBackup["path"] + " " + objectBackup["size"];
+        listBackups[objectBackup["name"]][objectBackup["id"]] = toDisplay
+            nodesHostname[objectBackup.name] = objectBackup.name;
+    })
+
 });
 return {
     result: 0,
@@ -362,10 +352,9 @@ return {
                                     {
                                         "width": 37,
                                         "name": "day",
-                                        "regex": "^[0-9]$|^[0-9][0-99]$",
-                                        "regexText": "0-99",
+                                        "regex": "^[1-9][0-9]?$",
+                                        "regexText": "1-99",
                                         "type": "string",
-                                        "default": "0",
                                         "required": "true",
                                         "hidden": false
                                     }
