@@ -16,6 +16,7 @@ onInstall:
  - script: scripts/check.cs
 
  - cmd[${settings.node}]: |-
+
           if [ -d /var/lib/kubelet ] || command -v kubelet >/dev/null 2>&1; then
 
             echo "ERROR: Unsupported target: Kubernetes cp node"
