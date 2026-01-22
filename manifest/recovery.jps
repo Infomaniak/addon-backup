@@ -1,6 +1,6 @@
 type: update
 name: Add-on restoration
-baseUrl: https://raw.githubusercontent.com/vdecarva/addon-backup/master/
+baseUrl: https://raw.githubusercontent.com/Infomaniak/addon-backup/master/
 
 globals:
 
