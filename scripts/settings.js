@@ -355,6 +355,7 @@ return {
                                         "regex": "^[1-9][0-9]?$",
                                         "regexText": "1-99",
                                         "type": "string",
+                                        "default": "7",
                                         "required": "true",
                                         "hidden": false
                                     }
