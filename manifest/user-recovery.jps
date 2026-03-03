@@ -63,7 +63,7 @@ onInstall:
             
             restic snapshots || restic -r swift:sb_project_${settings.User}:/Jelastic-Infomaniak init
 
-            curl -fsS https://raw.githubusercontent.com/Infomaniak/addon-backup/master/scripts/user-recovery.sh --output user-recovery.sh
+            curl -fsS https://raw.githubusercontent.com/vdecarva/addon-backup/master/scripts/user-recovery.sh --output user-recovery.sh
 
             chmod +x user-recovery.sh
 
