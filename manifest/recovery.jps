@@ -1,6 +1,6 @@
 type: update
 name: Add-on restoration
-baseUrl: https://raw.githubusercontent.com/Infomaniak/addon-backup/master/
+baseUrl: https://raw.githubusercontent.com/vdecarva/addon-backup/master/
 
 globals:
 
@@ -64,7 +64,7 @@ onInstall:
             
             restic snapshots || restic -r swift:sb_project_${settings.User}:/Jelastic-Infomaniak init
 
-            curl -fsS https://raw.githubusercontent.com/Infomaniak/addon-backup/master/scripts/recovery.sh --output recovery.sh
+            curl -fsS https://raw.githubusercontent.com/vdecarva/addon-backup/master/scripts/recovery.sh --output recovery.sh
 
             chmod +x recovery.sh
 
