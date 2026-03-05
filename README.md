@@ -75,7 +75,7 @@ Hourly provides a backup of your files every hour (at the start of the hour at 1
 
 You can define how long to keep your backups (in years, months, days and hours).
 
-Please don't set all parameters to 0 because forever backups can cause backup fails. 
+Please don't set all parameters to 0, it will cause backup and restoration failure. 
 
 Limit: year: 1 month: 12 days: 99
 
@@ -95,6 +95,7 @@ You need to have at least one container lit with the add-on installed to see all
 
 ## Restoration Process
 
+The form will only provide you with the last 15 backups from all snapshots available from the swissbackup storage. If you need to restore an older snapshot, please refer to the CLI section below.
 
 When selecting "Restore your data" these fields will appear.
 
