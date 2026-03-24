@@ -3,167 +3,92 @@ name: Add-on backup
 baseUrl: https://raw.githubusercontent.com/Infomaniak/addon-backup/master/
 
 globals:
-
   pass: ${fn.md5([user.uid])}
   mail: ${user.email}
-  
-targetNodes:
 
+targetNodes:
   nodeGroup: '*'
 
 onInstall:
-
- - script: scripts/check.cs
-
- - cmd[${settings.node}]: |-
-
-          if [ -d /var/lib/kubelet ] || command -v kubelet >/dev/null 2>&1; then
-
-            echo "ERROR: Unsupported target: Kubernetes cp node"
-            exit 1
-
-          fi
-          
-          endpoint=${response.post}
-
-          wget -O restic.bz2 https://github.com/restic/restic/releases/download/v0.9.5/restic_0.9.5_linux_amd64.bz2
-
-          bunzip2 restic.bz2
-
-          chmod +x restic
-
-          mv restic /usr/bin/
-
-          restic self-update
-          
-          curl -L -o jq https://github.com/stedolan/jq/releases/download/jq-1.6/jq-linux64 && chmod +x jq
-          
-          mv jq /usr/bin/
-          
-          mkdir -p /home/.config/
-          
-          mkdir -p /home/.config/swissbackup/
-
-          touch /home/.config/swissbackup/openrc.sh
-
-          > /home/.config/swissbackup/openrc.sh
-
-          touch /home/.config/swissbackup/secret.txt
-
-          password=${globals.pass}
-
-          if [ ! -s /home/.config/swissbackup/secret.txt ]; then echo "$password" >> /home/.config/swissbackup/secret.txt; else echo "nothing"; fi
-
-          echo "export OS_AUTH_URL="$endpoint"" >> /home/.config/swissbackup/openrc.sh
-
-          echo "export OS_REGION_NAME="RegionOne"" >> /home/.config/swissbackup/openrc.sh
-
-          echo "export OS_PROJECT_NAME="sb_project_${settings.User}"" >> /home/.config/swissbackup/openrc.sh
-
-          echo 'export OS_PASSWORD="${settings.key}"' >> /home/.config/swissbackup/openrc.sh
-
-          echo "export OS_USER_DOMAIN_NAME="default"" >> /home/.config/swissbackup/openrc.sh
-
-          echo "export OS_USERNAME="${settings.User}"" >> /home/.config/swissbackup/openrc.sh
-
-          echo "export OS_PROJECT_DOMAIN_NAME="default"" >> /home/.config/swissbackup/openrc.sh
-
-          echo "export RESTIC_REPOSITORY="swift:sb_project_${settings.User}:/Jelastic-Infomaniak"" >> /home/.config/swissbackup/openrc.sh
-
-          echo "export RESTIC_PASSWORD_FILE=/home/.config/swissbackup/secret.txt" >> /home/.config/swissbackup/openrc.sh
-
-          . /home/.config/swissbackup/openrc.sh
-
-          restic snapshots || restic -r swift:sb_project_${settings.User}:/Jelastic-Infomaniak init
-          
-          mkdir -p /run/user/
-          
-          touch /run/user/restic.lock
-          
-   user: root
-   
- - if ('${settings.sauvegarde}' == 'hourly' ): hourly
- 
- - if ( '${settings.sauvegarde}' == 'daily' ): daily
+  - script: scripts/check.cs
+  - cmd[${settings.node}]: |-
+      if [ -d /var/lib/kubelet ] || command -v kubelet >/dev/null 2>&1; then
+        echo "ERROR: Unsupported target: Kubernetes cp node"
+        exit 1
+      fi
+      
+      endpoint=${response.post}
+      wget -O restic.bz2 https://github.com/restic/restic/releases/download/v0.9.5/restic_0.9.5_linux_amd64.bz2
+      bunzip2 restic.bz2
+      chmod +x restic
+      mv restic /usr/bin/
+      restic self-update
+      curl -L -o jq https://github.com/stedolan/jq/releases/download/jq-1.6/jq-linux64 && chmod +x jq
+      mv jq /usr/bin/
+      mkdir -p /home/.config/
+      mkdir -p /home/.config/swissbackup/
+      touch /home/.config/swissbackup/openrc.sh
+      > /home/.config/swissbackup/openrc.sh
+      touch /home/.config/swissbackup/secret.txt
+      password=${globals.pass}
+      
+      if [ ! -s /home/.config/swissbackup/secret.txt ]; then echo "$password" >> /home/.config/swissbackup/secret.txt; else echo "nothing"; fi
+      echo "export OS_AUTH_URL="$endpoint"" >> /home/.config/swissbackup/openrc.sh
+      echo "export OS_REGION_NAME="RegionOne"" >> /home/.config/swissbackup/openrc.sh
+      echo "export OS_PROJECT_NAME="sb_project_${settings.User}"" >> /home/.config/swissbackup/openrc.sh
+      echo 'export OS_PASSWORD="${settings.key}"' >> /home/.config/swissbackup/openrc.sh
+      echo "export OS_USER_DOMAIN_NAME="default"" >> /home/.config/swissbackup/openrc.sh
+      echo "export OS_USERNAME="${settings.User}"" >> /home/.config/swissbackup/openrc.sh
+      echo "export OS_PROJECT_DOMAIN_NAME="default"" >> /home/.config/swissbackup/openrc.sh
+      echo "export RESTIC_REPOSITORY="swift:sb_project_${settings.User}:/Jelastic-Infomaniak"" >> /home/.config/swissbackup/openrc.sh
+      echo "export RESTIC_PASSWORD_FILE=/home/.config/swissbackup/secret.txt" >> /home/.config/swissbackup/openrc.sh
+      . /home/.config/swissbackup/openrc.sh
+      restic snapshots || restic -r swift:sb_project_${settings.User}:/Jelastic-Infomaniak init
+      mkdir -p /run/user/
+      touch /run/user/restic.lock
+    user: root
+  - if ('${settings.sauvegarde}' == 'hourly' ): hourly
+  - if ( '${settings.sauvegarde}' == 'daily' ): daily
 
 actions:
- 
   hourly:
-
-      cmd [${settings.node}]: |-
-      
-              curl -fsSL https://raw.githubusercontent.com/Infomaniak/addon-backup/master/scripts/retention-all.sh --output retention-all.sh
-
-              chmod u+x retention-all.sh
-              
-              curl -fsS https://raw.githubusercontent.com/Infomaniak/addon-backup/master/scripts/purge.sh --output purge.sh
-              
-              chmod u+x purge.sh
-              
-              curl -fsS https://raw.githubusercontent.com/Infomaniak/addon-backup/master/scripts/heal.sh --output heal.sh
-              
-              chmod u+x heal.sh
-              
-              if [ -f "/var/spool/cron/crontabs/root" ]; then sed -i '/restic.lock/d' /var/spool/cron/crontabs/root; elif [ -f "/var/spool/cron/root" ]; then sed -i '/restic.lock/d' /var/spool/cron/root; else echo "first install"; fi
-              
-              crontab -u root -l | grep -v '/root/heal.sh'  | crontab -u root -
-              
-              crontab -u root -l | { cat; echo "50 1 * * WED /root/heal.sh "; } | crontab -
-              
-              crontab -u root -l | { cat; echo "* * * * * /usr/bin/nohup /usr/bin/flock --nonblock --conflict-exit-code 0 /run/user/restic.lock /root/retention-all.sh  >> /var/log/first-backup.log 2>&1 "; } | crontab -
-
-              crontab -u root -l | { cat; echo "0 */1 * * * /usr/bin/nohup /usr/bin/flock --nonblock --conflict-exit-code 0 /run/user/restic.lock /root/retention-all.sh >> /var/log/restic.log 2>&1 "; } | crontab -
-              
-              crontab -u root -l | grep -v '/root/purge.sh'  | crontab -u root -
-              
-              crontab -u root -l | { cat; echo "30 22 * * *  perl -le 'sleep rand 600' && /root/purge.sh -y \"${settings.year}\" -m \"${settings.month}\" -d \"${settings.day}\" >> /var/log/retention.log 2>&1 "; } | crontab -
-              
-              if [ ! -f "/var/log/restic.log" ]; then crontab -u root -l | { cat; echo "0 0 1 * * > /var/log/restic.log  "; } | crontab -; fi
-              
-              if [ ! -f "/var/log/retention.log" ]; then crontab -u root -l | { cat; echo "0 0 1 * * > /var/log/retention.log  "; } | crontab -; fi
-              
-              if [ ! -f "/root/retention.log" ]; then crontab -u root -l | { cat; echo "0 0 1 * * > /root/retention.log  "; } | crontab -; fi
-              
-              touch /var/log/restic.log /var/log/retention.log /root/retention.log
-              
-      user: root
+    cmd [${settings.node}]: |-
+      curl -fsSL https://raw.githubusercontent.com/Infomaniak/addon-backup/master/scripts/retention-all.sh --output retention-all.sh
+      chmod u+x retention-all.sh
+      curl -fsS https://raw.githubusercontent.com/Infomaniak/addon-backup/master/scripts/purge.sh --output purge.sh
+      chmod u+x purge.sh
+      curl -fsS https://raw.githubusercontent.com/Infomaniak/addon-backup/master/scripts/heal.sh --output heal.sh
+      chmod u+x heal.sh
+      if [ -f "/var/spool/cron/crontabs/root" ]; then sed -i '/restic.lock/d' /var/spool/cron/crontabs/root; elif [ -f "/var/spool/cron/root" ]; then sed -i '/restic.lock/d' /var/spool/cron/root; else echo "first install"; fi
+      crontab -u root -l | grep -v '/root/heal.sh'  | crontab -u root -
+      crontab -u root -l | { cat; echo "50 1 * * WED /root/heal.sh "; } | crontab -
+      crontab -u root -l | { cat; echo "* * * * * /usr/bin/nohup /usr/bin/flock --nonblock --conflict-exit-code 0 /run/user/restic.lock /root/retention-all.sh  >> /var/log/first-backup.log 2>&1 "; } | crontab -
+      crontab -u root -l | { cat; echo "0 */1 * * * /usr/bin/nohup /usr/bin/flock --nonblock --conflict-exit-code 0 /run/user/restic.lock /root/retention-all.sh >> /var/log/restic.log 2>&1 "; } | crontab -
+      crontab -u root -l | grep -v '/root/purge.sh'  | crontab -u root -
+      crontab -u root -l | { cat; echo "30 22 * * *  perl -le 'sleep rand 600' && /root/purge.sh -y \"${settings.year}\" -m \"${settings.month}\" -d \"${settings.day}\" >> /var/log/retention.log 2>&1 "; } | crontab -
+      if [ ! -f "/var/log/restic.log" ]; then crontab -u root -l | { cat; echo "0 0 1 * * > /var/log/restic.log  "; } | crontab -; fi
+      if [ ! -f "/var/log/retention.log" ]; then crontab -u root -l | { cat; echo "0 0 1 * * > /var/log/retention.log  "; } | crontab -; fi
+      if [ ! -f "/root/retention.log" ]; then crontab -u root -l | { cat; echo "0 0 1 * * > /root/retention.log  "; } | crontab -; fi
+      touch /var/log/restic.log /var/log/retention.log /root/retention.log
+    user: root
 
   daily:
-
-      cmd [${settings.node}]: |-
-      
-              curl -fsS https://raw.githubusercontent.com/Infomaniak/addon-backup/master/scripts/retention-all.sh --output retention-all.sh
-
-              chmod u+x retention-all.sh
-              
-              curl -fsS https://raw.githubusercontent.com/Infomaniak/addon-backup/master/scripts/purge.sh --output purge.sh
-              
-              chmod u+x purge.sh
-              
-              curl -fsS https://raw.githubusercontent.com/Infomaniak/addon-backup/master/scripts/heal.sh --output heal.sh
-              
-              chmod u+x heal.sh
-              
-              if [ -f "/var/spool/cron/crontabs/root" ]; then sed -i '/restic.lock/d' /var/spool/cron/crontabs/root; elif [ -f "/var/spool/cron/root" ]; then sed -i '/restic.lock/d' /var/spool/cron/root; else echo "first install"; fi
-              
-              crontab -u root -l | grep -v '/root/heal.sh'  | crontab -u root -
-              
-              crontab -u root -l | { cat; echo "50 1 * * WED /root/heal.sh "; } | crontab -
-              
-              crontab -u root -l | { cat; echo "* * * * * /usr/bin/nohup /usr/bin/flock --nonblock --conflict-exit-code 0 /run/user/restic.lock /root/retention-all.sh >> /var/log/first-backup.log 2>&1 "; } | crontab -
-
-              crontab -u root -l | { cat; echo "0 20 * * * /usr/bin/nohup /usr/bin/flock --nonblock --conflict-exit-code 0 /run/user/restic.lock /root/retention-all.sh >> /var/log/restic.log 2>&1 "; } | crontab -
-              
-              crontab -u root -l | grep -v '/root/purge.sh'  | crontab -u root -
-              
-              crontab -u root -l | { cat; echo "30 22 * * * perl -le 'sleep rand 600' && /root/purge.sh -y \"${settings.year}\" -m \"${settings.month}\" -d \"${settings.day}\" >> /var/log/retention.log 2>&1 "; } | crontab -
-              
-              if [ ! -f "/var/log/restic.log" ]; then crontab -u root -l | { cat; echo "0 0 1 * * > /var/log/restic.log  "; } | crontab -; fi
-              
-              if [ ! -f "/var/log/retention.log" ]; then crontab -u root -l | { cat; echo "0 0 1 * * > /var/log/retention.log  "; } | crontab -; fi
-              
-              if [ ! -f "/root/retention.log" ]; then crontab -u root -l | { cat; echo "0 0 1 * * > /root/retention.log  "; } | crontab -; fi
-              
-              touch /var/log/restic.log /var/log/retention.log /root/retention.log
-              
-      user: root
+    cmd [${settings.node}]: |-
+      curl -fsS https://raw.githubusercontent.com/Infomaniak/addon-backup/master/scripts/retention-all.sh --output retention-all.sh
+      chmod u+x retention-all.sh
+      curl -fsS https://raw.githubusercontent.com/Infomaniak/addon-backup/master/scripts/purge.sh --output purge.sh
+      chmod u+x purge.sh
+      curl -fsS https://raw.githubusercontent.com/Infomaniak/addon-backup/master/scripts/heal.sh --output heal.sh
+      chmod u+x heal.sh
+      if [ -f "/var/spool/cron/crontabs/root" ]; then sed -i '/restic.lock/d' /var/spool/cron/crontabs/root; elif [ -f "/var/spool/cron/root" ]; then sed -i '/restic.lock/d' /var/spool/cron/root; else echo "first install"; fi
+      crontab -u root -l | grep -v '/root/heal.sh'  | crontab -u root -
+      crontab -u root -l | { cat; echo "50 1 * * WED /root/heal.sh "; } | crontab -
+      crontab -u root -l | { cat; echo "* * * * * /usr/bin/nohup /usr/bin/flock --nonblock --conflict-exit-code 0 /run/user/restic.lock /root/retention-all.sh >> /var/log/first-backup.log 2>&1 "; } | crontab -
+      crontab -u root -l | { cat; echo "0 20 * * * /usr/bin/nohup /usr/bin/flock --nonblock --conflict-exit-code 0 /run/user/restic.lock /root/retention-all.sh >> /var/log/restic.log 2>&1 "; } | crontab -
+      crontab -u root -l | grep -v '/root/purge.sh'  | crontab -u root -
+      crontab -u root -l | { cat; echo "30 22 * * * perl -le 'sleep rand 600' && /root/purge.sh -y \"${settings.year}\" -m \"${settings.month}\" -d \"${settings.day}\" >> /var/log/retention.log 2>&1 "; } | crontab -
+      if [ ! -f "/var/log/restic.log" ]; then crontab -u root -l | { cat; echo "0 0 1 * * > /var/log/restic.log  "; } | crontab -; fi
+      if [ ! -f "/var/log/retention.log" ]; then crontab -u root -l | { cat; echo "0 0 1 * * > /var/log/retention.log  "; } | crontab -; fi
+      if [ ! -f "/root/retention.log" ]; then crontab -u root -l | { cat; echo "0 0 1 * * > /root/retention.log  "; } | crontab -; fi
+      touch /var/log/restic.log /var/log/retention.log /root/retention.log
+    user: root
