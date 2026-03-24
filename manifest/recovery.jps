@@ -3,7 +3,6 @@ name: Add-on restoration
 baseUrl: https://raw.githubusercontent.com/Infomaniak/addon-backup/master/
 
 globals:
-
   pass: ${fn.md5([user.uid])}
       
 targetNodes:

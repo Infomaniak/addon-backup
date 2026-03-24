@@ -41,7 +41,7 @@ ids.forEach(function(element) {
     }
     file = FileReadResponse.body;
     var plan = toNative(new Yaml().load(file));
-    var DisplayedPlan = plan.backup_plan.slice(-15);
+    var DisplayedPlan = plan.backup_plan.slice(-15); // TODO(vinetos): Remove me
     DisplayedPlan.forEach(function(objectBackup) { 
         if (!listBackups[objectBackup["name"]]) {
             listBackups[objectBackup["name"]] = {};
