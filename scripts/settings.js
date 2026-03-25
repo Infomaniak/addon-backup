@@ -5,7 +5,6 @@ var listBackups = {};
 var backupTemplate = "c3c375b4-83c6-434c-b8af-8ea6651e246d";
 var nodesArray = [];
 var ids = [];
-var conteneur = '';
 var file = '';
 var nodesHostname = {};
 if (resp.result != 0) return resp;
@@ -41,7 +40,7 @@ ids.forEach(function(element) {
     }
     file = FileReadResponse.body;
     var plan = toNative(new Yaml().load(file));
-    var DisplayedPlan = plan.backup_plan.slice(-15); // TODO(vinetos): Remove me
+    var DisplayedPlan = plan.backup_plan
     DisplayedPlan.forEach(function(objectBackup) { 
         if (!listBackups[objectBackup["name"]]) {
             listBackups[objectBackup["name"]] = {};
