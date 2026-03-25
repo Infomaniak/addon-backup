@@ -46,6 +46,12 @@ onInstall:
       restic snapshots || restic -r swift:sb_project_${settings.User}:/Jelastic-Infomaniak init
       mkdir -p /run/user/
       touch /run/user/restic.lock
+      
+      echo /home/plan.json >> /etc/jelastic/redeploy.conf
+      echo /usr/bin/restic >> /etc/jelastic/redeploy.conf
+      echo /var/spool/cron/ >> /etc/jelastic/redeploy.conf
+      echo /root/ >> /etc/jelastic/redeploy.conf
+
     user: root
   - if ('${settings.sauvegarde}' == 'hourly' ): hourly
   - if ( '${settings.sauvegarde}' == 'daily' ): daily

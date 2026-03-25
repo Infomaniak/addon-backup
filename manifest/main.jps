@@ -27,7 +27,6 @@ onInstall:
   if ('${settings.mode}' == 'restauration' && '${settings.permissions}' == 'permissions'):
     - user-restauration
 
-
 actions:
   backup:
     install:
@@ -81,8 +80,6 @@ actions:
       year: "${settings.year}"
       month: "${settings.month}"
       day: "${settings.day}"
-
-
 
   desinstall:
     install:
