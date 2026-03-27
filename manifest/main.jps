@@ -1,4 +1,4 @@
-jversion: 0.9
+jversion: 0.10
 type: update
 name: Backup / Restoration
 baseUrl: https://raw.githubusercontent.com/Infomaniak/addon-backup/master/
