@@ -2,28 +2,29 @@ import org.yaml.snakeyaml.Yaml;
 
 var resp = jelastic.environment.control.GetEnvs(appid, session);
 var listBackups = {};
-var backupTemplate = "c3c375b4-83c6-434c-b8af-8ea6651e246d";
-var nodesArray = [];
 var ids = [];
-var conteneur = '';
 var file = '';
 var nodesHostname = {};
 if (resp.result != 0) return resp;
 
+// appTemplateId of prod and dev
+var backupTemplateIds = ["c3c375b4-83c6-434c-b8af-8ea6651e246d", "a5738c0f-1190-48bc-bea1-675611f88046"];
+
 for (var i = 0; envInfo = resp.infos[i]; i++) {
-    if (envInfo.env.status == "1") {
-        for (var j = 0; node = envInfo.nodes[j]; j++) {
-            for (var m = 0; add = node.addons[m]; m++) {
-                if (add.appTemplateId == backupTemplate) {
-                    var conteneur = node.adminUrl.replace("https://", "").replace("http://", "").replace(/\..*/, "").replace("docker", "node").replace("vds", "node");
-                    nodesArray.push(conteneur);
-                    ids.push({
-                        name: conteneur.substring(conteneur.indexOf('-') + 1, conteneur.length),
-                        id: conteneur.substring(4, conteneur.indexOf('-'))
-                    });
-                    break;   
-                }
-            }
+    // Keep only running envs (cannot install / restore on stopped envs).
+    if (envInfo.env.status != "1")
+        continue
+
+    for (var j = 0; node = envInfo.nodes[j]; j++) {
+        for (var m = 0; add = node.addons[m]; m++) {
+            if (!backupTemplateIds.includes(add.appTemplateId))
+                continue
+            var conteneur = node.adminUrl.replace("https://", "").replace("http://", "").replace(/\..*/, "").replace("docker", "node").replace("vds", "node");
+            ids.push({
+                name: conteneur.substring(conteneur.indexOf('-') + 1, conteneur.length),
+                id: node.id
+            });
+            break;
         }
     }
 }
@@ -33,22 +34,22 @@ var params = {
     nodeType: "",
     nodeGroup: ""
 }
-ids.forEach(function(element) {
-    jelastic.marketplace.console.WriteLog("reading plan from : " + element.id + " " + element.name )
+ids.forEach(function (element) {
+    jelastic.marketplace.console.WriteLog("reading plan from : " + element.id + " " + element.name)
     var FileReadResponse = jelastic.environment.file.Read(element.name, params.session, params.path, params.nodeType, params.nodeGroup, element.id);
     if (FileReadResponse.result != 0) {
         return;
     }
     file = FileReadResponse.body;
     var plan = toNative(new Yaml().load(file));
-    var DisplayedPlan = plan.backup_plan.slice(-15);
-    DisplayedPlan.forEach(function(objectBackup) { 
+    var DisplayedPlan = plan.backup_plan
+    DisplayedPlan.forEach(function (objectBackup) {
         if (!listBackups[objectBackup["name"]]) {
             listBackups[objectBackup["name"]] = {};
         }
         var toDisplay = objectBackup["date"].replace('T', ' ') + " " + objectBackup["path"] + " " + objectBackup["size"];
         listBackups[objectBackup["name"]][objectBackup["id"]] = toDisplay
-            nodesHostname[objectBackup.name] = objectBackup.name;
+        nodesHostname[objectBackup.name] = objectBackup.name;
     })
 
 });
@@ -102,12 +103,12 @@ return {
                     "default": "backup",
                     "showIf": {
                         "restauration": [{
-                                "caption": "__________________________________________________________________________________",
-                                "cls": "x-item-disabled",
-                                "type": "displayfield",
-                                "name": "exemple",
-                                "hidden": false
-                            },
+                            "caption": "__________________________________________________________________________________",
+                            "cls": "x-item-disabled",
+                            "type": "displayfield",
+                            "name": "exemple",
+                            "hidden": false
+                        },
 
                             {
                                 "type": "compositefield",
@@ -145,7 +146,6 @@ return {
                             },
 
 
-
                             {
                                 "caption": "__________________________________________________________________________________",
                                 "cls": "x-item-disabled",
@@ -179,14 +179,14 @@ return {
                                 },
                                 "showIf": {
                                     "classic": [{
-                                            "name": "destination",
-                                            "caption": "Restore location",
-                                            "regex": "[^s/ *]",
-                                            "regexText": "please indicate other folder than / ",
-                                            "type": "string",
-                                            "required": true,
-                                            "placeholder": "/tmp/restore/"
-                                        },
+                                        "name": "destination",
+                                        "caption": "Restore location",
+                                        "regex": "[^s/ *]",
+                                        "regexText": "please indicate other folder than / ",
+                                        "type": "string",
+                                        "required": true,
+                                        "placeholder": "/tmp/restore/"
+                                    },
                                         {
                                             "type": "displayfield",
                                             "cls": "warning",
@@ -196,12 +196,12 @@ return {
                                         }
                                     ],
                                     "permissions": [{
-                                            "name": "custom",
-                                            "caption": "Restore to this username",
-                                            "type": "string",
-                                            "required": true,
-                                            "placeholder": "example: nginx"
-                                        },
+                                        "name": "custom",
+                                        "caption": "Restore to this username",
+                                        "type": "string",
+                                        "required": true,
+                                        "placeholder": "example: nginx"
+                                    },
                                         {
                                             "name": "destination",
                                             "caption": "Restore location",
@@ -225,12 +225,12 @@ return {
 
 
                         "backup": [{
-                                "caption": "__________________________________________________________________________________",
-                                "cls": "x-item-disabled",
-                                "type": "displayfield",
-                                "name": "exemple",
-                                "hidden": false
-                            },
+                            "caption": "__________________________________________________________________________________",
+                            "cls": "x-item-disabled",
+                            "type": "displayfield",
+                            "name": "exemple",
+                            "hidden": false
+                        },
 
                             {
                                 "type": "compositefield",
@@ -248,10 +248,10 @@ return {
                                 "name": "choice",
                                 "type": "radio-fieldset",
                                 "values": [{
-                                        "value": "full",
-                                        "caption": "Back up all files"
+                                    "value": "full",
+                                    "caption": "Back up all files"
 
-                                    },
+                                },
                                     {
                                         "value": "folder",
                                         "caption": "Back up specific folders"
@@ -266,13 +266,13 @@ return {
                                         "name": "info",
                                         "hidden": false
                                     },
-                                             {
+                                        {
                                             "type": "displayfield",
                                             "cls": "warning",
                                             "height": 20,
                                             "hideLabel": true,
                                             "markup": " DB server requires to be automatically backed up into a file with another tool before installation."
-                                    }],
+                                        }],
                                     "folder": [{
                                         "name": "path",
                                         "caption": "Folders to back up",
@@ -281,13 +281,13 @@ return {
                                         "type": "string",
                                         "placeholder": "path/to/folder1/, path/to/folder2/, path/to/folderX"
                                     },
-                                               {
+                                        {
                                             "type": "displayfield",
                                             "cls": "warning",
                                             "height": 20,
                                             "hideLabel": true,
                                             "markup": " DB server requires to be automatically backed up into a file with another tool before installation."
-                                    }]
+                                        }]
                                 }
                             },
                             {
@@ -308,11 +308,11 @@ return {
                                 "name": "compositefield",
                                 "hidden": false,
                                 "items": [{
-                                        "type": "displayfield",
-                                        "height": 5,
-                                        "hideLabel": true,
-                                        "markup": "Years"
-                                    },
+                                    "type": "displayfield",
+                                    "height": 5,
+                                    "hideLabel": true,
+                                    "markup": "Years"
+                                },
 
                                     {
                                         "width": 37,
